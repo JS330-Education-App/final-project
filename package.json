@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UW-PCE-JSCRIPT-330-Summer-2021/week-3.git"
+    "url": "git+https://github.com/JS330-Education-App/final-project.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/UW-PCE-JSCRIPT-330-Summer-2021/week-3/issues"
+    "url": "https://github.com/JS330-Education-App/final-project.git"
   },
-  "homepage": "https://github.com/UW-PCE-JSCRIPT-330-Summer-2021/week-3#readme",
+  "homepage": "https://github.com/JS330-Education-App/final-project#readme",
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.12.12"
