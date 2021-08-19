@@ -150,24 +150,10 @@ router.post("/", async(req, res, next) => {
     }
     res.status(200);
 
-    let externalIDDB = '';
-    if (!userFromDB.externalID) {
-        externalIDDB = userFromDB.externalID;
-    }
-
-    let gradeLevelDB = '';
-    if (!userFromDB.gradeLevel) {
-        gradeLevelDB = userFromDB.gradeLevel;
-    }
-
-
     const data = {
         _id: userFromDB._id,
         email: userFromDB.email,
-        name: userFromDB.name,
-        role: userFromDB.role,
-        externalID: externalIDDB,
-        gradeLevel: gradeLevelDB
+        name: userFromDB.name
     };
 
     let token = await jwt.sign(data, secret);
