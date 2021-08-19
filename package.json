@@ -1,10 +1,10 @@
 {
   "name": "final-project",
   "version": "1.0.0",
-  "description": "This week is a deeper dive into advanced MongoDB features. We will practice using these advanced features within a REST API.",
+  "description": "JS330 Final Project.  An education app used for teachers, parents, and students to monitor and manage assignments using Express, MongoDB, Mustache and Mongoose.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon -e js,json,mustache, node index.js",
     "test": "jest --coverage --runInBand",
     "tdd": "jest --watch --runInBand"
   },
@@ -19,8 +19,15 @@
   },
   "homepage": "https://github.com/JS330-Education-App/final-project#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "mongoose": "^5.12.12"
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.1.0",
+    "mongoose": "^5.12.12",
+    "mustache": "^4.2.0",
+    "nodemon": "^2.0.12"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.5",

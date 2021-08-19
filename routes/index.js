@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 
-router.use("/books", require('./books'));
-router.use("/authors", require('./authors'));
+// router.use("/", require('./'));
+// router.use("/", require('./'));
 
 module.exports = router;

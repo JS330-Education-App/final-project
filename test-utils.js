@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
-const models = [require('./models/author'), require('./models/book')];
+const models = [require('./models/'), require('./models/')];
 
 module.exports = {};
 
 module.exports.connectDB = async () => {
-  await mongoose.connect(global.__MONGO_URI__, { 
-    useNewUrlParser: true, 
-    useCreateIndex: true, 
-    useUnifiedTopology: true 
+  await mongoose.connect(global.__MONGO_URI__, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
   });
   await Promise.all(models.map(m => m.syncIndexes()));
 }

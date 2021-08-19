@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 
 const port = process.env.PORT || 5000;
 
-mongoose.connect('mongodb://localhost/jscript-330-week-3', {
-  useNewUrlParser: true, 
-  useCreateIndex: true, 
+mongoose.connect('mongodb://localhost/final-project', {
+  useNewUrlParser: true,
+  useCreateIndex: true,
   useUnifiedTopology: true
 }).then(() => {
   server.listen(port, () => {
