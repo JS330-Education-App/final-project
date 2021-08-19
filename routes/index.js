@@ -1,10 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 
-// router.use("/", require('./'));
-// router.use("/", require('./'));
+router.use("/login", require('./users'));
 
-
-//SURRY UPDATE TEST
 
 module.exports = router;
