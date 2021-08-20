@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const secret = "my_super_secret";
 const isLoggedIn = require("../middleware/isLoggedIn");
 
+
 // Signup: POST /login/signup
 
 router.post("/signup", async(req, res, next) => {
@@ -20,14 +21,7 @@ router.post("/signup", async(req, res, next) => {
         res.status(400).send("Email not found");
         return;
     }
-    // if (user.firstName === '') {
-    //     res.status(400).send('First Name is required');
-    //     return;
-    // }
-    // if (user.lastName === '') {
-    //     res.status(400).send('Last Name is required');
-    //     return;
-    // }
+
     if (!user.name || user.name === "") {
         res.status(400).send("Name is required");
         return;
@@ -156,20 +150,25 @@ router.post("/", async(req, res, next) => {
         name: userFromDB.name
     };
 
-    let token = await jwt.sign(data, secret);
+    let token = await jwt.sign(data, secret, { expiresIn: '1 day' });
+
     if (token) {
         req.body.token = token;
         res.json(req.body);
     }
 });
 
+
 router.post("/logout", async(req, res, next) => {
+
     res.status(404).send("user is required");
 });
+
 
 router.use(async(req, res, next) => {
     isLoggedIn(req, res, next);
 });
+
 
 //   Change Password POST /login/password
 router.post("/password", async(req, res, next) => {

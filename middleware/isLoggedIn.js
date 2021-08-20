@@ -28,17 +28,7 @@ const isLoggedIn = async function(req, res, next) {
         next();
 
     });
-    // const decodedToken = await jwt.decode(token);
-    // const user = await userDAO.getUserById(decodedToken._id);
 
-    // req.token = token;
-    // req.user = user;
-    // req.role = user.role;
-    // if (user.roles.includes('admin')) {
-    //     req.user.admin = true;
-    // }
-
-    // next();
 }
 
 
