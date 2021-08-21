@@ -12,7 +12,5 @@ const userSchema = new mongoose.Schema({
 // if teacher -> externalID and gradeLevel are empty string
 // if parent  -> gradeLevel is empty string
 // gradeLevel only for student
-// let me in
-// magic commit
 
 module.exports = mongoose.model("users", userSchema);

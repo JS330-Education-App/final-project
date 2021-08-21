@@ -49,7 +49,7 @@ router.post("/signup", async(req, res, next) => {
     const checkUser = await userDAO.getUser(email);
 
     if (checkUser) {
-        res.status(409).send("User is already exists");
+        res.status(409).send("User already exists");
         return;
     }
 
@@ -65,12 +65,12 @@ router.post("/signup", async(req, res, next) => {
         });
     } else if (role === "parent") {
         if (!user.studentEmail || user.studentEmail.trim() === "") {
-            res.status(400).send("Student Email is requred");
+            res.status(400).send("Student email is required");
             return;
         }
         const student = await userDAO.getUser(user.studentEmail);
         if (!student) {
-            res.status(409).send("Your child not registred yet");
+            res.status(409).send("Student is not registered yet");
             return;
         }
         newUser = await userDAO.createUser({
@@ -82,19 +82,19 @@ router.post("/signup", async(req, res, next) => {
         });
     } else if (role === "student") {
         if (!user.teacherEmail || user.teacherEmail.trim() === "") {
-            res.status(400).send("Teacher Email not found");
+            res.status(400).send("Teacher email not found");
             return;
         }
 
         if (!user.gradeLevel || user.gradeLevel.trim() === "") {
-            res.status(400).send("Grade Level is requred");
+            res.status(400).send("Grade level is required");
             return;
         }
 
         const gradeLevel = user.gradeLevel.trim();
         const teacher = await userDAO.getUser(user.teacherEmail);
         if (!teacher) {
-            res.status(409).send("Teacher not registred yet");
+            res.status(409).send("Teacher not registered yet");
             return;
         }
         newUser = await userDAO.createUser({
@@ -133,13 +133,13 @@ router.post("/", async(req, res, next) => {
     }
     pswd = pswd.trim();
     if (pswd === "") {
-        res.status(400).send("Password empty");
+        res.status(400).send("Password must not be empty");
         return;
     }
 
     let result = await bcrypt.compare(pswd, userFromDB.password);
     if (!result) {
-        res.status(401).send("Passwords not match");
+        res.status(401).send("Passwords do not match");
         return;
     }
     res.status(200);
@@ -161,7 +161,7 @@ router.post("/", async(req, res, next) => {
 
 router.post("/logout", async(req, res, next) => {
 
-    res.status(404).send("user is required");
+    res.status(404).send("User is required");
 });
 
 
@@ -174,13 +174,13 @@ router.use(async(req, res, next) => {
 router.post("/password", async(req, res, next) => {
     let password = req.body.password;
     if (!password) {
-        res.status(400).send("password is required");
+        res.status(400).send("Password is required");
         return;
     }
     password = password.trim();
 
     if (password === "") {
-        res.status(400).send("password is required");
+        res.status(400).send("Password is required");
         return;
     }
     let savedHash = await bcrypt.hash(password, 10);
