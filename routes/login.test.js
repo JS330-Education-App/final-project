@@ -133,7 +133,13 @@ describe('After both users login', () => {
         .send({ password: '123' });
       expect(res.statusCode).toEqual(401);
     });
-    
+    it('should reject empty password', async () => {
+      const res = await request(server)
+        .post('/login/password')
+        .set('Authorization', 'Bearer ' + token0)
+        .send({ password: '' });
+      expect(res.statusCode).toEqual(400);
+    });
   });
 });
 
