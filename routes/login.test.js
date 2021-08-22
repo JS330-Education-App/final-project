@@ -10,12 +10,18 @@ describe('/login', () => {
   afterEach(testUtils.clearDB);
 
   const user0 = {
-    email: 'user0@mail.com',
-    password: '123password'
+    name: 'Teacher 0',
+    email: 'teacher0@mail.com',
+    password: '123password',
+    role: 'teacher'
   };
   const user1 = {
-    email: 'user1@mail.com',
-    password: '456password'
+    name: 'Student 0',
+    email: 'student0@mail.com',
+    password: '456password',
+    role: 'student',
+    teacherEmail: 'teacher0@mail.com',
+    gradeLevel: '3'
   };
 
   describe('before signup', () => {
@@ -57,7 +63,7 @@ describe('signup', () => {
       expect(res.statusCode).toEqual(400);
     });
     it('should return 200 and with a password', async () => {
-    const res = await request(server).post('/login/signup').send(user1);
+    const res = await request(server).post('/login/signup').send(user0);
     expect(res.statusCode).toEqual(200);
     });
     it('should not store raw password', async () => {
@@ -107,7 +113,7 @@ describe.each([user0, user1])('User %#', (user) => {
       const token = res.body.token;
       const decodedToken = jwt.decode(token);
       expect(decodedToken.email).toEqual(user.email);
-      expect(decodedToken.roles).toEqual(['user']);
+      expect(['teacher', 'student']).toContain(decodedToken.role);
       expect(decodedToken._id).toMatch(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i); // mongo _id regex
       expect(decodedToken.password).toBeUndefined();
     });
