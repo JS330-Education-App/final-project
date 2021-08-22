@@ -1,8 +1,5 @@
 const express = require("express");
-const cors = require('cors');
 const mustacheExpress = require('mustache-express');
-const mongoose = require('mongoose');
-require('dotenv').config();
 
 //const mustacheExpress = require('mustache-express');
 
