@@ -7,6 +7,11 @@ const jwt = require("jsonwebtoken");
 const secret = "my_super_secret";
 const isLoggedIn = require("../middleware/isLoggedIn");
 
+// template rute to /login
+router.use("/", (req, res, next) => {
+    res.render('login');
+});
+
 // Signup: POST /login/signup
 
 router.post("/signup", async(req, res, next) => {
