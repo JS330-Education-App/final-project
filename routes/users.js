@@ -7,10 +7,10 @@ const jwt = require("jsonwebtoken");
 const secret = "my_super_secret";
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-
 // Signup: POST /login/signup
 
 router.post("/signup", async(req, res, next) => {
+  try {
     const user = req.body;
 
     if (!user) {
@@ -108,7 +108,12 @@ router.post("/signup", async(req, res, next) => {
     }
 
     req.user = newUser;
+    res.json(newUser);
     res.status(200).send("Ok");
+
+  } catch (e) {
+    next (e)
+  } 
 });
 
 // Login: POST /login
@@ -147,7 +152,8 @@ router.post("/", async(req, res, next) => {
     const data = {
         _id: userFromDB._id,
         email: userFromDB.email,
-        name: userFromDB.name
+        name: userFromDB.name,
+        role: userFromDB.role
     };
 
     let token = await jwt.sign(data, secret, { expiresIn: '1 day' });
