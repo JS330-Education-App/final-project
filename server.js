@@ -1,7 +1,7 @@
 const express = require("express");
 const mustacheExpress = require('mustache-express');
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/final-project');
+mongoose.connect(process.env.MONGO_CONNECTION_STRING || 'mongodb://localhost/final-project');
 //const mustacheExpress = require('mustache-express');
 
 const routes = require("./routes");
