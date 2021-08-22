@@ -7,8 +7,8 @@ const jwt = require("jsonwebtoken");
 const secret = "my_super_secret";
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-// template rute to /login
-router.use("/", (req, res, next) => {
+// template route to /login
+router.get("/", (req, res, next) => {
     res.render('login');
 });
 
