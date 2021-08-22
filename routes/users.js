@@ -108,7 +108,6 @@ router.post("/signup", async(req, res, next) => {
     }
 
     req.user = newUser;
-    res.json(newUser);
     res.status(200).send("Ok");
 
   } catch (e) {
