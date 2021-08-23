@@ -4,19 +4,17 @@
 
 >## Table of Contents:
 
-1.  [Accessing Application](./README.md#table-of-contents)
-------
+**1.  [Accessing Application](./README.md#table-of-contents)**
  * Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
  * Database: Invited Joel to Mongo Atlas.
  * GitHub Repo: [JS330 Education App](https://github.com/JS330-Education-App/final-project)
-2.  [What's been completed](./README.md#Whats-been-completed)
-------
-3.  [What still needs to be done](./README.md#What-still-needs-to-be-done)
-4.  [Introduction](./README.md#Introduction)
-5. [Background](./README.md#Background)
-6.  [Dependencies](./README.md#Dependencies)
-7.  [Credits](./README.md#Credits)
-8.  [License](./README.md#License)
+**2.  [What's been completed](./README.md#Whats-been-completed)**
+**3.  [What still needs to be done](./README.md#What-still-needs-to-be-done)**
+**4.  [Introduction](./README.md#Introduction)**
+**5. [Background](./README.md#Background)**
+**6.  [Dependencies](./README.md#Dependencies)**
+**7.  [Credits](./README.md#Credits)**
+**8.  [License](./README.md#License)**
 ---
 >### What\'s been completed:
 
