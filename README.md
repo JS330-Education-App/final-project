@@ -55,26 +55,26 @@
 
 
 #### Assignment Routes to be created:
-|Status | HTTP request | route |
-|:--- | :---: | ---:|
+|**Status** | **`HTTP` request** | **route** |
+|:---: | :---: | ---:|
 | :x: | `POST` | `assignment/studentID` |
-| :o: | `PUT` | `assignment/:id` |
-| :heavy_multiplication_x: | `DELETE` | `assignment/:id` |
-| | `GET` | `/assignment` |
-| | `GET` | `assignment/studentId` |
-| |  `GET` | `assignment/:id` |
-| | `GET` | `assignment/assignment/grades/studentId` |
+| :x: | `PUT` | `assignment/:id` |
+| :x: | `DELETE` | `assignment/:id` |
+| :x: | `GET` | `/assignment` |
+| :x: | `GET` | `assignment/studentId` |
+| :x: |  `GET` | `assignment/:id` |
+| :x: | `GET` | `assignment/assignment/grades/studentId` |
 
 #### Assignment DAOs to be created:
 |Status | DAO |
-|--- | --- |
-| | `createAssignment` |
-| | `updateAssignment` |
-| | `deleteAssignment` |
-| | `getAllAssignments` |
-| | `getAssignment` |
-| | `getAssignmentByStudentId` |
-| | `getAvgGradeByStudentId` |
+|:---: | ---: |
+| :x: | `createAssignment` |
+| :x: | `updateAssignment` |
+| :x: | `deleteAssignment` |
+| :x: | `getAllAssignments` |
+| :x: | `getAssignment` |
+| :x: | `getAssignmentByStudentId` |
+| :x: | `getAvgGradeByStudentId` |
 
 ---
 ### Introduction
