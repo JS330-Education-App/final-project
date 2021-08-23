@@ -5,7 +5,7 @@
 >##Table of Contents:
 
 1.  Accessing Application
- * Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
+ ⋅⋅* Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
  * Database: Invited Joel to Mongo Atlas.
  * GitHub Repo: [JS330 Education App](https://github.com/JS330-Education-App/final-project)
 2.  [What's been completed](./README.md#What's-been-completed)
@@ -57,7 +57,7 @@
 Assignment Routes to be created:
 |Status | HTTP request | route |
 |--- | --- | ---|
--|  [ ] | `POST` | ```JavaScript assignment/studentID``` |
+|- [ ] | `POST` | ```JavaScript assignment/studentID``` |
 |- [ ] | `PUT` | assignment/:id |
 |- [ ] | `DELETE` | assignment/:id |
 |- [ ] | `GET` | /assignment |
