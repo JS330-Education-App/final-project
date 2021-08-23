@@ -1,6 +1,6 @@
 ># EDUCATION REPORT README
 
-[Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
+[Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/);
 
 ##Table of Contents:
 
