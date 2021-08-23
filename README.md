@@ -11,12 +11,12 @@
 2.  [What's been completed](./README.md#What's-been-completed)
 3.  [What still needs to be done](./README.md#What-still-needs-to-be-done)
 4.  [Introduction](./README.md#Introduction)
-..* [Background](./README.md#Background)
+ * [Background](./README.md#Background)
 5.  [Dependencies](./README.md#Dependencies)
 6.  [Credits](./README.md#Credits)
 7.  [License](./README.md#License)
 ---
->###What's been completed:
+>### What's been completed:
 
 - [x] Set up project repo on GitHub Organization.
 - [x] Create user stores and basic site architecture.
@@ -42,7 +42,7 @@
 - [x] Test application routes and Database using POSTMAN.
 
 ---
->###What still needs to be done:
+>### What still needs to be done:
 
 - [ ] Connect Front-End to DB.
 - [ ] Complete Routes.
@@ -55,9 +55,11 @@
 
 
 Assignment Routes to be created:
-| Status | HTTP request | route |
-| --- | --- | --- |
-- [ ] | `POST` | assignment/studentID |
+ Status | HTTP request | route
+ --- | --- | ---
+- [ ] | `POST` | ```JavaScript
+assignment/studentID
+``` |
 - [ ] | `PUT` | assignment/:id |
 - [ ] | `DELETE` | assignment/:id |
 - [ ] | `GET` | /assignment |
@@ -164,3 +166,4 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ***
+
