@@ -2,13 +2,13 @@
 
 [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
 
-## Table of Contents:
+>##Table of Contents:
 
 1.  Accessing Application
-⋅⋅*  Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
-..*  Database: Invited Joel to Mongo Atlas.
-..*  GitHub Repo: [JS330 Education App](https://github.com/JS330-Education-App/final-project)
-2.  [What's been completed](./README.md#What\'\s-been-completed)
+ * Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
+ * Database: Invited Joel to Mongo Atlas.
+ * GitHub Repo: [JS330 Education App](https://github.com/JS330-Education-App/final-project)
+2.  [What's been completed](./README.md#What's-been-completed)
 3.  [What still needs to be done](./README.md#What-still-needs-to-be-done)
 4.  [Introduction](./README.md#Introduction)
 ..* [Background](./README.md#Background)
@@ -16,7 +16,7 @@
 6.  [Credits](./README.md#Credits)
 7.  [License](./README.md#License)
 ---
->### What's been completed:
+>###What's been completed:
 
 - [x] Set up project repo on GitHub Organization.
 - [x] Create user stores and basic site architecture.
@@ -42,7 +42,7 @@
 - [x] Test application routes and Database using POSTMAN.
 
 ---
->### What still needs to be done:
+>###What still needs to be done:
 
 - [ ] Connect Front-End to DB.
 - [ ] Complete Routes.
@@ -75,7 +75,7 @@ Assignment DAOs to be created:
 - [ ] | "getAvgGradeByStudentId" |
 
 ---
-### Introduction
+###Introduction
 Students, Teachers, and Parents need to be in communication about grades. Using JavaScript, it is possible to create a portal for up-to-date assignment reports. By creating this as a web application, these three groups can have a better time engaging in the learning process.
 
 Teachers should be able to monitor their various classes and assignments. Students should be able to see their grades as well as upcoming/ungraded assignments. Parents should be able to see their students’ grades and assignments.
@@ -83,7 +83,7 @@ Teachers should be able to monitor their various classes and assignments. Studen
 To solve this, we will create an MVC style JavaScript Application, using **[React](https://reactjs.org/)**, **[MongoDB](https://www.mongodb.com/)**, **[Express](https://expressjs.com/)**, and **[Node.js](https://nodejs.org/en/)**. There will be four views: **_login/registration, parent, teacher, and student._  [Mongoose](https://mongoosejs.com/docs/index.html)** will be used to create models for our data collections in _MongoDB_. _Express_ will control the state of the application’s data through routing and connect the **Views** to the **Models**. By using each of the listed technologies, we utilize JavaScript as the only language and convention needed to create this application. Each technology is complimentary, empowering the application to quickly render changes in data state.
 
 ---
-### Background
+###Background
 **_MongoDB_** is both scalable and fast. It stores data as a binary value. Through **_Node.js_**, `JSON` objects are quickly translated to binary data and search for schema-less collections. **Mongoose** is an Object Relational Mapping layer that helps provide schemas for **_MongoDB_**. Here, we will utilize these technologies to create three separate schema objects to be stored in **_MongoDB_** collections. _User.js_, _Assignment.js_, and _AssignmentGrades.js_ will be the three **Mongoose** schemas to be used as our models.
 ***
 **_Express.js_** is a framework that makes it easier to write a web server on **_Node.js_**. This is accomplished by defining routes. **_Express_** parses the URL, headers, and parameters. The route determines what to do with the received `HTTP` request matching a specific pattern. For this project we will have three routes: _Login.js_, _Assignment.js_, _AssignmentGrades.js_.
