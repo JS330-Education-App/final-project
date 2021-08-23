@@ -1,13 +1,13 @@
 ># EDUCATION REPORT README
 
-[Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/);
+[Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
 
-##Table of Contents:
+## Table of Contents:
 
 1.  Accessing Application
-⋅⋅* Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
-..* Database: Invited Joel to Mongo Atlas.
-..* GitHub Repo: [JS330 Education App](https://github.com/JS330-Education-App/final-project)
+⋅⋅*  Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
+..*  Database: Invited Joel to Mongo Atlas.
+..*  GitHub Repo: [JS330 Education App](https://github.com/JS330-Education-App/final-project)
 2.  [What's been completed](./README.md#What's-been-completed)
 3.  [What still needs to be done](./README.md#What-still-needs-to-be-done)
 4.  [Introduction](./README.md#Introduction)
@@ -16,7 +16,7 @@
 6.  [Credits](./README.md#Credits)
 7.  [License](./README.md#License)
 ---
->###What's been completed:
+>### What's been completed:
 
 - [x] Set up project repo on GitHub Organization.
 - [x] Create user stores and basic site architecture.
