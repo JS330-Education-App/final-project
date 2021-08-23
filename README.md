@@ -58,6 +58,7 @@ Assignment Routes to be created:
 |Status | HTTP request | route |
 |:--- | :---: | ---:|
 - [ ] | `POST` | `assignment/studentID` |
+- [ ] 
 | | `PUT` | `assignment/:id` |
 | | `DELETE` | `assignment/:id` |
 | | `GET` | `/assignment` |
