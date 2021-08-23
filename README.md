@@ -57,24 +57,24 @@
 Assignment Routes to be created:
 |Status | HTTP request | route |
 |:--- | :---: | ---:|
-|\- [ ] | `POST` | `assignment/studentID` |
-|- [ ] | `PUT` | `assignment/:id` |
-|- [ ] | `DELETE` | `assignment/:id` |
-|- [ ] | `GET` | `/assignment` |
-|- [ ] | `GET` | `assignment/studentId` |
-|- [ ] |  `GET` | `assignment/:id` |
-|- [ ] | `GET` | `assignment/assignment/grades/studentId` |
+| | `POST` | `assignment/studentID` |
+| | `PUT` | `assignment/:id` |
+| | `DELETE` | `assignment/:id` |
+| | `GET` | `/assignment` |
+| | `GET` | `assignment/studentId` |
+| |  `GET` | `assignment/:id` |
+| | `GET` | `assignment/assignment/grades/studentId` |
 
 Assignment DAOs to be created:
 |Status | DAO |
 |--- | --- | ---|
-|- [ ] | "createAssignment" |
-|- [ ] | "updateAssignment" |
-|- [ ] | "deleteAssignment" |
-|- [ ] | "getAllAssignments" |
-|- [ ] | "getAssignment" |
-|- [ ] | "getAssignmentByStudentId" |
-|- [ ] | "getAvgGradeByStudentId" |
+| | "createAssignment" |
+| | "updateAssignment" |
+| | "deleteAssignment" |
+| | "getAllAssignments" |
+| | "getAssignment" |
+| | "getAssignmentByStudentId" |
+| | "getAvgGradeByStudentId" |
 
 ---
 ### Introduction
