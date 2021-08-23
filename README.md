@@ -4,7 +4,7 @@
 
 >## Table of Contents:
 
-1.  Accessing Application
+1.  [Accessing Application](./README.md#table-of-contents)
  * Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
  * Database: Invited Joel to Mongo Atlas.
  * GitHub Repo: [JS330 Education App](https://github.com/JS330-Education-App/final-project)
