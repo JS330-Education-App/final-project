@@ -5,7 +5,7 @@
 >##Table of Contents:
 
 1.  Accessing Application
-..* Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
+⋅⋅* Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
 ..* Database: Invited Joel to Mongo Atlas.
 ..* GitHub Repo: [JS330 Education App](https://github.com/JS330-Education-App/final-project)
 2.  [What's been completed](./README.md#What's-been-completed)
@@ -16,7 +16,7 @@
 6.  [Credits](./README.md#Credits)
 7.  [License](./README.md#License)
 ---
-###What's been completed:
+>###What's been completed:
 
 - [x] Set up project repo on GitHub Organization.
 - [x] Create user stores and basic site architecture.
@@ -42,7 +42,8 @@
 - [x] Test application routes and Database using POSTMAN.
 
 ---
-###What still needs to be done:
+>###What still needs to be done:
+
 - [ ] Connect Front-End to DB.
 - [ ] Complete Routes.
 ...	Add missing route `DELETE assignment/:id`
@@ -65,23 +66,13 @@ Assignment Routes to be created:
 - [ ] | `GET` | assignment/assignment/grades/studentId |
 
 Assignment DAOs to be created:
-- [ ] | `POST` | assignment/studentID |
-- [ ] | `PUT` | assignment/:id |
-- [ ] | `DELETE` | assignment/:id |
-- [ ] | `GET` | /assignment |
-- [ ] | `GET` | assignment/studentId |
-- [ ] |  `GET` | assignment/:id |
-- [ ] | `GET` | assignment/assignment/grades/studentId |
-
-Assignment DAOs:
-	Assignment DAOs: create "createAssignment"
-	Assignment DAOs: create "updateAssignment"
-Assignment DAOs: create "deleteAssignment"
-Assignment DAOs: create "getAllAssignments"
-Assignment DAOs: create "getAssignment"
-Assignment DAOs: create "getAssignmentByStudentId"
-Assignment DAOs: create "getAvgGradeByStudentId"
-
+- [ ] | "createAssignment" |
+- [ ] | "updateAssignment" |
+- [ ] | "deleteAssignment" |
+- [ ] | "getAllAssignments" |
+- [ ] | "getAssignment" |
+- [ ] | "getAssignmentByStudentId" |
+- [ ] | "getAvgGradeByStudentId" |
 
 ---
 ###Introduction
