@@ -8,7 +8,7 @@
  * Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
  * Database: Invited Joel to Mongo Atlas.
  * GitHub Repo: [JS330 Education App](https://github.com/JS330-Education-App/final-project)
-2.  [What's been completed](./README.md#What's-been-completed)
+2.  [What's been completed](./README.md#What\'s-been-completed)
 3.  [What still needs to be done](./README.md#What-still-needs-to-be-done)
 4.  [Introduction](./README.md#Introduction)
  * [Background](./README.md#Background)
