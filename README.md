@@ -1,5 +1,90 @@
 ># EDUCATION REPORT README
 
+[Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
+
+>##Table of Contents:
+
+1.  Accessing Application
+..* Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
+..* Database: Invited Joel to Mongo Atlas.
+..* GitHub Repo: [JS330 Education App](https://github.com/JS330-Education-App/final-project)
+2.  [What's been completed](./README.md#What's-been-completed)
+3.  [What still needs to be done](./README.md#What-still-needs-to-be-done)
+4.  [Introduction](./README.md#Introduction)
+..* [Background](./README.md#Background)
+5.  [Dependencies](./README.md#Dependencies)
+6.  [Credits](./README.md#Credits)
+7.  [License](./README.md#License)
+---
+###What's been completed:
+
+- [x] Set up project repo on GitHub Organization.
+- [x] Create user stores and basic site architecture.
+- [x] Set up project proposal as README.
+- [x] Create task breakdown in Trello.
+- [x] Set up project timeline/sprints.
+- [x] Create project draft of Routes, Models, and DAOS.
+- [x] Submit README and proposal by August 8th.
+- [x] Create skeleton repo with dependencies.
+- [x] Set up initial files/folder structure.
+- [x] Middleware: create "isLoggedIn".
+- [x] User Routes: create POST /login for login.
+- [x] Models: create user schema.
+- [x] User DAOs: create "createUser".
+- [x] User Routes: create POST /login/signup for signup.
+- [x] User DAOs: create "getUser".
+- [x] User DAOs: create "getUser".
+- [x] User DAOs: create "changePasword".
+- [x] User Routes: create POST /login/password for change password.
+- [x] Create unit tests for login Routes.
+- [x] Create login mustache template.
+- [x] Deploy prototype/proof of concept.
+- [x] Test application routes and Database using POSTMAN.
+
+---
+###What still needs to be done:
+- [ ] Connect Front-End to DB.
+- [ ] Complete Routes.
+...	Add missing route `DELETE assignment/:id`
+- [ ] Set up Cookie, and integrate with JWT
+- [ ] Complete Authorization and Authentication.
+- [ ] Create Student, Teacher, Parent View
+	Create
+- [ ] Finish writing Jest tests.
+
+
+Assignment Routes to be created:
+| Status | HTTP request | route |
+| --- | --- | --- |
+- [ ] | `POST` | assignment/studentID |
+- [ ] | `PUT` | assignment/:id |
+- [ ] | `DELETE` | assignment/:id |
+- [ ] | `GET` | /assignment |
+- [ ] | `GET` | assignment/studentId |
+- [ ] |  `GET` | assignment/:id |
+- [ ] | `GET` | assignment/assignment/grades/studentId |
+
+Assignment DAOs to be created:
+- [ ] | `POST` | assignment/studentID |
+- [ ] | `PUT` | assignment/:id |
+- [ ] | `DELETE` | assignment/:id |
+- [ ] | `GET` | /assignment |
+- [ ] | `GET` | assignment/studentId |
+- [ ] |  `GET` | assignment/:id |
+- [ ] | `GET` | assignment/assignment/grades/studentId |
+
+Assignment DAOs:
+	Assignment DAOs: create "createAssignment"
+	Assignment DAOs: create "updateAssignment"
+Assignment DAOs: create "deleteAssignment"
+Assignment DAOs: create "getAllAssignments"
+Assignment DAOs: create "getAssignment"
+Assignment DAOs: create "getAssignmentByStudentId"
+Assignment DAOs: create "getAvgGradeByStudentId"
+
+
+---
+###Introduction
 Students, Teachers, and Parents need to be in communication about grades. Using JavaScript, it is possible to create a portal for up-to-date assignment reports. By creating this as a web application, these three groups can have a better time engaging in the learning process.
 
 Teachers should be able to monitor their various classes and assignments. Students should be able to see their grades as well as upcoming/ungraded assignments. Parents should be able to see their students’ grades and assignments.
@@ -7,6 +92,7 @@ Teachers should be able to monitor their various classes and assignments. Studen
 To solve this, we will create an MVC style JavaScript Application, using **[React](https://reactjs.org/)**, **[MongoDB](https://www.mongodb.com/)**, **[Express](https://expressjs.com/)**, and **[Node.js](https://nodejs.org/en/)**. There will be four views: **_login/registration, parent, teacher, and student._  [Mongoose](https://mongoosejs.com/docs/index.html)** will be used to create models for our data collections in _MongoDB_. _Express_ will control the state of the application’s data through routing and connect the **Views** to the **Models**. By using each of the listed technologies, we utilize JavaScript as the only language and convention needed to create this application. Each technology is complimentary, empowering the application to quickly render changes in data state.
 
 ---
+###Background
 **_MongoDB_** is both scalable and fast. It stores data as a binary value. Through **_Node.js_**, `JSON` objects are quickly translated to binary data and search for schema-less collections. **Mongoose** is an Object Relational Mapping layer that helps provide schemas for **_MongoDB_**. Here, we will utilize these technologies to create three separate schema objects to be stored in **_MongoDB_** collections. _User.js_, _Assignment.js_, and _AssignmentGrades.js_ will be the three **Mongoose** schemas to be used as our models.
 ***
 **_Express.js_** is a framework that makes it easier to write a web server on **_Node.js_**. This is accomplished by defining routes. **_Express_** parses the URL, headers, and parameters. The route determines what to do with the received `HTTP` request matching a specific pattern. For this project we will have three routes: _Login.js_, _Assignment.js_, _AssignmentGrades.js_.
@@ -69,6 +155,7 @@ With **_Express_** allowing to define routes, **_Express_** can also be written 
 ***
 With **_MongoDB_**, we will be utilizing indexes for performance using the `userId`, and `Assignment title`. We will also be making two text searches, searching **Assignment** by `title`, and the other searching **Students** by `name/grade level`. We will have three aggregations: `assignment by title`, `assignment by grade level`, and `assignment by teacher`. There will be one **lookup** for a specific **assignment** for a **student**.
 ***
+#### Dependencies
 [React-Router](https://reactrouter.com/), [React-Bootstrap](https://react-bootstrap.github.io/), and [MaterialUI](https://material-ui.com/) will be used to help render data and provide a simple front-end to demonstrate the API.
 [Axios](https://www.npmjs.com/package/axios) will potentially be used to help handle headers.
 [Jest](https://jestjs.io/) is a testing framework that will be used to test login routes and assignment routes.  
@@ -76,8 +163,10 @@ With **_MongoDB_**, we will be utilizing indexes for performance using the `user
 ***
 We built this application based off the idea from Tamara Trefilova. She suggested this idea to showcase our abilities in MongoDB, Mongoose, Express and Node.js from what we have learned in JS330. Kateryna helped provide UI design and an overall framework for us to develop around. Surry provided user stories and outlined the site’s architecture.
 ***
+##### Credits
 Copyright :copyright: 2021 Patrick Gronstal, Tamara Trefilova, Surry Mowery, Kateryna Masiuk
 ***
+##### License
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
