@@ -54,10 +54,10 @@
 - [ ] Finish writing Jest tests.
 
 
-Assignment Routes to be created:
+#### Assignment Routes to be created:
 |Status | HTTP request | route |
 |:--- | :---: | ---:|
-| :x: | `POST` | `assignment/studentID` |
+| :- [ ]: | `POST` | `assignment/studentID` |
 | | `PUT` | `assignment/:id` |
 | | `DELETE` | `assignment/:id` |
 | | `GET` | `/assignment` |
@@ -65,7 +65,7 @@ Assignment Routes to be created:
 | |  `GET` | `assignment/:id` |
 | | `GET` | `assignment/assignment/grades/studentId` |
 
-Assignment DAOs to be created:
+#### Assignment DAOs to be created:
 |Status | DAO |
 |--- | --- |
 | | `createAssignment` |
