@@ -2,7 +2,7 @@
 
 [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
 
->##Table of Contents:
+##Table of Contents:
 
 1.  Accessing Application
 ⋅⋅* Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
