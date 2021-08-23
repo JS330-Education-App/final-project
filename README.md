@@ -67,7 +67,7 @@ Assignment Routes to be created:
 
 Assignment DAOs to be created:
 |Status | DAO |
-|--- | --- | ---|
+|--- | --- |
 | | "createAssignment" |
 | | "updateAssignment" |
 | | "deleteAssignment" |
