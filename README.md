@@ -11,10 +11,10 @@
 2.  [What's been completed](./README.md#Whats-been-completed)
 3.  [What still needs to be done](./README.md#What-still-needs-to-be-done)
 4.  [Introduction](./README.md#Introduction)
- * [Background](./README.md#Background)
-5.  [Dependencies](./README.md#Dependencies)
-6.  [Credits](./README.md#Credits)
-7.  [License](./README.md#License)
+5. [Background](./README.md#Background)
+6.  [Dependencies](./README.md#Dependencies)
+7.  [Credits](./README.md#Credits)
+8.  [License](./README.md#License)
 ---
 >### What\'s been completed:
 
@@ -46,7 +46,7 @@
 
 - [ ] Connect Front-End to DB.
 - [ ] Complete Routes.
- *	Add missing route `DELETE assignment/:id`
+ * - [ ]	Add missing route `DELETE assignment/:id`
 - [ ] Set up Cookie, and integrate with JWT
 - [ ] Complete Authorization and Authentication.
 - [ ] Create Student, Teacher, Parent View
