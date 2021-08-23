@@ -2,7 +2,7 @@
 
 [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
 
->##Table of Contents:
+>## Table of Contents:
 
 1.  Accessing Application
  * Front-End/Back-End Deployment: [Deployed Heroku Education App](https://dry-wave-18780.herokuapp.com/)
@@ -75,6 +75,7 @@ Assignment DAOs to be created:
 - [ ] | "getAvgGradeByStudentId" |
 
 >Assignment Routes to be created:
+
 |Status | HTTP request | route |
 |--- | --- | ---|
 |\- [ ] | `POST` | ```JavaScript assignment/studentID``` |
@@ -86,6 +87,7 @@ Assignment DAOs to be created:
 |- [ ] | `GET` | assignment/assignment/grades/studentId |
 
 >Assignment DAOs to be created:
+
 |Status | DAO |
 |--- | --- | ---|
 |- [ ] - [ ] | "createAssignment" |
