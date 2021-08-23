@@ -46,7 +46,7 @@
 
 - [ ] Connect Front-End to DB.
 - [ ] Complete Routes.
-...	Add missing route `DELETE assignment/:id`
+ *	Add missing route `DELETE assignment/:id`
 - [ ] Set up Cookie, and integrate with JWT
 - [ ] Complete Authorization and Authentication.
 - [ ] Create Student, Teacher, Parent View
@@ -57,27 +57,7 @@
 Assignment Routes to be created:
 |Status | HTTP request | route |
 |:--- | :---: | ---:|
-|\- [ ] | `POST` | ```JavaScript assignment/studentID``` |
-|- [ ] | `PUT` | assignment/:id |
-|- [ ] | `DELETE` | assignment/:id |
-|- [ ] | `GET` | /assignment |
-|- [ ] | `GET` | assignment/studentId |
-|- [ ] |  `GET` | assignment/:id |
-|- [ ] | `GET` | assignment/assignment/grades/studentId |
-
-Assignment DAOs to be created:
-- [ ] | "createAssignment" |
-- [ ] | "updateAssignment" |
-- [ ] | "deleteAssignment" |
-- [ ] | "getAllAssignments" |
-- [ ] | "getAssignment" |
-- [ ] | "getAssignmentByStudentId" |
-- [ ] | "getAvgGradeByStudentId" |
-
-Assignment Routes to be created:
-|Status | HTTP request | route |
-|--- | --- | ---|
-- [ ] | `POST` | `assignment/studentID` |
+-| [ ] | `POST` | `assignment/studentID` |
 |- [ ] | `PUT` | `assignment/:id` |
 |- [ ] | `DELETE` | `assignment/:id` |
 |- [ ] | `GET` | `/assignment` |
