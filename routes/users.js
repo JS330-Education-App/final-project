@@ -8,8 +8,8 @@ const secret = "my_super_secret";
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 // template route to /login
-router.get("/", (req, res, next) => {
-    res.render('login');
+router.get("/login", (req, res, next) => {
+  res.render('login');
 });
 
 // Signup: POST /login/signup
@@ -114,8 +114,10 @@ router.post("/signup", async(req, res, next) => {
 
     req.user = newUser;
     res.status(200).send("Ok");
+    //res.status(200).redirect('/login');
 
   } catch (e) {
+    console.log(e);
     next (e)
   } 
 });

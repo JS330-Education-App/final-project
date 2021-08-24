@@ -17,10 +17,10 @@
 </p>
 <div class="d-flex flex-column justify-content-center align-items-center">
   <main class="form-signin bg-light text-dark w-50 mt-5 p-5 shadow rounded">
-    <form class="registration-form">
+    <form action="/login/signup" class="registration-form" method="post">
       <h1 class="h3 mb-3 fw-normal">Please register here</h1>
       <div class="mb-3">
-        <select id="role-select" class="form-select form-select-lg role-select" aria-label="Select your role">
+        <select id="role-select" name="role" class="form-select form-select-lg role-select" aria-label="Select your role">
           <option selected>Select your role</option>
           <option value="teacher">Teacher</option>
           <option value="student">Student</option>
@@ -30,18 +30,18 @@
       {{! teacher form, will be hidden before select a role }}
       <div id="form-common" class="form-common form-teacher invisible">
         <div class="mb-3">
-          <input type="text" class="form-control form-control-lg" id="name" placeholder="Your full name">
+          <input type="text" class="form-control form-control-lg" name="name" id="name" placeholder="Your full name">
         </div>
         <div class="mb-3">
-          <input type="email" class="form-control form-control-lg" id="email" placeholder="email@example.com">
+          <input type="email" class="form-control form-control-lg" name="email" id="email" placeholder="email@example.com">
         </div>
         <div class="mb-3">
-          <input type="password" class="form-control form-control-lg" id="password" placeholder="Password">
+          <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password">
         </div>
       </div>
       <div id="form-student" class="form-common form-student invisible">
         <div class="mb-3">
-        <select id="grade-select" class="form-select form-select-lg role-select" aria-label="Select your grade">
+        <select id="grade-select" name="gradeLevel" class="form-select form-select-lg role-select" aria-label="Select your grade">
           <option selected>Select your grade</option>
           <option value="K">K</option>
           <option value="1">1</option>
@@ -58,13 +58,13 @@
         </select>
       </div>
         <div class="mb-3 text-start">
-          <input type="email" class="form-control form-control-lg" id="email_teacher" placeholder="teacher@example.com">
+          <input type="email" name="teacherEmail" class="form-control form-control-lg" id="email_teacher" placeholder="teacher@example.com">
           <label for="email_teacher" class="fs-6 fw-light mt-1 ps-1" style="color: rgb(33 38 41 / 30%);">Enter your teacher's email above</label>
         </div>
       </div>
       <div id="form-parent" class="form-common form-parent invisible">
         <div class="mb-3 text-start">
-          <input type="email" class="form-control form-control-lg" id="email_child" placeholder="child@example.com">
+          <input type="email" name="studentEmail" class="form-control form-control-lg" id="email_child" placeholder="child@example.com">
           <label for="email_child" class="fs-6 fw-light mt-1 ps-1" style="color: rgb(33 38 41 / 30%);">Enter your child's email above</label>
         </div>
       </div>

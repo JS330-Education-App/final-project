@@ -20,6 +20,7 @@
     "homepage": "https://github.com/JS330-Education-App/final-project#readme",
     "dependencies": {
         "bcrypt": "^5.0.1",
+        "body-parser": "^1.19.0",
         "bootstrap": "^5.1.0",
         "cors": "^2.8.5",
         "dotenv": "^10.0.0",
