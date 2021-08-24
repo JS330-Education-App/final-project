@@ -24,6 +24,14 @@ describe('/login', () => {
     gradeLevel: '3'
   };
 
+  const user2 = {
+    name: 'Parent 0',
+    email: 'parent0@mail.com',
+    password: '789password',
+    role: 'parent',
+    studentEmail: 'student0@mail.com'
+  }
+
   describe('before signup', () => {
     describe('POST /', () => {
       it('should return 401', async () => {
@@ -72,6 +80,37 @@ describe('signup', () => {
       users.forEach((user) => {
         expect(Object.values(user).includes(user0.password)).toBe(false);
       });
+    });
+    it('should return 400 for students with no teacherEmail', async () => {
+      const res = await request(server).post('/login/signup').send({
+        name: user1.name,
+        email: user1.email,
+        password: user1.password,
+        role: user1.role,
+        teacherEmail: ''
+      });
+      expect(res.statusCode).toEqual(400);
+    });
+    it('should return 400 for students with no gradeLevel', async () => {
+      const res = await request(server).post('/login/signup').send({
+        name: user1.name,
+        email: user1.email,
+        password: user1.password,
+        role: user1.role,
+        teacherEmail: user1.teacherEmail,
+        gradeLevel: ''
+      });
+      expect(res.statusCode).toEqual(400);
+    });
+    it('should return 400 for parents with no studentEmail', async () => {
+      const res = await request(server).post('/login/signup').send({
+        name: user2.name,
+        email: user2.email,
+        password: user2.password,
+        role: user2.role,
+        studentEmail: ''
+      });
+      expect(res.statusCode).toEqual(400);
     });
   });
 });

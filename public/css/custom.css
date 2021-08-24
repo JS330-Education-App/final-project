@@ -10,3 +10,7 @@
 .visible {
   display: block;
 }
+
+.link-login:hover {
+  text-decoration: underline !important;
+}
