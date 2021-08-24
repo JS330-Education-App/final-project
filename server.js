@@ -1,10 +1,7 @@
 const express = require("express");
 const mustacheExpress = require('mustache-express');
-<<<<<<< HEAD
 
 //const mustacheExpress = require('mustache-express');
-=======
->>>>>>> 963469deb2edd766dc9455ad136780eaf5e88cda
 
 const routes = require("./routes");
 
