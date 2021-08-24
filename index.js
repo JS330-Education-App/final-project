@@ -5,12 +5,12 @@ dotenv.config();
 
 const port = process.env.PORT || 5000;
 
-mongoose.connect(process.env.MONGO_CONNECTION_STRING, {
+mongoose.connect('mongodb+srv://patrick:uBlCC74eKHTv8Ahg@education-app.cidu4.mongodb.net/education-app?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
 }).then(() => {
   server.listen(port, () => {
-   console.log(`Server is listening on http://localhost:${port}`);
+   console.log(server.address().port);
   });
 });
