@@ -5,10 +5,10 @@ const userDAO = require("../daos/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const secret = "my_super_secret";
-const isLoggedIn = require("../middleware/isLoggedIn");
+const { isLoggedIn, role } = require("../middleware/isLoggedIn");
 
 // template route to /login
-router.get("/login", (req, res, next) => {
+router.get("/", (req, res, next) => {
   res.render('login');
 });
 
@@ -113,8 +113,9 @@ router.post("/signup", async(req, res, next) => {
     }
 
     req.user = newUser;
-    res.status(200).send("Ok");
+    //res.status(200).send("Ok");
     //res.status(200).redirect('/login');
+    res.redirect('/login');
 
   } catch (e) {
     console.log(e);
@@ -165,8 +166,10 @@ router.post("/", async(req, res, next) => {
     let token = await jwt.sign(data, secret, { expiresIn: '1 day' });
 
     if (token) {
-        req.body.token = token;
-        res.json(req.body);
+      res.json({ token });
+        // req.body.token = token;
+        // console.log(req.body);
+        // res.json(req.body);
     }
 });
 

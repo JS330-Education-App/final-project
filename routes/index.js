@@ -13,8 +13,12 @@ router.get("/signup", (req, res, next) => {
 router.use('/signup', require('./users'));
 router.use("/login", require('./users'));
 
-router.get("/", (req, res, next) => {
+router.use("/", (req, res, next) => {
   res.render('index');
 });
+
+// router.get("/login", (req, res, next) => {
+//   res.render('login');
+// });
 
 module.exports = router;

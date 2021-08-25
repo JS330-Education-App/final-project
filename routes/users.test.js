@@ -70,9 +70,13 @@ describe('signup', () => {
       });
       expect(res.statusCode).toEqual(400);
     });
-    it('should return 200 and with a password', async () => {
+    // it('should return 200 and with a password', async () => {
+    // const res = await request(server).post('/login/signup').send(user0);
+    // expect(res.statusCode).toEqual(200);
+    // });
+    it('should redirect to /login after successful registration', async () => {
     const res = await request(server).post('/login/signup').send(user0);
-    expect(res.statusCode).toEqual(200);
+    expect(res.headers.location).toEqual('/login');
     });
     it('should not store raw password', async () => {
       await request(server).post('/login/signup').send(user0);

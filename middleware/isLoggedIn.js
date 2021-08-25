@@ -28,9 +28,19 @@ const isLoggedIn = async function(req, res, next) {
         next();
 
     });
+};
 
-}
+const role = (req, res, next) => {
+  if (req.user.role.includes('teacher')) {
+    req.user.role = 'teacher';
+  } else if (req.user.role.includes('student')) {
+    req.user.role = 'student';
+  } else if (req.user.role.includes('parent')) {
+    req.user.role = 'parent';
+  }
+  next();
+};
 
 
 
-module.exports = isLoggedIn;
+module.exports = { isLoggedIn, role };
