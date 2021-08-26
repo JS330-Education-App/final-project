@@ -11,6 +11,7 @@ mongoose.connect('process.env.MONGO_CONNECTION_STRING', {
   useUnifiedTopology: true
 }).then(() => {
   server.listen(port, () => {
-   console.log(server.address().port);
+   console.log(`Server is listening on http://localhost:${port}`);
   });
 });
+adf0c984
