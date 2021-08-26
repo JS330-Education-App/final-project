@@ -14,3 +14,14 @@
 .link-login:hover {
   text-decoration: underline !important;
 }
+
+.badge-grade {
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.list-students>li:before {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}

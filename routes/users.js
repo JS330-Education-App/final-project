@@ -12,6 +12,22 @@ router.get("/", (req, res, next) => {
   res.render('login');
 });
 
+// Need to fix routing because now to reach to the teachers we need to put /login/teachers
+// template rote to /teachers view
+router.get("/teachers", (req, res, next) => {
+    res.render('teachers');
+});
+
+// template rote to /students view
+router.get("/students", (req, res, next) => {
+    res.render('students');
+});
+
+// template rote to /parents view
+router.get("/parents", (req, res, next) => {
+    res.render('parents');
+});
+
 // Signup: POST /login/signup
 
 router.post("/signup", async(req, res, next) => {
