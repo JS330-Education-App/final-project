@@ -1,8 +1,6 @@
 const express = require("express");
 const mustacheExpress = require('mustache-express');
 
-//const mustacheExpress = require('mustache-express');
-
 const routes = require("./routes");
 
 const server = express();
