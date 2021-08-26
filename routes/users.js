@@ -249,19 +249,14 @@ router.post("/student", async(req, res, next) => {
         if (!studentEmail) {
             throw new Error("Empty request");
         }
-        if (token) {
-            res.json({ token });
-            // req.body.token = token;
-            // console.log(req.body);
-            // res.json(req.body);
 
-            const teacherId = req.user._id;
-            const student = await userDAO.getStudentByEmail(studentEmail, teacherId);
-            if (!student) {
-                throw new Error("Not found");
-            }
-            res.json(student);
+        const teacherId = req.user._id;
+        const student = await userDAO.getStudentByEmail(studentEmail, teacherId);
+        if (!student) {
+            throw new Error("Not found");
         }
+        res.json(student);
+
     } catch (e) {
         console.log("error ", e.message);
         next(e);
@@ -271,7 +266,7 @@ router.post("/student", async(req, res, next) => {
 
 // get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
 // returns list of students' emails
-router.get("/students", async(req, res, next) => {
+router.get("/allStudents", async(req, res, next) => {
     try {
         if (req.user.role !== "teacher") {
             throw new Error("Unauthorized");
