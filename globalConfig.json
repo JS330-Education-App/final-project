@@ -1,1 +1,3 @@
-{"mongoUri":"mongodb+srv://patrick:uBlCC74eKHTv8Ahg@education-app.cidu4.mongodb.net/education-app?retryWrites=true&w=majority"}
+MONGO_CONNECTION_STRING=mongodb://localhost/final-project;
+PORT=0;
+MONGODB_URI = mongodb+srv://patrick:uBlCC74eKHTv8Ahg@education-app.cidu4.mongodb.net/education-app?retryWrites=true&w=majority;
