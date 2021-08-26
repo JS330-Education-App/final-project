@@ -5,7 +5,7 @@ dotenv.config();
 
 const port = process.env.PORT || 5000;
 
-mongoose.connect('process.env.MONGODB_URI', {
+mongoose.connect('mongodb+srv://patrick:uBlCC74eKHTv8Ahg@education-app.cidu4.mongodb.net/education-app?retryWrites=true&w=majority;', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
