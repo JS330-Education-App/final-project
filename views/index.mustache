@@ -9,14 +9,14 @@
 </p>
 <div class="d-flex flex-column justify-content-center align-items-center">
   <main class="form-signin bg-light text-dark w-50 mt-5 p-5 shadow rounded">
-    <form action="/login/signup" class="registration-form" method="post">
+    <form action="/users/signup" class="registration-form" method="post">
       <h1 class="h3 mb-3 fw-normal">Please register here</h1>
       <div class="mb-3">
         <select id="role-select" name="role" class="form-select form-select-lg role-select" aria-label="Select your role">
           <option selected>Select your role</option>
-          <option value="teachers">Teacher</option>
-          <option value="students">Student</option>
-          <option value="parents">Parent</option>
+          <option value="teacher">Teacher</option>
+          <option value="student">Student</option>
+          <option value="parent">Parent</option>
         </select>
       </div>
       {{! teacher form, will be hidden before select a role }}

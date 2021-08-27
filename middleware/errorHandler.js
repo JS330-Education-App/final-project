@@ -10,7 +10,7 @@ const errorHandler = async function(err, req, res, next) {
     } else if (err.message.includes("Not found")) {
         res.status(404).send("User not found");
     } else if (err.message.includes("Invalid request")) {
-        res.status(404).send("Student  doesn't have the assignment");
+        res.status(404).send("Student doesn't have the assignment");
     } else if (err.message.includes("Unauthorized")) {
         res.status(401).send("Unauthorized user");
     } else if (err.message.includes("Password is required")) {
