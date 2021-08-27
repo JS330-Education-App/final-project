@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Education App</title>
-    <link rel="stylesheet" href="/css/custom.css">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-</head>
+{{>header}}
 <body class="bg-dark text-light h-100">
 <h1 class="display-3 mt-5 mb-4 text-center">Hello, Teacher_Name!</h1>
 <hr/ class="half-size">
@@ -43,11 +35,11 @@
             <ol class="list-group list-group-numbered list-students">
               <li class="list-group-item d-flex justify-content-between align-items-start p-4">
                 <div class="ms-2 me-auto">
-                  <h4 class="h4">Student Name</h4>
+                  <h4 class="h4">Student ID</h4>
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
+                    <li class="list-group-item pb-3 pt-3">
                       <h6 class="">Assignment One</h6>
-                        <select class="p-1 rounded border-dark bg-dark text-light">
+                        <select class="form-select rounded border-dark">
                           <option selected>Grade</option>
                           <option value="100">A</option>
                           <option values="80">B</option>
@@ -57,9 +49,9 @@
                           <option values="0">F</option>
                         </select>
                     </li>
-                    <li class="list-group-item">
+                    <li class="list-group-item pb-3 pt-3">
                       <h6 class="">Assignment One</h6>
-                        <select class="p-1 rounded border-dark bg-dark text-light">
+                        <select class="form-select rounded border-dark">
                           <option selected>Grade</option>
                           <option value="100">A</option>
                           <option values="80">B</option>
@@ -81,17 +73,61 @@
         </div>
         <div class="tab-pane fade" id="assignments" role="assignments" aria-labelledby="assignments-tab">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Type assignment title" aria-label=Assignment title" aria-describedby="search">
+            <div class="input-group mb-3 justify-content-end">
+              <button type="button" class="btn btn-link p-0" id="getAll">Get All Assignments</button>
+            </div>
+            <input type="text" class="form-control" placeholder="Search assignments by title, by student ID" aria-label=Assignment title" aria-describedby="search">
             <button class="btn btn-secondary" type="button" id="search">Search</button>
           </div>
           <div id="students_list">
             <ol class="list-group list-group-numbered">
-              <li class="list-group-item d-flex justify-content-between align-items-start">
+              <li class="list-group-item d-flex justify-content-between align-items-start pt-3 pb-3">
                 <div class="ms-2 me-auto">
                   <div class="fw-bold">Assignment Title</div>
                   <div class="mt-2">
-                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addAssignment">View</button>
-                    <button type="button" class="btn btn-outline-danger">Delete</button>
+                    <div class="row">
+                      <div class="col col-w-150">
+                        <select class="form-select rounded border-dark">
+                          <option selected>Grade</option>
+                          <option value="100">A</option>
+                          <option values="80">B</option>
+                          <option value="60">C</option>
+                          <option values="40">D</option>
+                          <option value="20">E</option>
+                          <option values="0">F</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <button type="button" class="btn btn-outline-danger">Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center d-flex flex-column align-self-center">
+                  <span class="text-muted">Due date</span>
+                  <span class="badge bg-warning badge-pill">Sep 6</span>
+                </div>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-start pt-3 pb-3">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Assignment Title</div>
+                  <div class="mt-2">
+                    <div class="row">
+                      <div class="col col-w-150">
+                        <select class="form-select rounded border-dark">
+                          <option selected>Grade</option>
+                          <option value="100">A</option>
+                          <option values="80">B</option>
+                          <option value="60">C</option>
+                          <option values="40">D</option>
+                          <option value="20">E</option>
+                          <option values="0">F</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <button type="button" class="btn btn-outline-danger">Delete</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="text-center d-flex flex-column align-self-center">
@@ -124,25 +160,29 @@
             <label for="assignment_description" class="form-label">Description</label>
             <textarea class="form-control" id="assignment_description" rows="3"></textarea>
           </div>
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="assignment_due" class="form-label">Due Date</label>
+                <input type="text" class="form-control" id="assignment_due" placeholder="ex: Sep, 6">
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="assignment_assignee" class="form-label">Assignee</label>
+                <select id="assignment_assignee" class="form-select form-control rounded">
+                  <option selected>Select student</option>
+                  <option value="student@email.com">student@email.com</option>
+                  <option value="student2@email.com">student2@email.com</option>
+                  <option value="student3@email.com">student3@email.com</option>
+                </select>
+              </div>
+            </div>
+          </div>
 
           <div class="form-check form-switch mb-3">
             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Assignmen to everyone</label>
-          </div>
-          
-          <div class="checkbox-container mb-3">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                Student Name One
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-              <label class="form-check-label" for="flexCheckChecked">
-                Student Name Two
-              </label>
-            </div>
+            <label class="form-check-label" for="flexSwitchCheckDefault">Assign to everyone</label>
           </div>
         </form>
       </div>
@@ -154,8 +194,6 @@
   </div>
 </div>
 
-<script src="/js/custom.js"></script>
-<!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+{{>footer}}
 </body>
 </html>

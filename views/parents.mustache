@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Education App</title>
-    <link rel="stylesheet" href="/css/custom.css">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-</head>
+{{>header}}
 <body class="bg-dark text-light h-100">
 <h1 class="display-3 mt-5 mb-4 text-center">Hello, Parent_Name!</h1>
 <hr/ class="half-size">
@@ -27,33 +19,13 @@
     <div class="col">
       <ul class="nav nav-tabs position-relative border-0" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link border-0 active" id="assignments-tab" data-bs-toggle="tab" data-bs-target="#assignments" type="button" role="tab" aria-controls="assignments" aria-selected="false">Assignments</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link border-0" id="graded-tab" data-bs-toggle="tab" data-bs-target="#graded" type="button" role="tab" aria-controls="graded" aria-selected="true">Graded</button>
+          <button class="nav-link active border-0" id="graded-tab" data-bs-toggle="tab" data-bs-target="#graded" type="button" role="tab" aria-controls="graded" aria-selected="true">Grades</button>
         </li>
       </ul>
       <div class="tab-content bg-white p-4 shadow rounded" id="myTabContent">
-        <div class="tab-pane fade show active" id="assignments" role="assignments" aria-labelledby="assignments-tab">
-          <div id="students_list">
-            <ol class="list-group list-group-numbered">
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Assignment Title</div>
-                  <div class="mt-2">
-                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addAssignment">View</button>
-                  </div>
-                </div>
-                <div class="text-center d-flex flex-column align-self-center">
-                  <span class="text-muted">Due date</span>
-                  <span class="badge bg-warning badge-pill">Sep 6</span>
-                </div>
-              </li>
-            </ol>
-          </div>
-        </div>
-        <div class="tab-pane fade" id="graded" role="tabpanel" aria-labelledby="graded-tab">
+        <div class="tab-pane fade show active" id="graded" role="tabpanel" aria-labelledby="graded-tab">
           <div id="graded_list">
+          <h4 class="h4 mb-3">Grades for <span>Student Name</span></h4>
             <ol class="list-group list-group-numbered">
               <li class="list-group-item d-flex justify-content-between align-items-start p-4">
                 <div class="ms-2 me-auto">
@@ -69,34 +41,6 @@
   </div>
 </div>
 
-<div class="modal fade text-dark" id="addAssignment" tabindex="-1" aria-labelledby="addAssignment" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addAssignment">Assignment</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <h6>Title from Assignment</h6>
-          </div>
-          <div class="mb-3">
-            <div class="text-muted fs-6">
-              Description from Assignment
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script src="/js/custom.js"></script>
-<!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+{{>footer}}
 </body>
 </html>

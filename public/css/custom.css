@@ -25,3 +25,7 @@
   font-weight: 500;
   line-height: 1.2;
 }
+
+.col-w-150 {
+  width: 150px !important;
+}
