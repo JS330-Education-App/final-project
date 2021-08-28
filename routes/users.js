@@ -5,7 +5,6 @@ const userDAO = require("../daos/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const secret = "my_super_secret";
-// const { isLoggedIn, role } = require("../middleware/isLoggedIn");
 
 const isLoggedIn = require("../middleware/isLoggedIn");
 const errorHandler = require("../middleware/errorHandler");
@@ -16,7 +15,6 @@ router.get("/", (req, res, next) => {
 });
 
 // Signup: POST /login/signup
-
 router.post("/signup", async(req, res, next) => {
     try {
         const user = req.body;
@@ -168,11 +166,15 @@ router.post("/login", async(req, res, next) => {
 
         let token = await jwt.sign(data, secret, { expiresIn: '1 day' });
 
-        if (token) {
-            res.json({ token });
-            // req.body.token = token;
-            // console.log(req.body);
-            // res.json(req.body);
+        if (token && userFromDB.role === 'teacher') {
+          res.cookie('AuthToken', token);
+          res.redirect('/teachers');
+        } else if (token && userFromDB.role === 'student') {
+          res.cookie('AuthToken', token);
+          res.redirect('/students');
+        } else if (token && userFromDB.role === 'parent') {
+          res.cookie('AuthToken', token);
+          res.redirect('/parents');
         }
 
     } catch (e) {
@@ -180,8 +182,6 @@ router.post("/login", async(req, res, next) => {
         next(e);
     }
 });
-
-
 
 
 router.post("/logout", async(req, res, next) => {
@@ -192,10 +192,15 @@ router.use(async(req, res, next) => {
     isLoggedIn(req, res, next);
 });
 
+
+// router.get('/home', async(req, res, next) => {
+//   //res.render('home');
+// });
+
 // get one student by id only for teacher, teacher id should be equal student's ExternalId
 router.get("/student/:id", async(req, res, next) => {
     try {
-        console.log("eq.user.role", req.user.role);
+        //console.log("eq.user.role", req.user.role);
         if (req.user.role !== "teacher") {
             throw new Error("Unauthorized");
         }
@@ -207,7 +212,7 @@ router.get("/student/:id", async(req, res, next) => {
         }
         res.json(student);
     } catch (e) {
-        console.log("error ", e.message);
+        //console.log("error ", e.message);
         next(e);
     }
 });
