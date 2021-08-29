@@ -170,11 +170,11 @@ router.post("/login", async(req, res, next) => {
         if (token) {
           res.cookie('AuthToken', token, {expires: new Date(Date.now() + 8 * 3600000)});  // cookie will be removed after 8 hours
           if (userFromDB.role === 'teacher') {
-            res.redirect('/teachers');
+            res.redirect('/users/teachers');
           } else if (userFromDB.role === 'student') {
-            res.redirect('/students');
+            res.redirect('/users/students');
           } else if (userFromDB.role === 'parent') {
-            res.redirect('/parents');
+            res.redirect('/users/parents');
           }
         };
 

@@ -75,11 +75,22 @@
         <div class="tab-pane fade" id="assignments" role="assignments" aria-labelledby="assignments-tab">
           <div class="input-group mb-3">
             <div class="input-group mb-3 justify-content-end">
-              <a class="btn btn-link p-0" id="getAll" href="/assignments" role="button">Get All Assignments</a>
+
+              <form action="/assignments" method="get">
+                <input type="submit" class="btn btn-link p-0" id="getAll" value="Get All Assignments" />
+              </form>
+              
+              {{ !<a class="btn btn-link p-0" id="getAll" href="/assignments" role="button">Get All Assignments</a>}}
               {{ !<button type="button" class="btn btn-link p-0" id="getAll">Get All Assignments</button>}}
             </div>
-            <input type="text" class="form-control" placeholder="Search assignments by title, by student ID" aria-label=Assignment title" aria-describedby="search">
-            <button class="btn btn-secondary" type="button" id="search">Search</button>
+
+
+            <form action="/assignments/search" method="get">
+            <input name="title" type="search" class="form-control" placeholder="Search assignments by title, by student ID" aria-label=Assignment title" aria-describedby="search">
+            <input type="submit" class="btn btn-secondary" id="search" value="Search" />
+            {{! <button class="btn btn-secondary" type="button" id="search">Search</button> }}
+            </form>
+
           </div>
           <div id="students_list">
             <ol class="list-group list-group-numbered">
@@ -153,28 +164,29 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+      <form action="/assignments" method="post"> 
+        {{! <form> }}
           <div class="mb-3">
             <label for="assignment_title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="assignment_title" placeholder="Title">
+            <input name="title" type="text" class="form-control" id="assignment_title" placeholder="Title">
           </div>
           <div class="mb-3">
             <label for="assignment_description" class="form-label">Description</label>
-            <textarea class="form-control" id="assignment_description" rows="3"></textarea>
+            <textarea name="content" class="form-control" id="assignment_description" rows="3"></textarea>
           </div>
           <div class="row">
             <div class="col">
               <div class="mb-3">
                 <label for="assignment_due" class="form-label">Due Date</label>
-                <input type="text" class="form-control" id="assignment_due" placeholder="ex: Sep, 6">
+                <input name="dueDate" type="text" class="form-control" id="assignment_due" placeholder="ex: Sep, 6">
               </div>
             </div>
             <div class="col">
               <div class="mb-3">
                 <label for="assignment_assignee" class="form-label">Assignee</label>
-                <select id="assignment_assignee" class="form-select form-control rounded">
+                <select name="studentEmail" id="assignment_assignee" class="form-select form-control rounded">
                   <option selected>Select student</option>
-                  <option value="student@email.com">student@email.com</option>
+                  <option value="test29@test.com">test29@test.com</option>
                   <option value="student2@email.com">student2@email.com</option>
                   <option value="student3@email.com">student3@email.com</option>
                 </select>
@@ -182,15 +194,20 @@
             </div>
           </div>
 
-          <div class="form-check form-switch mb-3">
+          {{! <div class="form-check form-switch mb-3">
             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
             <label class="form-check-label" for="flexSwitchCheckDefault">Assign to everyone</label>
-          </div>
-        </form>
+          </div> }}
+        {{! </form> }}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        
+        
+          <input type="submit" class="btn btn-primary" value="Save changes" />
+        </form>
+
+        {{! <button type="button" class="btn btn-primary">Save changes</button> }}
       </div>
     </div>
   </div>

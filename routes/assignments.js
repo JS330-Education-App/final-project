@@ -25,6 +25,8 @@ const errorHandler = require("../middleware/errorHandler");
 //     "dueDate": "09/11/2021"
 
 // }
+// http://localhost:5000/assignments/:id
+
 router.post("/:id", async(req, res, next) => {
     try {
 
@@ -33,6 +35,7 @@ router.post("/:id", async(req, res, next) => {
         }
         const userId = req.user._id;
         let assignment = req.body;
+        assignment.grade = 0;
         const studentId = req.params.id;
         const student = await userDAO.getUserById(studentId);
 
@@ -75,6 +78,7 @@ router.post("/", async(req, res, next) => {
         }
         const userId = req.user._id;
         let assignment = req.body;
+        assignment.grade = 0;
         const studentEmail = req.body.studentEmail;
         const student = await userDAO.getUser(studentEmail);
 
@@ -103,10 +107,14 @@ router.get("/search", async(req, res, next) => {
         if (req.user.role === "parent") {
             throw new Error("Unauthorized");
         }
-        let { page, perPage, query } = req.query;
-        page = page ? Number(page) : 0;
-        perPage = perPage ? Number(perPage) : 10;
-        const result = await assignmentDAO.search(query, page, perPage);
+        //let { page, perPage, query } = req.query;
+        let query = req.query.title;
+        console.log('query ', query);
+
+        //page = page ? Number(page) : 0;
+        //perPage = perPage ? Number(perPage) : 10;
+        //const result = await assignmentDAO.search(query, page, perPage);
+        const result = await assignmentDAO.search(query);
         res.json(result);
     } catch (e) {
         console.log("error ", e.message);
@@ -116,6 +124,8 @@ router.get("/search", async(req, res, next) => {
 
 
 // get all teacher's assignments,  only for teacher
+// http://localhost:5000/assignments
+
 router.get("/", async(req, res, next) => {
     try {
         if (req.user.role !== "teacher") {

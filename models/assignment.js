@@ -5,7 +5,7 @@ const assignmentSchema = new mongoose.Schema({
     content: { type: String, required: true },
     teacherID: { type: mongoose.Schema.Types.ObjectId, ref: 'user', requred: true },
     studentID: { type: mongoose.Schema.Types.ObjectId, ref: 'user', requred: true, index: true },
-    gradeLevel: { type: Number, required: true },
+    //gradeLevel: { type: Number, required: true },
     grade: { type: Number },
     dueDate: { type: Date, required: true }
 

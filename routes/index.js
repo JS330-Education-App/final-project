@@ -11,21 +11,26 @@ router.use(cookieParser());
 // router.get("/signup", (req, res, next) => {
 //     res.render('index');
 // });
+
 router.get("/signup", (req, res, next) => {
   res.render('index');
 });
 
-router.get("/teachers", isLoggedIn, (req, res, next) => {
+router.use("/assignments", require('./assignments'));
+
+router.get("/users/teachers", isLoggedIn, (req, res, next) => {
   res.render('teachers', {user: req.user});
 });
 
-router.get("/students", isLoggedIn, (req, res, next) => {
+router.get("/users/students", isLoggedIn, (req, res, next) => {
   res.render('students', {user: req.user});
 });
 
-router.get("/parents", isLoggedIn, (req, res, next) => {
+router.get("/users/parents", isLoggedIn, (req, res, next) => {
   res.render('parents', {user: req.user});
 });
+
+
 
 // router.get('/users/home', isLoggedIn, (req, res, next) => {
 //   res.render('home');
@@ -54,17 +59,17 @@ router.get("/login", (req, res, next) => {
 //   res.render('home', { user: req.body });
 // })
 
-router.use("/teachers", (req, res, next) => {
+router.use("/users/teachers", (req, res, next) => {
   res.render('teachers');
 });
 
-router.use("/assignments", require('./assignments'));
 
-router.use("/students", (req, res, next) => {
+
+router.use("/users/students", (req, res, next) => {
   res.render('students');
 });
 
-router.use("/parents", (req, res, next) => {
+router.use("/users/parents", (req, res, next) => {
   res.render('parents');
 });
 
