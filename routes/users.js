@@ -8,6 +8,7 @@ const secret = "my_super_secret";
 
 const isLoggedIn = require("../middleware/isLoggedIn");
 const errorHandler = require("../middleware/errorHandler");
+const cookieParser = require("cookie-parser");
 
 // template route to /login
 router.get("/", (req, res, next) => {
@@ -166,19 +167,19 @@ router.post("/login", async(req, res, next) => {
 
         let token = await jwt.sign(data, secret, { expiresIn: '1 day' });
 
-        if (token && userFromDB.role === 'teacher') {
-          res.cookie('AuthToken', token);
-          res.redirect('/teachers');
-        } else if (token && userFromDB.role === 'student') {
-          res.cookie('AuthToken', token);
-          res.redirect('/students');
-        } else if (token && userFromDB.role === 'parent') {
-          res.cookie('AuthToken', token);
-          res.redirect('/parents');
-        }
+        if (token) {
+          res.cookie('AuthToken', token, {expires: new Date(Date.now() + 8 * 3600000)});  // cookie will be removed after 8 hours
+          if (userFromDB.role === 'teacher') {
+            res.redirect('/teachers');
+          } else if (userFromDB.role === 'student') {
+            res.redirect('/students');
+          } else if (userFromDB.role === 'parent') {
+            res.redirect('/parents');
+          }
+        };
 
     } catch (e) {
-        console.log("error ", e.message);
+        //console.log("error ", e.message);
         next(e);
     }
 });

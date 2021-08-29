@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 {{>header}}
 <body class="bg-dark text-light h-100">
-<h1 class="display-3 mt-5 mb-4 text-center">Hello, Teacher_Name!</h1>
+<h1 class="display-3 mt-5 mb-4 text-center">Hello, {{user.name}}!</h1>
 <hr/ class="half-size">
 <p class="lead mt-4 mb-5 text-center">
   Create, update, delete assignments for your students.
@@ -17,7 +17,8 @@
       <span>Add assignment</span>
       </button>
     </div>
-    <button type="button" class="btn btn-danger">Logout</button>
+    <a class="btn btn-danger" href="/logout" role="button">Logout</a>
+    {{ !<button type="button" class="btn btn-danger">Logout</button> }}
   </div>
   <div class="row align-items-start">
     <div class="col">
@@ -74,7 +75,8 @@
         <div class="tab-pane fade" id="assignments" role="assignments" aria-labelledby="assignments-tab">
           <div class="input-group mb-3">
             <div class="input-group mb-3 justify-content-end">
-              <button type="button" class="btn btn-link p-0" id="getAll">Get All Assignments</button>
+              <a class="btn btn-link p-0" id="getAll" href="/assignments" role="button">Get All Assignments</a>
+              {{ !<button type="button" class="btn btn-link p-0" id="getAll">Get All Assignments</button>}}
             </div>
             <input type="text" class="form-control" placeholder="Search assignments by title, by student ID" aria-label=Assignment title" aria-describedby="search">
             <button class="btn btn-secondary" type="button" id="search">Search</button>

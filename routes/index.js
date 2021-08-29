@@ -16,15 +16,15 @@ router.get("/signup", (req, res, next) => {
 });
 
 router.get("/teachers", isLoggedIn, (req, res, next) => {
-  res.render('teachers');
+  res.render('teachers', {user: req.user});
 });
 
 router.get("/students", isLoggedIn, (req, res, next) => {
-  res.render('students');
+  res.render('students', {user: req.user});
 });
 
 router.get("/parents", isLoggedIn, (req, res, next) => {
-  res.render('parents');
+  res.render('parents', {user: req.user});
 });
 
 // router.get('/users/home', isLoggedIn, (req, res, next) => {
@@ -48,7 +48,7 @@ router.get("/login", (req, res, next) => {
 
 
 
-router.use("/assignments", require('./assignments'));
+
 
 // router.get('/home/:token', isLoggedIn, (req, res, next) => {
 //   res.render('home', { user: req.body });
@@ -57,6 +57,8 @@ router.use("/assignments", require('./assignments'));
 router.use("/teachers", (req, res, next) => {
   res.render('teachers');
 });
+
+router.use("/assignments", require('./assignments'));
 
 router.use("/students", (req, res, next) => {
   res.render('students');

@@ -379,10 +379,9 @@ describe('/login', () => {
                 });
                 expect(res.statusCode).toEqual(401);
             });
-            it('should return 200 and a token when password matches', async() => {
+            it('should return 302 after logging in', async() => {
                 const res = await request(server).post('/users/login').send(user);
-                expect(res.statusCode).toEqual(200);
-                expect(typeof res.body.token).toEqual('string');
+                expect(res.statusCode).toEqual(302);
             });
             it('should not store token on user', async() => {
                 const res = await request(server).post('/users/login').send(user);
@@ -426,7 +425,7 @@ describe('/login', () => {
             it('should reject empty password', async() => {
                 const res = await request(server)
                     .post('/users/password')
-                    .set('Authorization', 'Bearer ' + token0)
+                    //.set('Set-Cookie', token0)
                     .send({ password: "" });
                 expect(res.statusCode).toEqual(400);
             });
