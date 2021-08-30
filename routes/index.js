@@ -24,6 +24,7 @@ router.use("/users/students", isLoggedIn, (req, res, next) => {
 
 router.use("/users/parents", isLoggedIn, (req, res, next) => {
   res.render('parents', {user: req.user});
+  //console.log(req.user);
 });
 
 router.use("/login", require('./users'));

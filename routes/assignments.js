@@ -188,7 +188,8 @@ router.get("/assignmentsForStudent", async(req, res, next) => {
         const email = req.user.email;
         const student = await userDAO.getUser(email);
         const assignments = await assignmentDAO.getAssignmentsByStudentId(student._id);
-        res.json(assignments);
+        //res.json(assignments);
+        res.render('students', { assignments: assignments, user: req.user });
 
     } catch (e) {
         console.log("error ", e.message);
@@ -204,7 +205,8 @@ router.get("/assignmentsForParent", async(req, res, next) => {
         }
         const studentId = req.user.externalID;
         const assignments = await assignmentDAO.getAssignmentsByStudentId(studentId);
-        res.json(assignments);
+        //res.json(assignments);
+        res.render('parents', { assignments: assignments, user: req.user });
 
     } catch (e) {
         console.log("error ", e.message);
