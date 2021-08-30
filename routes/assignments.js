@@ -12,6 +12,67 @@ router.use(async(req, res, next) => {
 const errorHandler = require("../middleware/errorHandler");
 
 
+
+// get avarege grade   for a student by student email
+
+// {
+//     "studentEmail": "level8@gmai.com"
+
+// }
+router.post("/student/grades", async(req, res, next) => {
+    try {
+
+        const studentEmail = req.body.studentEmail;
+        const student = await userDAO.getUser(studentEmail);
+        const grade = await assignmentDAO.getAvgGradeByStudentId(student._id);
+
+        res.json(grade);
+    } catch (e) {
+        console.log("error ", e.message);
+        next(e);
+    }
+});
+
+// submit assignment, only for a student
+// :id - assignment id
+
+// router.put("/submit/:id", async(req, res, next) => {
+//     try {
+//         const assignmentId = req.params.id;
+//         console.log("from input ", assignmentId)
+//         if (req.user.role !== "student") {
+//             throw new Error("Unauthorized");
+//         }
+
+//         const assignment = await assignmentDAO.submitAssignment(assignmentId);
+//         res.json(assignment);
+//     } catch (e) {
+//         console.log("error ", e.message);
+//         next(e);
+//     }
+// });
+
+// { "assignmentId": "id" }
+
+router.post("/submit", async(req, res, next) => {
+    try {
+        const assignmentId = req.body.assignmentId;
+        console.log("from input ", assignmentId)
+        if (req.user.role !== "student") {
+            throw new Error("Unauthorized");
+        }
+
+        const assignment = await assignmentDAO.submitAssignment(assignmentId);
+        // res.render('students', { assignment: assignment, user: req.user });
+        res.json(assignment);
+    } catch (e) {
+        console.log("error ", e.message);
+        next(e);
+    }
+});
+
+
+
 // POST /create assignment  - open to teacher only
 //  If the user is logged in, it should store the incoming assignemnt along with their userId
 // :id - studentId
@@ -215,25 +276,6 @@ router.get("/assignmentsForParent", async(req, res, next) => {
 });
 
 
-// submit assignment, only for a student
-// :id - assignment id
-
-router.put("/submit/:id", async(req, res, next) => {
-    try {
-
-        if (req.user.role !== "student") {
-            throw new Error("Unauthorized");
-        }
-        const assignmentId = req.params.id;
-        const assignment = await assignmentDAO.submitAssignment(assignmentId);
-        res.json(assignment);
-    } catch (e) {
-        console.log("error ", e.message);
-        next(e);
-    }
-});
-
-
 // get avarege grade  for a student by student id
 router.get("/student/grades/:id", async(req, res, next) => {
     try {
@@ -248,25 +290,7 @@ router.get("/student/grades/:id", async(req, res, next) => {
     }
 });
 
-// get avarege grade   for a student by student email
 
-// {
-//     "studentEmail": "level8@gmai.com"
-
-// }
-router.post("/student/grades", async(req, res, next) => {
-    try {
-
-        const studentEmail = req.body.studentEmail;
-        const student = await userDAO.getUser(studentEmail);
-        const grade = await assignmentDAO.getAvgGradeByStudentId(student._id);
-
-        res.json(grade);
-    } catch (e) {
-        console.log("error ", e.message);
-        next(e);
-    }
-});
 
 // get one assignemnt by id, authorized only for teacher and student
 router.get("/:id", async(req, res, next) => {

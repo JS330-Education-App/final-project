@@ -52,11 +52,15 @@
                       </div>
 
                       <div class="mt-3">
-                        <button type="button" id="btnAssgnSubmit" class="btn btn-success">Submit</button>
+
+                       <form action="/assignments/submit" method="post">
+                         <input type="hidden" name="assignmentId" class="btn btn-success" value={{_id}} />
+                        <button type="submit" id="btnAssgnSubmit" class="btn btn-success">Submit</button>
+                       </form>
+                      {{!--<button type="button" id="btnAssgnSubmit" class="btn btn-success">Submit</button>}}  
                       </div>
                     </div>
                    
-
                     <div class="text-center d-flex flex-column justify-content-start align-items-end col-3">
                       <div id="dueDate" class="d-flex align-self-top justify-content-center flex-column mb-2">
                         <span class="text-muted">Due date</span>

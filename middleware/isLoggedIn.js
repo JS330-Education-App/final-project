@@ -20,13 +20,13 @@ const isLoggedIn = async function(req, res, next) {
             return res.status(401).send("Bad token");
         }
 
-    const decodedToken = await jwt.decode(token);
-    const user = await userDAO.getUserById(decodedToken._id);
+        const decodedToken = await jwt.decode(token);
+        const user = await userDAO.getUserById(decodedToken._id);
 
-    req.token = token;
-    req.user = user;
+        req.token = token;
+        req.user = user;
 
-    next();
+        next();
 
     });
 };
