@@ -10,7 +10,7 @@
 <div class="container-xl bg-light text-dark w-50 mt-5 p-5 shadow rounded">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <div class="text-center d-flex flex-column align-self-start">
-      <span class="text-muted">Total</span>
+      <span class="text-muted mb-1">Total</span>
       <span class="badge bg-success rounded-circle badge-grade d-flex justify-content-center align-items-center">100</span>
     </div>
     <button type="button" class="btn btn-danger">Logout</button>
@@ -21,38 +21,53 @@
         <li class="nav-item" role="presentation">
           <button class="nav-link border-0 active" id="assignments-tab" data-bs-toggle="tab" data-bs-target="#assignments" type="button" role="tab" aria-controls="assignments" aria-selected="false">Assignments</button>
         </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link border-0" id="graded-tab" data-bs-toggle="tab" data-bs-target="#graded" type="button" role="tab" aria-controls="graded" aria-selected="true">Graded</button>
-        </li>
       </ul>
       <div class="tab-content bg-white p-4 shadow rounded" id="myTabContent">
         <div class="tab-pane fade show active" id="assignments" role="assignments" aria-labelledby="assignments-tab">
-          <div id="students_list">
-            <ol class="list-group list-group-numbered">
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Assignment Title</div>
-                  <div class="mt-2">
-                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addAssignment">View</button>
-                    <button type="button" class="btn btn-outline-success">Submit</button>
+          <div id="students_assign_list">
+            <ol class="list-group list-group-numbered list-non-number">
+              <li class="list-group-item p-4">
+                <div id="assignments_list">
+                  <div class="row">
+
+                    <div class="col-9">
+                      <div class="fw-bold">Assignment Title</div>
+
+                      <div id="assignments_desc" class="assignments-desc">
+                        <p id="headingTwo" class="mb-1">
+                          <a href="" class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Show description
+                          </a>
+                        </p>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                          <div class="">
+                            Assignment description
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mt-3">
+                        <button type="button" id="btnAssgnSubmit" class="btn btn-success">Submit</button>
+                      </div>
+                    </div>
+
+                    <div class="text-center d-flex flex-column justify-content-start align-items-end col-3">
+                      <div id="dueDate" class="d-flex align-self-top justify-content-center flex-column mb-2">
+                        <span class="text-muted">Due date</span>
+                        <span class="badge bg-warning badge-pill">Sep 6</span>
+                      </div>
+                      {{!
+                      <div>
+                          <span class="badge badge-pill bg-warning">A</span>
+                      </div>
+                      }}
+                      <span id="checkmark" class="badge rounded-pill bg-success invisible checkmark text-light d-flex align-items-center justify-content-center">
+                            <span>&#10003;</span>
+                      </span>
+                    </div>
+
                   </div>
                 </div>
-                <div class="text-center d-flex flex-column align-self-center">
-                  <span class="text-muted">Due date</span>
-                  <span class="badge bg-warning badge-pill">Sep 6</span>
-                </div>
-              </li>
-            </ol>
-          </div>
-        </div>
-        <div class="tab-pane fade" id="graded" role="tabpanel" aria-labelledby="graded-tab">
-          <div id="graded_list">
-            <ol class="list-group list-group-numbered">
-              <li class="list-group-item d-flex justify-content-between align-items-start p-4">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Assignment One</div>
-                </div>
-                <span class="badge bg-secondary">A</span>
               </li>
             </ol>
           </div>
@@ -62,32 +77,7 @@
   </div>
 </div>
 
-<div class="modal fade text-dark" id="addAssignment" tabindex="-1" aria-labelledby="addAssignment" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addAssignment">Assignment</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <h6>Title from Assignment</h6>
-          </div>
-          <div class="mb-3">
-            <div class="text-muted fs-6">
-              Description from Assignment
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+<script src="/js/studentsView.js"></script>
 {{>footer}}
 </body>
 </html>

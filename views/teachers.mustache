@@ -8,8 +8,8 @@
   Create, update, delete assignments for your students.
 </p>
 <div class="container-xl bg-light text-dark w-50 mt-5 p-5 shadow rounded">
-  <div class="d-flex justify-content-between mb-4">
-    <div class="mt-2">
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
       <button type="button" class="btn btn-outline-primary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#addAssignment">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg me-1" viewBox="0 0 16 16">
         <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
@@ -36,36 +36,19 @@
             <ol class="list-group list-group-numbered list-students">
               <li class="list-group-item d-flex justify-content-between align-items-start p-4">
                 <div class="ms-2 me-auto">
-                  <h4 class="h4">Student ID</h4>
+                  <h4 class="h4">Student Name</h4>
+                  <p class="lead text-muted">student_email@email.com</p>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item pb-3 pt-3">
                       <h6 class="">Assignment One</h6>
-                        <select class="form-select rounded border-dark">
-                          <option selected>Grade</option>
-                          <option value="100">A</option>
-                          <option values="80">B</option>
-                          <option value="60">C</option>
-                          <option values="40">D</option>
-                          <option value="20">E</option>
-                          <option values="0">F</option>
-                        </select>
                     </li>
                     <li class="list-group-item pb-3 pt-3">
-                      <h6 class="">Assignment One</h6>
-                        <select class="form-select rounded border-dark">
-                          <option selected>Grade</option>
-                          <option value="100">A</option>
-                          <option values="80">B</option>
-                          <option value="60">C</option>
-                          <option values="40">D</option>
-                          <option value="20">E</option>
-                          <option values="0">F</option>
-                        </select>
+                      <h6 class="">Assignment Two</h6>
                     </li>
                   </ul>
                 </div>
                 <div class="text-center d-flex flex-column align-self-start">
-                  <span class="text-muted">Total</span>
+                  <span class="text-muted mb-1">Total</span>
                   <span class="badge bg-success rounded-circle badge-grade d-flex justify-content-center align-items-center">100</span>
                 </div>
               </li>
@@ -73,79 +56,61 @@
           </div>
         </div>
         <div class="tab-pane fade" id="assignments" role="assignments" aria-labelledby="assignments-tab">
-          <div class="input-group mb-3">
-            <div class="input-group mb-3 justify-content-end">
-
+          <div class="search-container mb-3 justify-content-end">
+            <div class="mb-3 search-all">
               <form action="/assignments" method="get">
                 <input type="submit" class="btn btn-link p-0" id="getAll" value="Get All Assignments" />
               </form>
-              
-              {{ !<a class="btn btn-link p-0" id="getAll" href="/assignments" role="button">Get All Assignments</a>}}
-              {{ !<button type="button" class="btn btn-link p-0" id="getAll">Get All Assignments</button>}}
             </div>
-
-
-            <form action="/assignments/search" method="get">
-            <input name="title" type="search" class="form-control" placeholder="Search assignments by title, by student ID" aria-label=Assignment title" aria-describedby="search">
-            <input type="submit" class="btn btn-secondary" id="search" value="Search" />
-            {{! <button class="btn btn-secondary" type="button" id="search">Search</button> }}
-            </form>
-
+            <div class="mb-3 search-query">
+              <form action="/assignments/search" method="get">
+              <div class="input-group">
+                <input name="title" type="search" class="form-control" placeholder="Search assignments by title, by student ID" aria-label=Assignment title" aria-describedby="search">
+                <input type="submit" class="btn btn-secondary" id="search" value="Search" />
+                {{! <button class="btn btn-secondary" type="button" id="search">Search</button> }}
+                </div>
+              </form>
+            </div>
           </div>
-          <div id="students_list">
-            <ol class="list-group list-group-numbered">
-              <li class="list-group-item d-flex justify-content-between align-items-start pt-3 pb-3">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Assignment Title</div>
-                  <div class="mt-2">
-                    <div class="row">
-                      <div class="col col-w-150">
-                        <select class="form-select rounded border-dark">
-                          <option selected>Grade</option>
-                          <option value="100">A</option>
-                          <option values="80">B</option>
-                          <option value="60">C</option>
-                          <option values="40">D</option>
-                          <option value="20">E</option>
-                          <option values="0">F</option>
-                        </select>
+          <div>
+            <ol class="list-group list-group-numbered list-non-number">
+              <li class="list-group-item">
+                <div id="assignments_list">
+                <div class="d-flex justify-content-between align-items-start pt-3 pb-3">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Assignment Title</div>
+                    <div class="mt-2 d-flex">
+                      <div class="me-3">
+                        <form id="selectGradeForm">
+                          <select id="selectGrade" class="form-select rounded border-dark">
+                            <option value="none" selected>Grade</option>
+                            <option value="100">A</option>
+                            <option value="80">B</option>
+                            <option value="60">C</option>
+                            <option value="40">D</option>
+                            <option value="20">E</option>
+                            <option value="0">F</option>
+                          </select>
+                        </form>
                       </div>
-                      <div class="col">
-                        <button type="button" class="btn btn-outline-danger">Delete</button>
+                        <div class="me-3 position-relative">
+                          <button type="button" id="btnGradeConfirm" class="btn btn-success invisible">Confirm</button>
+                          <span id="checkmark" class="badge rounded-pill bg-success invisible checkmark position-absolute top-50 start-0 translate-middle-y text-light d-flex align-items-center justify-content-center">
+                            <span>&#10003;</span>
+                          </span>
+                        </div>
                       </div>
+                  </div>
+                  <div class="text-center d-flex flex-column justify-content-between">
+                    <div class="d-flex align-self-top flex-column">
+                      <span class="text-muted">Due date</span>
+                      <span class="badge bg-warning badge-pill">Sep 6</span>
+                    </div>
+                    <div class="mt-2">
+                      <button type="button" class="btn btn-link text-danger">Delete</button>
                     </div>
                   </div>
-                </div>
-                <div class="text-center d-flex flex-column align-self-center">
-                  <span class="text-muted">Due date</span>
-                  <span class="badge bg-warning badge-pill">Sep 6</span>
-                </div>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-start pt-3 pb-3">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Assignment Title</div>
-                  <div class="mt-2">
-                    <div class="row">
-                      <div class="col col-w-150">
-                        <select class="form-select rounded border-dark">
-                          <option selected>Grade</option>
-                          <option value="100">A</option>
-                          <option values="80">B</option>
-                          <option value="60">C</option>
-                          <option values="40">D</option>
-                          <option value="20">E</option>
-                          <option values="0">F</option>
-                        </select>
-                      </div>
-                      <div class="col">
-                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                      </div>
-                    </div>
                   </div>
-                </div>
-                <div class="text-center d-flex flex-column align-self-center">
-                  <span class="text-muted">Due date</span>
-                  <span class="badge bg-warning badge-pill">Sep 6</span>
                 </div>
               </li>
             </ol>
@@ -213,6 +178,7 @@
   </div>
 </div>
 
+<script src="/js/teachersView.js"></script>
 {{>footer}}
 </body>
 </html>
