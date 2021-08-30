@@ -21,7 +21,7 @@
     <div class="col">
       <div class="tab-content bg-white p-4 shadow rounded" id="myTabContent">
         <div class="tab-pane fade show active" id="assignments" role="assignments" aria-labelledby="assignments-tab">
-          <h4 class="h4 mb-3">Assignments for <span>Student Name</span></h4>
+          <h4 class="h4 mb-3">Assignments for <span>{{ user.name }}</span></h4>
           <div class="mb-3">
             <form action="/assignments/assignmentsForStudent" method="get">
               <input type="submit" class="btn btn-outline-primary" value="View All Assignments" />
@@ -33,8 +33,10 @@
                 <div id="assignments_list">
                   <div class="row">
 
+
+                    {{ #assignments }}
                     <div class="col-9">
-                      <div class="fw-bold">Assignment Title</div>
+                      <div class="fw-bold">{{ title }}</div>
 
                       <div id="assignments_desc" class="assignments-desc">
                         <p id="headingTwo" class="mb-1">
@@ -44,7 +46,7 @@
                         </p>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                           <div class="">
-                            Assignment description
+                            {{ content }}
                           </div>
                         </div>
                       </div>
@@ -53,11 +55,12 @@
                         <button type="button" id="btnAssgnSubmit" class="btn btn-success">Submit</button>
                       </div>
                     </div>
+                   
 
                     <div class="text-center d-flex flex-column justify-content-start align-items-end col-3">
                       <div id="dueDate" class="d-flex align-self-top justify-content-center flex-column mb-2">
                         <span class="text-muted">Due date</span>
-                        <span class="badge bg-warning badge-pill">Sep 6</span>
+                        <span class="badge bg-warning badge-pill">{{ dueDate }}</span>
                       </div>
                       {{!
                       <div>
@@ -68,6 +71,7 @@
                             <span>&#10003;</span>
                       </span>
                     </div>
+                     {{ /assignments }}
 
                   </div>
                 </div>

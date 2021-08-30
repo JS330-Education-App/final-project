@@ -28,13 +28,14 @@
             </form>
           </div>
             <ol class="list-group list-group-numbered list-non-number">
+              {{ #assignments }}
               <li class="list-group-item d-flex justify-content-between align-items-center p-4">
                 <div class="me-auto">
-                  <div class="fw-bold">Assignment One</div>
+                  <div class="fw-bold">{{ title }}</div>
                 </div>
                 <span class="badge badge-pill bg-warning">A</span>
               </li>
-            {{ /assignments }}
+              {{ /assignments }}
 
             </ol>
           </div>
