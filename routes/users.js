@@ -261,8 +261,10 @@ router.get("/allStudents", async(req, res, next) => {
         }
 
         const students = await userDAO.getAllStudents(req.user._id);
+        console.log('students', students);
+        //res.json(students);
+        res.render('teachers', { students: students, user: req.user });
 
-        res.json(students);
     } catch (e) {
         console.log("error ", e.message);
         next(e);

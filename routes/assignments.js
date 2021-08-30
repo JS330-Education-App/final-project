@@ -156,6 +156,7 @@ router.post("/", async(req, res, next) => {
         );
 
         res.json(postedAssignment);
+        //res.render('teachers', { postAssignment: postedAssignment, user: req.user, studentEmail: req.body.studentEmail });
     } catch (e) {
         console.log("error ", e.message);
         next(e);
@@ -177,7 +178,8 @@ router.get("/search", async(req, res, next) => {
         //perPage = perPage ? Number(perPage) : 10;
         //const result = await assignmentDAO.search(query, page, perPage);
         const result = await assignmentDAO.partialSearch(query);
-        res.json(result);
+        //res.json(result);
+        res.render('teachers', { searchResults: result, user: req.user });
     } catch (e) {
         console.log("error ", e.message);
         next(e);
@@ -196,7 +198,9 @@ router.get("/", async(req, res, next) => {
         const userId = req.user._id;
         const assignments = await assignmentDAO.getAllAssignments(userId);
 
-        res.json(assignments);
+        //res.json(assignments);
+        res.render('teachers', { assignments: assignments, user: req.user });
+
     } catch (e) {
         console.log("error ", e.message);
         next(e);
