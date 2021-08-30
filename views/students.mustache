@@ -13,25 +13,20 @@
       <span class="text-muted mb-1">Total</span>
       <span class="badge bg-success rounded-circle badge-grade d-flex justify-content-center align-items-center">100</span>
     </div>
-
-    <form action="/assignments/assignmentsForStudent" method="get">
-      <input type="submit" class="btn btn-outline-primary" value="View All Assignments" />
-    </form>
-
-
     {{! <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addAssignment">View All Assignments</button> }}
     <a class="btn btn-danger" href="/logout" role="button">Logout</a>
     {{! <button type="button" class="btn btn-danger">Logout</button> }}
   </div>
   <div class="row align-items-start">
     <div class="col">
-      <ul class="nav nav-tabs position-relative border-0" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link border-0 active" id="assignments-tab" data-bs-toggle="tab" data-bs-target="#assignments" type="button" role="tab" aria-controls="assignments" aria-selected="false">Assignments</button>
-        </li>
-      </ul>
       <div class="tab-content bg-white p-4 shadow rounded" id="myTabContent">
         <div class="tab-pane fade show active" id="assignments" role="assignments" aria-labelledby="assignments-tab">
+          <h4 class="h4 mb-3">Assignments for <span>Student Name</span></h4>
+          <div class="mb-3">
+            <form action="/assignments/assignmentsForStudent" method="get">
+              <input type="submit" class="btn btn-outline-primary" value="View All Assignments" />
+            </form>
+          </div>
           <div id="students_assign_list">
             <ol class="list-group list-group-numbered list-non-number">
               <li class="list-group-item p-4">
