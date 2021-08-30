@@ -171,14 +171,14 @@ router.post("/login", async(req, res, next) => {
         console.log("token", token);
 
         if (token) {
-            res.cookie('AuthToken', token, { expires: new Date(Date.now() + 8 * 3600000) }); // cookie will be removed after 8 hours
-            if (userFromDB.role === 'teacher') {
-                res.redirect('/teachers');
-            } else if (userFromDB.role === 'student') {
-                res.redirect('/students');
-            } else if (userFromDB.role === 'parent') {
-                res.redirect('/parents');
-            }
+          res.cookie('AuthToken', `Bearer ${token}`, {expires: new Date(Date.now() + 8 * 3600000)});  // cookie will be removed after 8 hours
+          if (userFromDB.role === 'teacher') {
+            res.redirect('/users/teachers');
+          } else if (userFromDB.role === 'student') {
+            res.redirect('/users/students');
+          } else if (userFromDB.role === 'parent') {
+            res.redirect('/users/parents');
+          }
         };
 
     } catch (e) {
