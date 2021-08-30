@@ -163,37 +163,38 @@ router.get("/", async(req, res, next) => {
 
 
 
-// get all assignment  for a student, when user is logged in as a student
-router.get("/student/:id", async(req, res, next) => {
-  try {
-      if (req.user.role === "parent") {
-          throw new Error("Unauthorized");
-      }
-      const studentId = req.params.id;
-      const assignments = await assignmentDAO.getAssignmentsByStudentId(studentId);
+// get all assignment  for a student, when user is logged in as a student - option 1
+// router.get("/student/:id", async(req, res, next) => {
+//   try {
+//       if (req.user.role === "parent") {
+//           throw new Error("Unauthorized");
+//       }
+//       const studentId = req.params.id;
+//       const assignments = await assignmentDAO.getAssignmentsByStudentId(studentId);
 
-      res.json(assignments);
-  } catch (e) {
-      console.log("error ", e.message);
-      next(e);
-  }
-});
-
-// router.get("/assignmentsForStudent", async(req, res, next) => {
-//     try {
-//         if (req.user.role !== "student") {
-//             throw new Error("Unauthorized");
-//         }
-//         const email = req.user.email;
-//         const student = await userDAO.getUser(email);
-//         const assignments = await assignmentDAO.getAssignmentsByStudentId(student._id);
-//         res.json(assignments);
-
-//     } catch (e) {
-//         console.log("error ", e.message);
-//         next(e);
-//     }
+//       res.json(assignments);
+//   } catch (e) {
+//       console.log("error ", e.message);
+//       next(e);
+//   }
 // });
+
+// get all assignment  for a student, when user is logged in as a student - option 2
+router.get("/assignmentsForStudent", async(req, res, next) => {
+    try {
+        if (req.user.role !== "student") {
+            throw new Error("Unauthorized");
+        }
+        const email = req.user.email;
+        const student = await userDAO.getUser(email);
+        const assignments = await assignmentDAO.getAssignmentsByStudentId(student._id);
+        res.json(assignments);
+
+    } catch (e) {
+        console.log("error ", e.message);
+        next(e);
+    }
+});
 
 // get all assignment  for a parent, when user is logged in as a parent
 router.get("/assignmentsForParent", async(req, res, next) => {
