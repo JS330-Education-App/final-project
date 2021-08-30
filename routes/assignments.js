@@ -110,11 +110,10 @@ router.get("/search", async(req, res, next) => {
         //let { page, perPage, query } = req.query;
         let query = req.query.title;
         console.log('query ', query);
-
         //page = page ? Number(page) : 0;
         //perPage = perPage ? Number(perPage) : 10;
         //const result = await assignmentDAO.search(query, page, perPage);
-        const result = await assignmentDAO.search(query);
+        const result = await assignmentDAO.partialSearch(query);
         res.json(result);
     } catch (e) {
         console.log("error ", e.message);
@@ -143,20 +142,81 @@ router.get("/", async(req, res, next) => {
 
 
 // get all assignment  for a student, :id == student id
-router.get("/student/:id", async(req, res, next) => {
+// update call's name
+// router.get("/student/:id", async(req, res, next) => {
+//     try {
+//         if (req.user.role === "parent") {
+//             throw new Error("Unauthorized");
+//         }
+//         const studentId = req.params.id;
+//         const assignments = await assignmentDAO.getAssignmentsByStudentId(studentId);
+
+//         res.json(assignments);
+//         // title and due date
+//     } catch (e) {
+//         console.log("error ", e.message);
+//         next(e);
+//     }
+// });
+
+
+
+// get all assignment  for a student, when user is logged in as a student
+router.get("/assignmentsForStudent", async(req, res, next) => {
     try {
-        if (req.user.role === "parent") {
+        if (req.user.role !== "student") {
             throw new Error("Unauthorized");
         }
-        const studentId = req.params.id;
-        const assignments = await assignmentDAO.getAssignmentsByStudentId(studentId);
-
+        const email = req.user.email;
+        const student = await userDAO.getUser(email);
+        const assignments = await assignmentDAO.getAssignmentsByStudentId(student._id);
         res.json(assignments);
+
     } catch (e) {
         console.log("error ", e.message);
         next(e);
     }
 });
+
+// get all assignment  for a parent, when user is logged in as a parent
+router.get("/assignmentsForParent", async(req, res, next) => {
+    try {
+        if (req.user.role !== "parent") {
+            throw new Error("Unauthorized");
+        }
+        const studentId = req.user.externalID;
+        const assignments = await assignmentDAO.getAssignmentsByStudentId(studentId);
+        res.json(assignments);
+
+    } catch (e) {
+        console.log("error ", e.message);
+        next(e);
+    }
+});
+
+
+// submit assignment, only for a student
+// {
+//     "title": "level8@gmai.com"
+
+// }
+
+router.put("/submit", async(req, res, next) => {
+    try {
+
+        if (req.user.role !== "student") {
+            throw new Error("Unauthorized");
+        }
+        const assignmentId = req.params.id;
+        const grade = parseInt(req.body.grade);
+        const assignment = await assignmentDAO.updateAssignment(assignmentId, grade);
+        res.json(assignment);
+    } catch (e) {
+        console.log("error ", e.message);
+        next(e);
+    }
+});
+
 
 // get avarege grade  for a student by student id
 router.get("/student/grades/:id", async(req, res, next) => {

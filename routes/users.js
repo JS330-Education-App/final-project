@@ -156,7 +156,7 @@ router.post("/login", async(req, res, next) => {
             res.status(401).send("Passwords do not match");
             return;
         }
-        res.status(200);
+        // res.status(200);
 
         const data = {
             _id: userFromDB._id,
@@ -167,15 +167,18 @@ router.post("/login", async(req, res, next) => {
 
         let token = await jwt.sign(data, secret, { expiresIn: '1 day' });
 
+        // res.json(token);
+        console.log("token", token);
+
         if (token) {
-          res.cookie('AuthToken', token, {expires: new Date(Date.now() + 8 * 3600000)});  // cookie will be removed after 8 hours
-          if (userFromDB.role === 'teacher') {
-            res.redirect('/users/teachers');
-          } else if (userFromDB.role === 'student') {
-            res.redirect('/users/students');
-          } else if (userFromDB.role === 'parent') {
-            res.redirect('/users/parents');
-          }
+            res.cookie('AuthToken', token, { expires: new Date(Date.now() + 8 * 3600000) }); // cookie will be removed after 8 hours
+            if (userFromDB.role === 'teacher') {
+                res.redirect('/teachers');
+            } else if (userFromDB.role === 'student') {
+                res.redirect('/students');
+            } else if (userFromDB.role === 'parent') {
+                res.redirect('/parents');
+            }
         };
 
     } catch (e) {

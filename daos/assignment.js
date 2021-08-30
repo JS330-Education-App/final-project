@@ -75,7 +75,29 @@ module.exports.getAvgGradeByStudentId = async(studentId) => {
 // };
 
 module.exports.search = (query) => {
-  return Assignment.find({ $text: { $search: query } }, { score: { $meta: "textScore" } })
-      .sort({ score: { $meta: "textScore" } })
-      .lean();
+    return Assignment.find({ $text: { $search: query } }, { score: { $meta: "textScore" } })
+        .sort({ score: { $meta: "textScore" } })
+        .lean();
+};
+
+module.exports.partialSearch = async(query) => {
+    const result = await Assignment.aggregate([{
+        $match: {
+            $or: [{
+                    title: {
+                        $regex: query,
+                        '$options': 'i'
+                    }
+                },
+                {
+                    content: {
+                        $regex: query,
+                        '$options': 'i'
+                    }
+                }
+            ]
+        }
+    }]);
+
+    return result;
 };
