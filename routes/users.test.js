@@ -382,6 +382,7 @@ describe('/login', () => {
             it('should return 302 after logging in', async() => {
                 const res = await request(server).post('/users/login').send(user);
                 expect(res.statusCode).toEqual(302);
+                //expect(typeof res.body.token).toEqual('string');
             });
             it('should not store token on user', async() => {
                 const res = await request(server).post('/users/login').send(user);

@@ -3,21 +3,17 @@ const jwt = require('jsonwebtoken');
 const secret = "my_super_secret";
 
 const isLoggedIn = async function(req, res, next) {
-    //let token = req.header('Authorization');
     let token = req.cookies['AuthToken'];
-
-    //let token = req.headers.authorization;
-    //let token = req.params.token;
     if (!token) {
         res.status(401).send("Token not found");
         return;
     }
-    // let bearer = 'Bearer ';
-    // if (!token.startsWith(bearer)) {
-    //     res.status(401).send("Token is not valid");
-    //     return;
-    // }
-    // token = token.substring(bearer.length).trim();
+    let bearer = 'Bearer ';
+    if (!token.startsWith(bearer)) {
+        res.status(401).send("Token is not valid");
+        return;
+    }
+    token = token.substring(bearer.length).trim();
 
     jwt.verify(token, secret, async(err) => {
         if (err) {

@@ -36,6 +36,7 @@ router.post("/:id", async(req, res, next) => {
         const userId = req.user._id;
         let assignment = req.body;
         assignment.grade = 0;
+        assignment.isSubmitted = false;
         const studentId = req.params.id;
         const student = await userDAO.getUserById(studentId);
 
@@ -79,6 +80,7 @@ router.post("/", async(req, res, next) => {
         const userId = req.user._id;
         let assignment = req.body;
         assignment.grade = 0;
+        assignment.isSubmitted = false;
         const studentEmail = req.body.studentEmail;
         const student = await userDAO.getUser(studentEmail);
 
@@ -161,7 +163,23 @@ router.get("/", async(req, res, next) => {
 
 
 
-// get all assignment  for a student, when user is logged in as a student
+// get all assignment  for a student, when user is logged in as a student - option 1
+// router.get("/student/:id", async(req, res, next) => {
+//   try {
+//       if (req.user.role === "parent") {
+//           throw new Error("Unauthorized");
+//       }
+//       const studentId = req.params.id;
+//       const assignments = await assignmentDAO.getAssignmentsByStudentId(studentId);
+
+//       res.json(assignments);
+//   } catch (e) {
+//       console.log("error ", e.message);
+//       next(e);
+//   }
+// });
+
+// get all assignment  for a student, when user is logged in as a student - option 2
 router.get("/assignmentsForStudent", async(req, res, next) => {
     try {
         if (req.user.role !== "student") {
@@ -196,20 +214,16 @@ router.get("/assignmentsForParent", async(req, res, next) => {
 
 
 // submit assignment, only for a student
-// {
-//     "title": "level8@gmai.com"
+// :id - assignment id
 
-// }
-
-router.put("/submit", async(req, res, next) => {
+router.put("/submit/:id", async(req, res, next) => {
     try {
 
         if (req.user.role !== "student") {
             throw new Error("Unauthorized");
         }
         const assignmentId = req.params.id;
-        const grade = parseInt(req.body.grade);
-        const assignment = await assignmentDAO.updateAssignment(assignmentId, grade);
+        const assignment = await assignmentDAO.submitAssignment(assignmentId);
         res.json(assignment);
     } catch (e) {
         console.log("error ", e.message);
@@ -284,7 +298,7 @@ router.put("/:id", async(req, res, next) => {
         }
         const assignmentId = req.params.id;
         const grade = parseInt(req.body.grade);
-        const assignment = await assignmentDAO.updateAssignment(assignmentId, grade);
+        const assignment = await assignmentDAO.gradeAssignment(assignmentId, grade);
         res.json(assignment);
     } catch (e) {
         console.log("error ", e.message);

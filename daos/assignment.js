@@ -37,8 +37,18 @@ module.exports.deleteAssignment = async(assignmentId) => {
     const assignment = await Assignment.deleteOne({ _id: assignmentId });
 };
 
-module.exports.updateAssignment = async(assignmentId, grade) => {
+module.exports.gradeAssignment = async(assignmentId, grade) => {
     const assignment = await Assignment.findOneAndUpdate({ _id: assignmentId }, { grade: grade });
+    if (!assignment) {
+        throw new Error("Not found");
+    }
+
+    return assignment;
+};
+
+
+module.exports.submitAssignment = async(assignmentId) => {
+    const assignment = await Assignment.findOneAndUpdate({ _id: assignmentId }, { $set: { 'isSubmitted': true } });
     if (!assignment) {
         throw new Error("Not found");
     }
