@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const secret = "my_super_secret";
 
 const isLoggedIn = async function(req, res, next) {
-    let token = req.header('Authorization');
+    let token = req.cookies['AuthToken'];
     if (!token) {
         res.status(401).send("Token not found");
         return;
@@ -25,22 +25,10 @@ const isLoggedIn = async function(req, res, next) {
 
         req.token = token;
         req.user = user;
+
         next();
 
     });
 };
 
-const role = (req, res, next) => {
-  if (req.user.role.includes('teacher')) {
-    req.user.role = 'teacher';
-  } else if (req.user.role.includes('student')) {
-    req.user.role = 'student';
-  } else if (req.user.role.includes('parent')) {
-    req.user.role = 'parent';
-  }
-  next();
-};
-
-
-
-module.exports = { isLoggedIn, role };
+module.exports = isLoggedIn;

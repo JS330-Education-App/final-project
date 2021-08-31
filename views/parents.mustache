@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+{{>header}}
+<body class="bg-dark text-light h-100">
+<h1 class="display-3 mt-5 mb-4 text-center">Hello, {{user.name}}!</h1>
+<hr/ class="half-size">
+<p class="lead mt-4 mb-5 text-center">
+  View your child assignments and grades.
+</p>
+<div class="container-xl bg-light text-dark w-50 mt-5 p-5 shadow rounded">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="text-center d-flex flex-column align-self-start">
+      <span class="text-muted mb-1">Total</span>
+      <span class="badge bg-success rounded-circle badge-grade d-flex justify-content-center align-items-center">100</span>
+    </div>
+    <a class="btn btn-danger" href="/logout" role="button">Logout</a>
+  </div>
+
+  <div class="row align-items-start">
+    <div class="col">
+      <div class="tab-content bg-white p-4 shadow rounded" id="myTabContent">
+        <div class="tab-pane fade show active" id="graded" role="tabpanel" aria-labelledby="graded-tab">
+          <div id="graded_list">
+          <h4 class="h4 mb-3">Grades for <span>Student Name</span></h4>
+          <div class="mb-3">
+            <form action="/assignments/assignmentsForParent" method="get">
+              <input type="submit" class="btn btn-outline-primary" value="View All Assignments" />
+            </form>
+          </div>
+            <ol class="list-group list-group-numbered list-non-number">
+              {{ #assignments }}
+              <li class="list-group-item d-flex justify-content-between align-items-center p-4">
+                <div class="me-auto">
+                  <div class="fw-bold">{{ title }}</div>
+                </div>
+                <span class="badge badge-pill bg-warning">A</span>
+              </li>
+              {{ /assignments }}
+
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{>footer}}
+</body>
+</html>

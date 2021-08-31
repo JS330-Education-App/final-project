@@ -4,13 +4,41 @@
 }
 
 .invisible {
-  display: none;
+  display: none !important;
+  visibility: hidden !important;
 }
 
 .visible {
-  display: block;
+  display: block !important;
+  visibility: visible !important;
 }
 
 .link-login:hover {
   text-decoration: underline !important;
+}
+
+.badge-grade {
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.list-students>li:before {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.checkmark {
+  width: 30px;
+  height: 30px;
+  color: #ffffff !important;
+}
+
+.list-group-numbered.list-non-number>li::before {
+  content: '';
+}
+
+/* hack, delete after the Date will be trimmed in JS file */
+.dueDate {
+  width: 80px;
+  overflow: hidden;
 }

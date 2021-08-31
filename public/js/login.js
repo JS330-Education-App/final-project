@@ -18,4 +18,4 @@ role.addEventListener('change', function() {
     } else {
         document.getElementById('form-parent').classList.add('invisible');
     }
-})
+});
