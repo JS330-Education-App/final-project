@@ -9,8 +9,15 @@ btnAssgnSubmit.addEventListener('click', function() {
     studentsAssngList.classList.add('assgn_submitted');
     dueDate.classList.add('invisible');
     btnAssgnSubmit.classList.add('invisible');
-    AssgnDesc.classList.add('invisible');
+    // AssgnDesc.classList.add('invisible');
     checkmark.classList.remove('invisible');
+})
+
+const showDesc = document.getElementsByClassName('collapsed');
+console.log(showDesc)
+
+showDesc.addEventListener('click', function() {
+    document.querySelector('div.invisible').remove('invisible')
 })
 
 // TODO: Add condition to check if assignment was graded

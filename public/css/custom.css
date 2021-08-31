@@ -23,9 +23,8 @@
 }
 
 .list-students>li:before {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 500;
-  line-height: 1.2;
 }
 
 .checkmark {
@@ -36,4 +35,10 @@
 
 .list-group-numbered.list-non-number>li::before {
   content: '';
+}
+
+/* hack, delete after the Date will be trimmed in JS file */
+.dueDate {
+  width: 80px;
+  overflow: hidden;
 }

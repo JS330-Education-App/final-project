@@ -1,7 +1,10 @@
-const isGradeSelected = document.getElementById('selectGrade');
-const assignmentList = document.getElementById('assignments_list');
-const btnGradeConfirm = document.getElementById('btnGradeConfirm');
-const checkmark = document.getElementById('checkmark');
+const isGradeSelected = document.querySelector('select.selectGrade');
+const assignmentList = document.querySelector('ol.assignments-list li div');
+const btnGradeConfirm = document.querySelector('button.btnGradeConfirm');
+const checkmark = document.querySelector('span.checkmark');
+const getAllAssignments = document.getElementById('getAllAssignments');
+let dueDate = document.getElementsByClassName('dueDate');
+console.log(dueDate)
 
 // Select listener: adding/removing status classes and showing confirmation button and checkmark
 isGradeSelected.addEventListener('change', function() {
@@ -42,6 +45,27 @@ btnGradeConfirm.addEventListener('click', function() {
     assignmentList.classList.add('grade-confirmed');
     btnGradeConfirm.classList.add('invisible');
     checkmark.classList.remove('invisible');
-})
+});
+
+// Date formatting
+
+const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+for (i = 0; i < dueDate.length; i++) {
+    console.log(dueDate);
+    let dueDateFormat = new Date(dueDate[i].innerHTML);
+    console.log(`Inner HTML: ${dueDateFormat}`)
+
+    const dueDateDay = dueDateFormat.getDate();
+    const dueDateMonthNum = dueDateFormat.getMonth();
+    const dueDateMonth = month[dueDateMonthNum];
+    dueDate.innerHTML = `${dueDateMonth}, ${dueDateDay}`;
+    dueDateFormat = dueDate.innerHTML;
+}
+
+const dueDateFormat = new Date(dueDate.innerHTML);
+const dueDateDay = dueDateFormat.getDate();
+const dueDateMonthNum = dueDateFormat.getMonth();
+const dueDateMonth = month[dueDateMonthNum];
+dueDate.innerHTML = `${dueDateMonth}, ${dueDateDay}`
 
 
