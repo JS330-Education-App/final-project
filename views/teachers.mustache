@@ -24,7 +24,7 @@
     <div class="bg-white p-4 shadow rounded w-50 me-4">
       <h3 class="h3 mb-3">My class</h3>
       <div id="students">
-        
+
         <div class="mb-3">
           <form action="/users/allStudents" method="get">
             <input type="submit" class="btn btn-outline-primary" id="getAllStudents" value="Get All Students" />
@@ -82,7 +82,7 @@
 
           </div>
 
-            
+
           <ol class="list-group list-group-numbered list-non-number list-assignments-search">
           {{ #searchResults }}
             <li class="list-group-item">
@@ -190,7 +190,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="/assignments" method="post"> 
+      <form action="/assignments" method="post">
         {{! <form> }}
           <div class="mb-3">
             <label for="assignment_title" class="form-label">Title</label>
@@ -214,7 +214,7 @@
                   <option selected>Select student</option>
                   <option value="student@email.com">student@email.com</option>
                   <option value="level8@gmai.com">level8@gmai.com</option>
-                  <option value=""></option>
+                  <option value="teststudentpresent@gmail.com">teststudentpresent@gmail.com</option>
                 </select>
               </div>
             </div>
@@ -224,8 +224,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        
-        
+
+
           <input type="submit" class="btn btn-primary" value="Save changes" />
         </form>
 
