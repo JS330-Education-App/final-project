@@ -20,8 +20,8 @@ module.exports.getUserById = async(userId) => {
 }
 
 
-module.exports.getStudentById = async(studentId, teacherId) => {
-    return await User.findOne({ _id: studentId, externalID: teacherId }).lean();
+module.exports.getStudentById = async(studentId, externalId) => {
+    return await User.findOne({ _id: studentId, externalID: externalId }).lean();
 }
 
 
@@ -35,7 +35,7 @@ module.exports.getStudentByEmail = async(studentEmail, teacherId) => {
 
 // }
 
-module.exports.getAllStudents = async(teacherId) => {
+module.exports.getAllStudentsEmails = async(teacherId) => {
     const result = await User.aggregate([
         { $match: { externalID: mongoose.Types.ObjectId(teacherId) } },
         {
@@ -45,13 +45,20 @@ module.exports.getAllStudents = async(teacherId) => {
 
             },
         },
-        { $project: { _id: 0, email: "$email", averageGrade: 1 } },
+        { $project: { _id: 0, email: "$email" } },
         { $unwind: '$email' },
     ]);
 
     if (!result) {
         throw new Error("Not found");
     }
+    return result;
+
+}
+
+module.exports.getAllStudents = async(teacherId) => {
+    const result = await User.find({ externalID: teacherId });
+
     return result;
 
 }

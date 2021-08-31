@@ -171,15 +171,11 @@ router.get("/search", async(req, res, next) => {
         if (req.user.role === "parent") {
             throw new Error("Unauthorized");
         }
-        //let { page, perPage, query } = req.query;
         let query = req.query.title;
         console.log('query ', query);
-        //page = page ? Number(page) : 0;
-        //perPage = perPage ? Number(perPage) : 10;
-        //const result = await assignmentDAO.search(query, page, perPage);
         const result = await assignmentDAO.partialSearch(query);
-        //res.json(result);
-        res.render('teachers', { searchResults: result, user: req.user });
+        res.json(result);
+        // res.render('teachers', { searchResults: result, user: req.user });
     } catch (e) {
         console.log("error ", e.message);
         next(e);
@@ -226,23 +222,6 @@ router.get("/", async(req, res, next) => {
 //     }
 // });
 
-
-
-// get all assignment  for a student, when user is logged in as a student - option 1
-// router.get("/student/:id", async(req, res, next) => {
-//   try {
-//       if (req.user.role === "parent") {
-//           throw new Error("Unauthorized");
-//       }
-//       const studentId = req.params.id;
-//       const assignments = await assignmentDAO.getAssignmentsByStudentId(studentId);
-
-//       res.json(assignments);
-//   } catch (e) {
-//       console.log("error ", e.message);
-//       next(e);
-//   }
-// });
 
 // get all assignment  for a student, when user is logged in as a student - option 2
 router.get("/assignmentsForStudent", async(req, res, next) => {

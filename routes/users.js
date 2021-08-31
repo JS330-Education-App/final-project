@@ -171,14 +171,14 @@ router.post("/login", async(req, res, next) => {
         console.log("token", token);
 
         if (token) {
-          res.cookie('AuthToken', `Bearer ${token}`, {expires: new Date(Date.now() + 8 * 3600000)});  // cookie will be removed after 8 hours
-          if (userFromDB.role === 'teacher') {
-            res.redirect('/users/teachers');
-          } else if (userFromDB.role === 'student') {
-            res.redirect('/users/students');
-          } else if (userFromDB.role === 'parent') {
-            res.redirect('/users/parents');
-          }
+            res.cookie('AuthToken', `Bearer ${token}`, { expires: new Date(Date.now() + 8 * 3600000) }); // cookie will be removed after 8 hours
+            if (userFromDB.role === 'teacher') {
+                res.redirect('/users/teachers');
+            } else if (userFromDB.role === 'student') {
+                res.redirect('/users/students');
+            } else if (userFromDB.role === 'parent') {
+                res.redirect('/users/parents');
+            }
         };
 
     } catch (e) {
@@ -201,16 +201,16 @@ router.use(async(req, res, next) => {
 //   //res.render('home');
 // });
 
-// get one student by id only for teacher, teacher id should be equal student's ExternalId
+// get one student by id only for teacher and parent, teacher/parent id should be equal student's ExternalId
 router.get("/student/:id", async(req, res, next) => {
     try {
         //console.log("eq.user.role", req.user.role);
-        if (req.user.role !== "teacher") {
+        if (req.user.role !== "teacher" || req.user.role !== "parent") {
             throw new Error("Unauthorized");
         }
         const studentId = req.params.id;
-        const teacherId = req.user._id;
-        const student = await userDAO.getStudentById(studentId, teacherId);
+        const externalId = req.user._id;
+        const student = await userDAO.getStudentById(studentId, externalId);
         if (!student) {
             throw new Error("Not found");
         }
@@ -220,6 +220,8 @@ router.get("/student/:id", async(req, res, next) => {
         next(e);
     }
 });
+
+
 
 
 // get one student by student email only for teacher, teacher id should be equal student's ExternalId
@@ -254,6 +256,26 @@ router.post("/student", async(req, res, next) => {
 
 // get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
 // returns list of students' emails
+router.get("/getAllStudentsEmails", async(req, res, next) => {
+    try {
+        if (req.user.role !== "teacher") {
+            throw new Error("Unauthorized");
+        }
+
+        const students = await userDAO.getAllStudentsEmails(req.user._id);
+        console.log('students', students);
+        // res.json(students);
+        res.render('teachers', { students: students, user: req.user });
+
+    } catch (e) {
+        console.log("error ", e.message);
+        next(e);
+    }
+});
+
+
+// get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
+// returns list of students' emails
 router.get("/allStudents", async(req, res, next) => {
     try {
         if (req.user.role !== "teacher") {
@@ -262,7 +284,7 @@ router.get("/allStudents", async(req, res, next) => {
 
         const students = await userDAO.getAllStudents(req.user._id);
         console.log('students', students);
-        //res.json(students);
+        // res.json(students);
         res.render('teachers', { students: students, user: req.user });
 
     } catch (e) {
@@ -270,6 +292,7 @@ router.get("/allStudents", async(req, res, next) => {
         next(e);
     }
 });
+
 
 
 //   Change Password POST /password
