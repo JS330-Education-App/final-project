@@ -14,7 +14,7 @@ const errorHandler = require("../middleware/errorHandler");
 
 
 // get avarege grade   for a student by student email
-
+// Body request:
 // {
 //     "studentEmail": "level8@gmai.com"
 
@@ -33,37 +33,41 @@ router.post("/student/grades", async(req, res, next) => {
     }
 });
 
-// submit assignment, only for a student
-// :id - assignment id
-
-// router.put("/submit/:id", async(req, res, next) => {
-//     try {
-//         const assignmentId = req.params.id;
-//         console.log("from input ", assignmentId)
-//         if (req.user.role !== "student") {
-//             throw new Error("Unauthorized");
-//         }
-
-//         const assignment = await assignmentDAO.submitAssignment(assignmentId);
-//         res.json(assignment);
-//     } catch (e) {
-//         console.log("error ", e.message);
-//         next(e);
-//     }
-// });
-
-// { "assignmentId": "id" }
+// POST /submit 
+// Body request:
+// { "assignmentId": "612bca87ebb57f20e68e69e4" }
 
 router.post("/submit", async(req, res, next) => {
     try {
         const assignmentId = req.body.assignmentId;
-        console.log("from input ", assignmentId)
         if (req.user.role !== "student") {
             throw new Error("Unauthorized");
         }
-
         const assignment = await assignmentDAO.submitAssignment(assignmentId);
-        // res.render('students', { assignment: assignment, user: req.user });
+        res.render('students', { assignment: assignment, user: req.user });
+
+    } catch (e) {
+        console.log("error ", e.message);
+        next(e);
+    }
+});
+
+// grade assignment, only for a teacher. :id - assignment id
+// Body request:
+// {
+//     "assignmentId": "612bca87ebb57f20e68e69e4",
+//     "grade": "80"
+
+// }
+router.post("/grade", async(req, res, next) => {
+    try {
+
+        if (req.user.role !== "teacher") {
+            throw new Error("Unauthorized");
+        }
+        const assignmentId = req.body.assignmentId;
+        const grade = parseInt(req.body.grade);
+        const assignment = await assignmentDAO.gradeAssignment(assignmentId, grade);
         res.json(assignment);
     } catch (e) {
         console.log("error ", e.message);
@@ -72,52 +76,62 @@ router.post("/submit", async(req, res, next) => {
 });
 
 
-
-// POST /create assignment  - open to teacher only
-//  If the user is logged in, it should store the incoming assignemnt along with their userId
-// :id - studentId
-// JSON body  requst to post assignment using student email as ID
+// Delete an assignment. Only teacher can delete an asssignment. 
+// Body request:
 // {
-//    
-//     "title": "home work week from teacher@gmail.com",
-//     "content": "do at least something",
-//     "gradeLevel": "8",
-//     "grade": "0",
-//     "dueDate": "09/11/2021"
+//     "assignmentId": "612c284e8a6a0629e59d9384"
 
 // }
-// http://localhost:5000/assignments/:id
 
-router.post("/:id", async(req, res, next) => {
+router.post("/delete", async(req, res, next) => {
     try {
 
         if (req.user.role !== "teacher") {
             throw new Error("Unauthorized");
         }
-        const userId = req.user._id;
-        let assignment = req.body;
-        assignment.grade = 0;
-        assignment.isSubmitted = false;
-        const studentId = req.params.id;
-        const student = await userDAO.getUserById(studentId);
 
-        if (!assignment) {
-            throw new Error("Assignment not found");
-        }
-        assignment.studentID = student._id;
-        assignment.teacherID = userId;
-        const postedAssignment = await assignmentDAO.createAssignment(
-            assignment,
-            userId
-        );
+        const assignmentId = req.body.assignmentId;
+        const deleted = await assignmentDAO.deleteAssignment(assignmentId);
 
-        res.json(postedAssignment);
+        res.sendStatus(200);
     } catch (e) {
         console.log("error ", e.message);
         next(e);
     }
 });
 
+
+// // http://localhost:5000/assignments/:id
+
+// router.post("/:id", async(req, res, next) => {
+//     try {
+
+//         if (req.user.role !== "teacher") {
+//             throw new Error("Unauthorized");
+//         }
+//         const userId = req.user._id;
+//         let assignment = req.body;
+//         assignment.grade = 0;
+//         assignment.isSubmitted = false;
+//         const studentId = req.params.id;
+//         const student = await userDAO.getUserById(studentId);
+
+//         if (!assignment) {
+//             throw new Error("Assignment not found");
+//         }
+//         assignment.studentID = student._id;
+//         assignment.teacherID = userId;
+//         const postedAssignment = await assignmentDAO.createAssignment(
+//             assignment,
+//             userId
+//         );
+
+//         res.json(postedAssignment);
+//     } catch (e) {
+//         console.log("error ", e.message);
+//         next(e);
+//     }
+// });
 
 
 
@@ -150,19 +164,21 @@ router.post("/", async(req, res, next) => {
         }
         assignment.studentID = student._id;
         assignment.teacherID = userId;
+        // const postedAssignment = await assignmentDAO.createAssignment(
+        //     assignment,
+        //     userId
+        // );
         const postedAssignment = await assignmentDAO.createAssignment(
-            assignment,
-            userId
+            assignment
         );
 
-        res.json(postedAssignment);
-        //res.render('teachers', { postAssignment: postedAssignment, user: req.user, studentEmail: req.body.studentEmail });
+        // res.json(postedAssignment);
+        res.render('teachers', { postAssignment: postedAssignment, user: req.user, studentEmail: req.body.studentEmail });
     } catch (e) {
         console.log("error ", e.message);
         next(e);
     }
 });
-
 
 
 // search by title/context
@@ -174,8 +190,8 @@ router.get("/search", async(req, res, next) => {
         let query = req.query.title;
         console.log('query ', query);
         const result = await assignmentDAO.partialSearch(query);
-        res.json(result);
-        // res.render('teachers', { searchResults: result, user: req.user });
+        // res.json(result);
+        res.render('teachers', { searchResults: result, user: req.user });
     } catch (e) {
         console.log("error ", e.message);
         next(e);
@@ -294,45 +310,6 @@ router.get("/:id", async(req, res, next) => {
     }
 });
 
-// grade assignment, only for a teacher
-// {
-//     "grade": "80"
-
-// }
-router.put("/:id", async(req, res, next) => {
-    try {
-
-        if (req.user.role !== "teacher") {
-            throw new Error("Unauthorized");
-        }
-        const assignmentId = req.params.id;
-        const grade = parseInt(req.body.grade);
-        const assignment = await assignmentDAO.gradeAssignment(assignmentId, grade);
-        res.json(assignment);
-    } catch (e) {
-        console.log("error ", e.message);
-        next(e);
-    }
-});
-
-
-// only teacher can delete asssignment
-router.delete("/:id", async(req, res, next) => {
-    try {
-
-        if (req.user.role !== "teacher") {
-            throw new Error("Unauthorized");
-        }
-
-        const assignmentId = req.params.id;
-        const deleted = await assignmentDAO.deleteAssignment(assignmentId);
-
-        res.sendStatus(200);
-    } catch (e) {
-        console.log("error ", e.message);
-        next(e);
-    }
-});
 
 
 router.use(async(err, req, res, next) => {
