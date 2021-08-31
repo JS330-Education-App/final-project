@@ -14,7 +14,7 @@ const errorHandler = require("../middleware/errorHandler");
 
 
 // get avarege grade   for a student by student email
-
+// Body request:
 // {
 //     "studentEmail": "level8@gmai.com"
 
