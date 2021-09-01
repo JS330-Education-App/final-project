@@ -114,12 +114,9 @@ router.post("/signup", async(req, res, next) => {
         }
 
         req.user = newUser;
-        //res.status(200).send("Ok");
-        //res.status(200).redirect('/login');
         res.redirect('/login');
 
     } catch (e) {
-        console.log(e);
         next(e)
     }
 });
@@ -156,7 +153,6 @@ router.post("/login", async(req, res, next) => {
             res.status(401).send("Passwords do not match");
             return;
         }
-        // res.status(200);
 
         const data = {
             _id: userFromDB._id,
@@ -167,8 +163,7 @@ router.post("/login", async(req, res, next) => {
 
         let token = await jwt.sign(data, secret, { expiresIn: '1 day' });
 
-        // res.json(token);
-        console.log("token", token);
+        // console.log("token", token);
 
         if (token) {
             res.cookie('AuthToken', `Bearer ${token}`, { expires: new Date(Date.now() + 8 * 3600000) }); // cookie will be removed after 8 hours
@@ -182,7 +177,6 @@ router.post("/login", async(req, res, next) => {
         };
 
     } catch (e) {
-        //console.log("error ", e.message);
         next(e);
     }
 });
@@ -197,14 +191,10 @@ router.use(async(req, res, next) => {
 });
 
 
-// router.get('/home', async(req, res, next) => {
-//   //res.render('home');
-// });
 
-// get one student by id only for teacher and parent, teacher/parent id should be equal student's ExternalId
+// Get one student by id only for teacher and parent, teacher/parent id should be equal student's ExternalId
 router.get("/student/:id", async(req, res, next) => {
     try {
-        //console.log("eq.user.role", req.user.role);
         if (req.user.role !== "teacher" || req.user.role !== "parent") {
             throw new Error("Unauthorized");
         }
@@ -216,7 +206,6 @@ router.get("/student/:id", async(req, res, next) => {
         }
         res.json(student);
     } catch (e) {
-        //console.log("error ", e.message);
         next(e);
     }
 });
@@ -224,37 +213,37 @@ router.get("/student/:id", async(req, res, next) => {
 
 
 
-// get one student by student email only for teacher, teacher id should be equal student's ExternalId
+// Get a student by student email only for teacher, teacher id should be equal student's ExternalId
+// Request body:
 // {
 //     "studentEmail": "level8@gmai.com"
 
 // }
-router.post("/student", async(req, res, next) => {
-    try {
+// router.post("/student", async(req, res, next) => {
+//     try {
 
-        if (req.user.role !== "teacher") {
-            throw new Error("Unauthorized");
-        }
-        const studentEmail = req.body.studentEmail;
-        if (!studentEmail) {
-            throw new Error("Empty request");
-        }
+//         if (req.user.role !== "teacher") {
+//             throw new Error("Unauthorized");
+//         }
+//         const studentEmail = req.body.studentEmail;
+//         if (!studentEmail) {
+//             throw new Error("Empty request");
+//         }
 
-        const teacherId = req.user._id;
-        const student = await userDAO.getStudentByEmail(studentEmail, teacherId);
-        if (!student) {
-            throw new Error("Not found");
-        }
-        res.json(student);
+//         const teacherId = req.user._id;
+//         const student = await userDAO.getStudentByEmail(studentEmail, teacherId);
+//         if (!student) {
+//             throw new Error("Not found");
+//         }
+//         res.json(student);
 
-    } catch (e) {
-        console.log("error ", e.message);
-        next(e);
-    }
-});
+//     } catch (e) {
+//         next(e);
+//     }
+// });
 
 
-// get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
+// Get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
 // returns list of students' emails
 router.get("/getAllStudentsEmails", async(req, res, next) => {
     try {
@@ -263,18 +252,15 @@ router.get("/getAllStudentsEmails", async(req, res, next) => {
         }
 
         const students = await userDAO.getAllStudentsEmails(req.user._id);
-        console.log('students', students);
-        // res.json(students);
         res.render('teachers', { students: students, user: req.user });
 
     } catch (e) {
-        console.log("error ", e.message);
         next(e);
     }
 });
 
 
-// get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
+// Get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
 // returns list of students' emails
 router.get("/allStudents", async(req, res, next) => {
     try {
@@ -284,11 +270,9 @@ router.get("/allStudents", async(req, res, next) => {
 
         const students = await userDAO.getAllStudents(req.user._id);
         console.log('students', students);
-        // res.json(students);
         res.render('teachers', { students: students, user: req.user });
 
     } catch (e) {
-        console.log("error ", e.message);
         next(e);
     }
 });
@@ -310,7 +294,6 @@ router.post("/password", async(req, res, next) => {
         );
         res.status(200).send("Ok");
     } catch (e) {
-        console.log("error ", e.message);
         next(e);
     }
 });

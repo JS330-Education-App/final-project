@@ -76,14 +76,6 @@ module.exports.getAvgGradeByStudentId = async(studentId) => {
 };
 
 
-// module.exports.search = (query, page, perPage) => {
-//     return Assignment.find({ $text: { $search: query } }, { score: { $meta: "textScore" } })
-//         .sort({ score: { $meta: "textScore" } })
-//         .limit(perPage)
-//         .skip(perPage * page)
-//         .lean();
-// };
-
 module.exports.search = (query) => {
     return Assignment.find({ $text: { $search: query } }, { score: { $meta: "textScore" } })
         .sort({ score: { $meta: "textScore" } })
