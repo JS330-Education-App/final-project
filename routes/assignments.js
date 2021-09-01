@@ -39,6 +39,7 @@ router.post("/student/grades", async(req, res, next) => {
 router.post("/submit", async(req, res, next) => {
     try {
         const assignmentId = req.body.assignmentId;
+
         if (req.user.role !== "student") {
             throw new Error("Unauthorized");
         }
@@ -73,7 +74,8 @@ router.post("/grade", async(req, res, next) => {
 });
 
 
-// Delete an assignment. Only teacher can delete an asssignment. Because ....
+// Delete an assignment. Only teacher can delete an asssignment. Because we cannot DELETE method
+// in HTML action form, we can use POST method to delete an assignment
 // Body request:
 // {
 //     "assignmentId": "612c284e8a6a0629e59d9384"
@@ -124,7 +126,7 @@ router.post("/", async(req, res, next) => {
         const student = await userDAO.getUser(studentEmail);
 
         if (!assignment) {
-            throw new Error("Assignment not found");
+            throw new Error("Not found");
         }
         assignment.studentID = student._id;
         assignment.teacherID = userId;
@@ -198,7 +200,6 @@ router.get("/assignmentsForParent", async(req, res, next) => {
         }
         const studentId = req.user.externalID;
         const assignments = await assignmentDAO.getAssignmentsByStudentId(studentId);
-        //res.json(assignments);
         res.render('parents', { assignments: assignments, user: req.user });
 
     } catch (e) {
@@ -232,7 +233,7 @@ router.get("/:id", async(req, res, next) => {
         const assignmentId = req.params.id;
         const assignment = await assignmentDAO.getAssignment(assignmentId);
         if (req.user.role === "student" && assignment.studentID !== req.user._id) {
-            throw new Error("Invalid request");
+            throw new Error("Invalid assignment");
         }
         res.json(assignment);
     } catch (e) {

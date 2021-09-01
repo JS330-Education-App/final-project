@@ -24,29 +24,34 @@ router.post("/signup", async(req, res, next) => {
             throw new Error("Not found");
         }
         if (!user.email || user.email.trim() === "") {
-            res.status(400).send("Email not found");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Email not found");
+            // return;
         }
 
         if (!user.name || user.name === "") {
-            res.status(400).send("Name is required");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Name is required");
+            // return;
         }
 
         if (!user.role) {
-            res.status(400).send("Role is required");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Role is required");
+            // return;
         }
 
         let mRole = user.role.trim();
         if (!(mRole === "student" || mRole === "parent" || mRole === "teacher")) {
-            res.status(400).send("Role is invalid");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Role is invalid");
+            // return;
         }
 
         if (!user.password || user.password.trim() === "") {
-            res.status(400).send("Password is required");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Password is required");
+            // return;
         }
 
         const email = user.email.trim();
@@ -55,8 +60,9 @@ router.post("/signup", async(req, res, next) => {
         const checkUser = await userDAO.getUser(email);
 
         if (checkUser) {
-            res.status(409).send("User already exists");
-            return;
+            throw new Error("User already exists");
+            // res.status(409).send("User already exists");
+            // return;
         }
 
         const textPassword = user.password.trim();
@@ -71,13 +77,15 @@ router.post("/signup", async(req, res, next) => {
             });
         } else if (role === "parent") {
             if (!user.studentEmail || user.studentEmail.trim() === "") {
-                res.status(400).send("Student email is required");
-                return;
+                throw new Error("Empty field");
+                // res.status(400).send("Student email is required");
+                // return;
             }
             const student = await userDAO.getUser(user.studentEmail);
             if (!student) {
-                res.status(409).send("Student is not registered yet");
-                return;
+                throw new Error("Empty field");
+                // res.status(409).send("Student is not registered yet");
+                // return;
             }
             newUser = await userDAO.createUser({
                 email: email,
@@ -128,7 +136,7 @@ router.post("/login", async(req, res, next) => {
         let incomingUser = req.body;
         if (!incomingUser) {
 
-            throw new Error("Bad request");
+            throw new Error("Invalid request");
         }
 
         let email = incomingUser.email;
@@ -139,19 +147,22 @@ router.post("/login", async(req, res, next) => {
         }
         let pswd = incomingUser.password;
         if (!pswd) {
-            res.status(400).send("Password not found");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Password not found");
+            // return;
         }
         pswd = pswd.trim();
         if (pswd === "") {
-            res.status(400).send("Password must not be empty");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Password must not be empty");
+            // return;
         }
 
         let result = await bcrypt.compare(pswd, userFromDB.password);
         if (!result) {
-            res.status(401).send("Passwords do not match");
-            return;
+            throw new Error("Passwords do not match");
+            // res.status(401).send("Passwords do not match");
+            // return;
         }
 
         const data = {
@@ -284,9 +295,13 @@ router.post("/password", async(req, res, next) => {
     try {
         let password = req.body.password;
         if (!password) {
-            throw new Error("Password is required");
+            throw new Error("Invalid request");
         }
 
+        let email = req.body.email;
+        if (!email) {
+            throw new Error("Invalid request");
+        }
         let savedHash = await bcrypt.hash(password, 10);
         const postedUser = await userDAO.updateUserPassword(
             req.user._id,
