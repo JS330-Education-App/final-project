@@ -24,29 +24,34 @@ router.post("/signup", async(req, res, next) => {
             throw new Error("Not found");
         }
         if (!user.email || user.email.trim() === "") {
-            res.status(400).send("Email not found");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Email not found");
+            // return;
         }
 
         if (!user.name || user.name === "") {
-            res.status(400).send("Name is required");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Name is required");
+            // return;
         }
 
         if (!user.role) {
-            res.status(400).send("Role is required");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Role is required");
+            // return;
         }
 
         let mRole = user.role.trim();
         if (!(mRole === "student" || mRole === "parent" || mRole === "teacher")) {
-            res.status(400).send("Role is invalid");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Role is invalid");
+            // return;
         }
 
         if (!user.password || user.password.trim() === "") {
-            res.status(400).send("Password is required");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Password is required");
+            // return;
         }
 
         const email = user.email.trim();
@@ -55,8 +60,9 @@ router.post("/signup", async(req, res, next) => {
         const checkUser = await userDAO.getUser(email);
 
         if (checkUser) {
-            res.status(409).send("User already exists");
-            return;
+            throw new Error("User already exists");
+            // res.status(409).send("User already exists");
+            // return;
         }
 
         const textPassword = user.password.trim();
@@ -71,13 +77,15 @@ router.post("/signup", async(req, res, next) => {
             });
         } else if (role === "parent") {
             if (!user.studentEmail || user.studentEmail.trim() === "") {
-                res.status(400).send("Student email is required");
-                return;
+                throw new Error("Empty field");
+                // res.status(400).send("Student email is required");
+                // return;
             }
             const student = await userDAO.getUser(user.studentEmail);
             if (!student) {
-                res.status(409).send("Student is not registered yet");
-                return;
+                throw new Error("Empty field");
+                // res.status(409).send("Student is not registered yet");
+                // return;
             }
             newUser = await userDAO.createUser({
                 email: email,
@@ -114,12 +122,9 @@ router.post("/signup", async(req, res, next) => {
         }
 
         req.user = newUser;
-        //res.status(200).send("Ok");
-        //res.status(200).redirect('/login');
         res.redirect('/login');
 
     } catch (e) {
-        console.log(e);
         next(e)
     }
 });
@@ -131,7 +136,7 @@ router.post("/login", async(req, res, next) => {
         let incomingUser = req.body;
         if (!incomingUser) {
 
-            throw new Error("Bad request");
+            throw new Error("Invalid request");
         }
 
         let email = incomingUser.email;
@@ -142,21 +147,23 @@ router.post("/login", async(req, res, next) => {
         }
         let pswd = incomingUser.password;
         if (!pswd) {
-            res.status(400).send("Password not found");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Password not found");
+            // return;
         }
         pswd = pswd.trim();
         if (pswd === "") {
-            res.status(400).send("Password must not be empty");
-            return;
+            throw new Error("Empty field");
+            // res.status(400).send("Password must not be empty");
+            // return;
         }
 
         let result = await bcrypt.compare(pswd, userFromDB.password);
         if (!result) {
-            res.status(401).send("Passwords do not match");
-            return;
+            throw new Error("Passwords do not match");
+            // res.status(401).send("Passwords do not match");
+            // return;
         }
-        // res.status(200);
 
         const data = {
             _id: userFromDB._id,
@@ -167,8 +174,7 @@ router.post("/login", async(req, res, next) => {
 
         let token = await jwt.sign(data, secret, { expiresIn: '1 day' });
 
-        // res.json(token);
-        console.log("token", token);
+        // console.log("token", token);
 
         if (token) {
             res.cookie('AuthToken', `Bearer ${token}`, { expires: new Date(Date.now() + 8 * 3600000) }); // cookie will be removed after 8 hours
@@ -182,7 +188,6 @@ router.post("/login", async(req, res, next) => {
         };
 
     } catch (e) {
-        //console.log("error ", e.message);
         next(e);
     }
 });
@@ -197,14 +202,10 @@ router.use(async(req, res, next) => {
 });
 
 
-// router.get('/home', async(req, res, next) => {
-//   //res.render('home');
-// });
 
-// get one student by id only for teacher and parent, teacher/parent id should be equal student's ExternalId
+// Get one student by id only for teacher and parent, teacher/parent id should be equal student's ExternalId
 router.get("/student/:id", async(req, res, next) => {
     try {
-        //console.log("eq.user.role", req.user.role);
         if (req.user.role !== "teacher" || req.user.role !== "parent") {
             throw new Error("Unauthorized");
         }
@@ -216,7 +217,6 @@ router.get("/student/:id", async(req, res, next) => {
         }
         res.json(student);
     } catch (e) {
-        //console.log("error ", e.message);
         next(e);
     }
 });
@@ -224,37 +224,37 @@ router.get("/student/:id", async(req, res, next) => {
 
 
 
-// get one student by student email only for teacher, teacher id should be equal student's ExternalId
+// Get a student by student email only for teacher, teacher id should be equal student's ExternalId
+// Request body:
 // {
 //     "studentEmail": "level8@gmai.com"
 
 // }
-router.post("/student", async(req, res, next) => {
-    try {
+// router.post("/student", async(req, res, next) => {
+//     try {
 
-        if (req.user.role !== "teacher") {
-            throw new Error("Unauthorized");
-        }
-        const studentEmail = req.body.studentEmail;
-        if (!studentEmail) {
-            throw new Error("Empty request");
-        }
+//         if (req.user.role !== "teacher") {
+//             throw new Error("Unauthorized");
+//         }
+//         const studentEmail = req.body.studentEmail;
+//         if (!studentEmail) {
+//             throw new Error("Empty request");
+//         }
 
-        const teacherId = req.user._id;
-        const student = await userDAO.getStudentByEmail(studentEmail, teacherId);
-        if (!student) {
-            throw new Error("Not found");
-        }
-        res.json(student);
+//         const teacherId = req.user._id;
+//         const student = await userDAO.getStudentByEmail(studentEmail, teacherId);
+//         if (!student) {
+//             throw new Error("Not found");
+//         }
+//         res.json(student);
 
-    } catch (e) {
-        console.log("error ", e.message);
-        next(e);
-    }
-});
+//     } catch (e) {
+//         next(e);
+//     }
+// });
 
 
-// get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
+// Get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
 // returns list of students' emails
 router.get("/getAllStudentsEmails", async(req, res, next) => {
     try {
@@ -263,18 +263,15 @@ router.get("/getAllStudentsEmails", async(req, res, next) => {
         }
 
         const students = await userDAO.getAllStudentsEmails(req.user._id);
-        console.log('students', students);
-        // res.json(students);
         res.render('teachers', { students: students, user: req.user });
 
     } catch (e) {
-        console.log("error ", e.message);
         next(e);
     }
 });
 
 
-// get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
+// Get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
 // returns list of students' emails
 router.get("/allStudents", async(req, res, next) => {
     try {
@@ -284,11 +281,9 @@ router.get("/allStudents", async(req, res, next) => {
 
         const students = await userDAO.getAllStudents(req.user._id);
         console.log('students', students);
-        // res.json(students);
         res.render('teachers', { students: students, user: req.user });
 
     } catch (e) {
-        console.log("error ", e.message);
         next(e);
     }
 });
@@ -300,9 +295,13 @@ router.post("/password", async(req, res, next) => {
     try {
         let password = req.body.password;
         if (!password) {
-            throw new Error("Password is required");
+            throw new Error("Invalid request");
         }
 
+        let email = req.body.email;
+        if (!email) {
+            throw new Error("Invalid request");
+        }
         let savedHash = await bcrypt.hash(password, 10);
         const postedUser = await userDAO.updateUserPassword(
             req.user._id,
@@ -310,7 +309,6 @@ router.post("/password", async(req, res, next) => {
         );
         res.status(200).send("Ok");
     } catch (e) {
-        console.log("error ", e.message);
         next(e);
     }
 });

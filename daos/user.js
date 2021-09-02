@@ -29,12 +29,6 @@ module.exports.getStudentByEmail = async(studentEmail, teacherId) => {
     return await User.findOne({ email: studentEmail, externalID: teacherId }).lean();
 }
 
-// module.exports.getAllStudents = async(teacherId) => {
-//     return await User.find({ externalID: teacherId }).lean();
-
-
-// }
-
 module.exports.getAllStudentsEmails = async(teacherId) => {
     const result = await User.aggregate([
         { $match: { externalID: mongoose.Types.ObjectId(teacherId) } },
