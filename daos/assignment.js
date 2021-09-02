@@ -1,6 +1,6 @@
 const Assignment = require("../models/assignment");
 const mongoose = require("mongoose");
-mongoose.set('useFindAndModify', false);
+mongoose.set("useFindAndModify", false);
 module.exports = {};
 
 module.exports.createAssignment = async(assignment) => {
@@ -17,12 +17,34 @@ module.exports.getAssignment = async(assignmentId) => {
 };
 
 module.exports.getAllAssignments = async(userId) => {
-    const assignments = await Assignment.find({ teacherID: userId }).lean();
-    if (!assignments) {
-        throw new Error("Not found");
-    }
+    const result = await Assignment.aggregate([
+        { $match: { teacherID: mongoose.Types.ObjectId(userId) } },
+        {
+            $lookup: {
+                from: "users",
+                localField: "studentID",
+                foreignField: "_id",
+                as: "users",
+            },
+        },
+        { $unwind: "$users" },
+        {
+            $group: {
+                _id: {
+                    title: "$title",
+                    content: "$content",
+                    dueDate: "$dueDate",
+                    isSubmitted: "$isSubmitted",
+                    studentName: "$users.name",
+                },
+            },
+        },
+        { $project: { _id: 0, assignment: "$_id" } },
+        { $unwind: "$assignment" },
+        { $sort: { title: 1 } },
+    ]);
 
-    return assignments;
+    return result;
 };
 
 module.exports.getAssignmentsByStudentId = async(userId) => {
@@ -42,7 +64,7 @@ module.exports.gradeAssignment = async(assignmentId, grade) => {
     const filter = { _id: assignmentId };
     const update = { grade: grade };
     const assignment = await Assignment.findOneAndUpdate(filter, update, {
-        new: true
+        new: true,
     });
 
     if (!assignment) {
@@ -52,27 +74,24 @@ module.exports.gradeAssignment = async(assignmentId, grade) => {
     return assignment;
 };
 
-
 module.exports.submitAssignment = async(assignmentId) => {
-    const assignment = await Assignment.findOneAndUpdate({ _id: assignmentId }, { $set: { 'isSubmitted': true } });
+    const assignment = await Assignment.findOneAndUpdate({ _id: assignmentId }, { $set: { isSubmitted: true } });
     if (!assignment) {
         throw new Error("Not found");
     }
 
     return assignment;
 };
-
 
 module.exports.submitAndUpdate = async(assignmentId, newContent) => {
     const filter = { _id: assignmentId };
     const update = {
         content: newContent,
 
-        $set: { 'isSubmitted': true }
-
+        $set: { isSubmitted: true },
     };
     const assignment = await Assignment.findOneAndUpdate(filter, update, {
-        new: true
+        new: true,
     });
     if (!assignment) {
         throw new Error("Not found");
@@ -80,7 +99,6 @@ module.exports.submitAndUpdate = async(assignmentId, newContent) => {
 
     return assignment;
 };
-
 
 module.exports.getAvgGradeByStudentId = async(studentId) => {
     const result = await Assignment.aggregate([
@@ -101,7 +119,6 @@ module.exports.getAvgGradeByStudentId = async(studentId) => {
     return result;
 };
 
-
 module.exports.search = (query) => {
     return Assignment.find({ $text: { $search: query } }, { score: { $meta: "textScore" } })
         .sort({ score: { $meta: "textScore" } })
@@ -114,24 +131,25 @@ module.exports.partialSearch = async(query) => {
                 $or: [{
                         title: {
                             $regex: query,
-                            '$options': 'i'
-                        }
+                            $options: "i",
+                        },
                     },
                     {
                         content: {
                             $regex: query,
-                            '$options': 'i'
-                        }
-                    }
-                ]
-            }
-        }, {
+                            $options: "i",
+                        },
+                    },
+                ],
+            },
+        },
+        {
             $lookup: {
                 from: "users",
                 localField: "studentID",
                 foreignField: "_id",
-                as: "users"
-            }
+                as: "users",
+            },
         },
         { $unwind: "$users" },
         {
@@ -140,15 +158,14 @@ module.exports.partialSearch = async(query) => {
                     title: "$title",
                     content: "$content",
                     dueDate: "$dueDate",
-                    studentName: "$users.name"
-                }
-
-            }
+                    isSubmitted: "$isSubmitted",
+                    studentName: "$users.name",
+                },
+            },
         },
         { $project: { _id: 0, assignment: "$_id" } },
         { $unwind: "$assignment" },
-        { $sort: { title: 1 } }
-
+        { $sort: { title: 1 } },
     ]);
 
     return result;

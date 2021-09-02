@@ -40,7 +40,8 @@
             <div class="ms-2 me-auto">
               <div class="fw-bold">Title: {{ assignment.title }}</div>
               <p>Content: {{ assignment.content }}</p>
-              <p>Student name: {{ assignment.studentName }}</p>
+              <p>Student name: {{ assignment.studentName }}</p> 
+               <p>Status: {{ #assignment.isSubmitted }} Submitted {{/assignment.isSubmitted }} </p>            
               <div class="mt-2 d-flex">
                 <div class="me-3">
                   <form>
@@ -135,9 +136,12 @@
             <li class="list-group-item">
               <div>
               <div class="d-flex justify-content-between align-items-start pt-3 pb-3">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">{{ title }}</div>
-                  <p>{{ content }}</p>
+                <div class="ms-2 me-auto">          
+             <div class="fw-bold">Title: {{ assignment.title }}</div>
+            {{{--!<p>Content: {{ assignment.content }}</p>}}} 
+               {{{--! <p>Due Date: {{ assignment.dueDate }}</p>}}}
+              <p>Student name: {{ assignment.studentName }}</p> 
+               <p>Status: {{ #assignment.isSubmitted }} Submitted {{/assignment.isSubmitted }} </
                   <div class="mt-2 d-flex">
                     <div class="me-3">
                       <form>

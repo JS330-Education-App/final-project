@@ -178,6 +178,7 @@ router.get("/search", async(req, res, next) => {
         console.log('query ', query);
         const result = await assignmentDAO.partialSearch(query);
         res.render('teachers', { searchResults: result, user: req.user });
+        // res.json(result);
     } catch (e) {
         next(e);
     }
@@ -195,6 +196,7 @@ router.get("/", async(req, res, next) => {
         const userId = req.user._id;
         const assignments = await assignmentDAO.getAllAssignments(userId);
         res.render('teachers', { assignments: assignments, user: req.user });
+        // res.json(assignments);
 
     } catch (e) {
         next(e);
