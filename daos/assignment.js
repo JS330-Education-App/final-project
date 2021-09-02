@@ -82,24 +82,69 @@ module.exports.search = (query) => {
         .lean();
 };
 
+// module.exports.partialSearch = async(query) => {
+//     const result = await Assignment.aggregate([{
+//         $match: {
+//             $or: [{
+//                     title: {
+//                         $regex: query,
+//                         '$options': 'i'
+//                     }
+//                 },
+//                 {
+//                     content: {
+//                         $regex: query,
+//                         '$options': 'i'
+//                     }
+//                 }
+//             ]
+//         }
+//     }]);
+
+//     return result;
+// };
+
 module.exports.partialSearch = async(query) => {
     const result = await Assignment.aggregate([{
-        $match: {
-            $or: [{
-                    title: {
-                        $regex: query,
-                        '$options': 'i'
+            $match: {
+                $or: [{
+                        title: {
+                            $regex: query,
+                            '$options': 'i'
+                        }
+                    },
+                    {
+                        content: {
+                            $regex: query,
+                            '$options': 'i'
+                        }
                     }
-                },
-                {
-                    content: {
-                        $regex: query,
-                        '$options': 'i'
-                    }
+                ]
+            }
+        }, {
+            $lookup: {
+                from: "users",
+                localField: "studentID",
+                foreignField: "_id",
+                as: "users"
+            }
+        },
+        { $unwind: "$users" },
+        {
+            $group: {
+                _id: {
+                    title: "$title",
+                    content: "$content",
+                    studentName: "$users.name"
                 }
-            ]
-        }
-    }]);
+
+            }
+        },
+        { $project: { _id: 0, assignment: "$_id" } },
+        { $unwind: "$assignment" },
+        { $sort: { title: 1 } }
+
+    ]);
 
     return result;
 };
