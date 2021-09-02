@@ -174,7 +174,7 @@ router.post("/login", async(req, res, next) => {
 
         let token = await jwt.sign(data, secret, { expiresIn: '1 day' });
 
-        // console.log("token", token);
+        console.log("token", token);
 
         if (token) {
             res.cookie('AuthToken', `Bearer ${token}`, { expires: new Date(Date.now() + 8 * 3600000) }); // cookie will be removed after 8 hours
@@ -222,8 +222,6 @@ router.get("/student/:id", async(req, res, next) => {
 });
 
 
-
-
 // Get a student by student email only for teacher, teacher id should be equal student's ExternalId
 // Request body:
 // {
@@ -256,6 +254,7 @@ router.get("/student/:id", async(req, res, next) => {
 
 // Get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
 // returns list of students' emails
+// add student name to output 
 router.get("/getAllStudentsEmails", async(req, res, next) => {
     try {
         if (req.user.role !== "teacher") {
@@ -270,9 +269,9 @@ router.get("/getAllStudentsEmails", async(req, res, next) => {
     }
 });
 
-
+// Can be deleted later
 // Get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
-// returns list of students' emails
+// returns list of students
 router.get("/allStudents", async(req, res, next) => {
     try {
         if (req.user.role !== "teacher") {
@@ -280,7 +279,6 @@ router.get("/allStudents", async(req, res, next) => {
         }
 
         const students = await userDAO.getAllStudents(req.user._id);
-        console.log('students', students);
         res.render('teachers', { students: students, user: req.user });
 
     } catch (e) {
