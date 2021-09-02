@@ -175,13 +175,13 @@ describe('/login', () => {
         });
 
         describe('POST /password', () => {
-            // it('should reject bogus token', async() => {
-            //     const res = await request(server)
-            //         .post('/users/password')
-            //         .set('Authorization', 'Bearer BAD')
-            //         .send({ password: '123' });
-            //     expect(res.statusCode).toEqual(404);
-            // });
+            it('should reject bogus token', async() => {
+                const res = await request(server)
+                    .post('/users/password')
+                    .set('Authorization', 'Bearer BAD')
+                    .send({ password: '123' });
+                expect(res.statusCode).toEqual(404);
+            });
             it('should reject empty password', async() => {
                 const res = await request(server)
                     .post('/users/password')
