@@ -113,6 +113,7 @@ module.exports.partialSearch = async(query) => {
                 _id: {
                     title: "$title",
                     content: "$content",
+                    dueDate: "$dueDate",
                     studentName: "$users.name"
                 }
 

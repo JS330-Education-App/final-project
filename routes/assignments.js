@@ -149,7 +149,6 @@ router.get("/search", async(req, res, next) => {
         let query = req.query.title;
         console.log('query ', query);
         const result = await assignmentDAO.partialSearch(query);
-        // res.json(result);
         res.render('teachers', { searchResults: result, user: req.user });
     } catch (e) {
         next(e);
