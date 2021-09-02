@@ -6,25 +6,27 @@ bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 router.use(cookieParser());
-
+const assignmentDAO = require("../daos/assignment");
 
 router.get("/signup", (req, res, next) => {
-  res.render('index');
+    res.render('index');
 });
 
 router.use("/assignments", require('./assignments'));
 
 router.use("/users/teachers", isLoggedIn, (req, res, next) => {
-  res.render('teachers', {user: req.user});
+    res.render('teachers', { user: req.user });
 });
 
-router.use("/users/students", isLoggedIn, (req, res, next) => {
-  res.render('students', {user: req.user});
+router.use("/users/students", isLoggedIn, async(req, res, next) => {
+    const grade = await assignmentDAO.getAvgGradeByStudentId(req.user._id);
+    let avg = grade[0].averageGrade;
+    res.render('students', { user: req.user, avgGrade: avg });
 });
 
 router.use("/users/parents", isLoggedIn, (req, res, next) => {
-  res.render('parents', {user: req.user});
-  //console.log(req.user);
+    res.render('parents', { user: req.user });
+    //console.log(req.user);
 });
 
 router.use("/login", require('./users'));
@@ -32,7 +34,7 @@ router.use("/login", require('./users'));
 router.use("/users", require('./users'));
 
 router.use("/", (req, res, next) => {
-  res.render('index');
+    res.render('index');
 });
 
 module.exports = router;

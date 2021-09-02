@@ -31,11 +31,14 @@ module.exports.getAllAssignments = async(userId) => {
         {
             $group: {
                 _id: {
+                    id: "$_id",
                     title: "$title",
                     content: "$content",
                     dueDate: "$dueDate",
+                    grade: "$grade",
                     isSubmitted: "$isSubmitted",
                     studentName: "$users.name",
+
                 },
             },
         },
@@ -110,6 +113,7 @@ module.exports.getAvgGradeByStudentId = async(studentId) => {
             },
         },
         { $project: { _id: 0, studentID: "$_id", averageGrade: 1 } },
+        { $unwind: "$studentID" },
     ]);
 
     if (!result) {
@@ -158,6 +162,7 @@ module.exports.partialSearch = async(query) => {
                     title: "$title",
                     content: "$content",
                     dueDate: "$dueDate",
+                    grade: "$grade",
                     isSubmitted: "$isSubmitted",
                     studentName: "$users.name",
                 },

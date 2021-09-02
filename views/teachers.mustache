@@ -41,7 +41,7 @@
               <div class="fw-bold">Title: {{ assignment.title }}</div>
               <p>Content: {{ assignment.content }}</p>
               <p>Student name: {{ assignment.studentName }}</p> 
-               <p>Status: {{ #assignment.isSubmitted }} Submitted {{/assignment.isSubmitted }} </p>            
+               <p> {{ #assignment.isSubmitted }} Submitted!{{/assignment.isSubmitted }} </p>            
               <div class="mt-2 d-flex">
                 <div class="me-3">
                   <form>
@@ -138,10 +138,10 @@
               <div class="d-flex justify-content-between align-items-start pt-3 pb-3">
                 <div class="ms-2 me-auto">          
              <div class="fw-bold">Title: {{ assignment.title }}</div>
-            {{{--!<p>Content: {{ assignment.content }}</p>}}} 
+              {{{--!<p>Content: {{ assignment.content }}</p>}}} 
                {{{--! <p>Due Date: {{ assignment.dueDate }}</p>}}}
               <p>Student name: {{ assignment.studentName }}</p> 
-               <p>Status: {{ #assignment.isSubmitted }} Submitted {{/assignment.isSubmitted }} </
+       
                   <div class="mt-2 d-flex">
                     <div class="me-3">
                       <form>
@@ -170,7 +170,11 @@
                     <span class="badge bg-warning badge-pill dueDate">{{ dueDate }}</span>
                   </div>
                   <div class="mt-2">
-                    <button type="button" class="btn btn-link text-danger">Delete</button>
+                  <form action="/assignments/delete" method="post">
+                         <input type="hidden" name="assignmentId" class="btn btn-success" value={{assignment.id}} />
+                        <button type="submit" id="btnAssgnDelete" class="btn btn-link text-danger">Delete</button>
+                       </form>
+                    {{{!--<button type="button" class="btn btn-link text-danger">Delete</button>}}}
                   </div>
                 </div>
                 </div>
