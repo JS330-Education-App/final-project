@@ -82,28 +82,6 @@ module.exports.search = (query) => {
         .lean();
 };
 
-// module.exports.partialSearch = async(query) => {
-//     const result = await Assignment.aggregate([{
-//         $match: {
-//             $or: [{
-//                     title: {
-//                         $regex: query,
-//                         '$options': 'i'
-//                     }
-//                 },
-//                 {
-//                     content: {
-//                         $regex: query,
-//                         '$options': 'i'
-//                     }
-//                 }
-//             ]
-//         }
-//     }]);
-
-//     return result;
-// };
-
 module.exports.partialSearch = async(query) => {
     const result = await Assignment.aggregate([{
             $match: {

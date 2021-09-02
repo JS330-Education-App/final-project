@@ -253,39 +253,22 @@ router.get("/student/:id", async(req, res, next) => {
 
 
 // Get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
-// returns list of students' emails
+// returns list of students' emails and names
 // add student name to output 
-router.get("/getAllStudentsEmails", async(req, res, next) => {
-    try {
-        if (req.user.role !== "teacher") {
-            throw new Error("Unauthorized");
-        }
-
-        const students = await userDAO.getAllStudentsEmails(req.user._id);
-        res.render('teachers', { students: students, user: req.user });
-
-    } catch (e) {
-        next(e);
-    }
-});
-
-// Can be deleted later
-// Get all students for a teacher, authorized only for teacher, teacher id == student ExternalId
-// returns list of students
-router.get("/allStudents", async(req, res, next) => {
+router.get("/getAllStudents", async(req, res, next) => {
     try {
         if (req.user.role !== "teacher") {
             throw new Error("Unauthorized");
         }
 
         const students = await userDAO.getAllStudents(req.user._id);
+        // res.json(students);
         res.render('teachers', { students: students, user: req.user });
 
     } catch (e) {
         next(e);
     }
 });
-
 
 
 //   Change Password POST /password
