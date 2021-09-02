@@ -4,7 +4,30 @@ const btnGradeConfirm = document.querySelector('button.btnGradeConfirm');
 const checkmark = document.querySelector('span.checkmark');
 const getAllAssignments = document.getElementById('getAllAssignments');
 let dueDate = document.getElementsByClassName('dueDate');
+const btnSaveAssgn = document.getElementById('btnSaveAssgn');
+const assgnStatus = document.getElementById('assgnStatus')
+
 console.log(dueDate)
+console.log(btnSaveAssgn)
+console.log(assgnStatus)
+
+// Success message after Save Changes in the Assignment window
+
+// setTimeout(function () {
+//     document.getElementsByClassName('modal').modal('hide');
+// }, 10000);
+function DoLater(){
+    setTimeout(function(){
+      alert("hello");
+    },10000);
+  }
+  
+    btnSaveAssgn.addEventListener('hover', function() {
+        assgnStatus.classList.remove('invisible');
+    })
+
+   
+
 
 // Select listener: adding/removing status classes and showing confirmation button and checkmark
 isGradeSelected.addEventListener('change', function() {
@@ -46,6 +69,18 @@ btnGradeConfirm.addEventListener('click', function() {
     btnGradeConfirm.classList.add('invisible');
     checkmark.classList.remove('invisible');
 });
+
+
+
+// var toastTrigger = document.getElementById('liveToastBtn')
+// var toastLiveExample = document.getElementById('liveToast')
+// if (toastTrigger) {
+//   toastTrigger.addEventListener('click', function () {
+//     var toast = new bootstrap.Toast(toastLiveExample)
+
+//     toast.show()
+//   })
+// }
 
 // Date formatting
 

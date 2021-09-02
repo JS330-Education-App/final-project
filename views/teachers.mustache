@@ -17,6 +17,7 @@
       <span>Add assignment</span>
       </button>
     </div>
+    <span id="">Test</span>
     <a class="btn btn-danger" href="/logout" role="button">Logout</a>
     {{ !<button type="button" class="btn btn-danger">Logout</button> }}
   </div>
@@ -220,10 +221,13 @@
         {{! </form> }}
       </div>
       <div class="modal-footer">
+      <div  id="assgnStatus" class="invisible">
+        <div class="position-fixed bottom-0 start-0 p-3 text-dark" style="z-index: 11">
+          Hello
+        </div>
+      </div>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        
-        
-          <input type="submit" class="btn btn-primary" value="Save changes" />
+        <input id="btnSaveAssgn" type="submit" class="btn btn-primary" onclick="return DoLater();"  value="Save changes" />
         </form>
 
         {{! <button type="button" class="btn btn-primary">Save changes</button> }}
