@@ -29,39 +29,22 @@ module.exports.getStudentByEmail = async(studentEmail, teacherId) => {
     return await User.findOne({ email: studentEmail, externalID: teacherId }).lean();
 }
 
-// module.exports.getAllStudentsEmails = async(teacherId) => {
-//     const result = await User.aggregate([
-//         { $match: { externalID: mongoose.Types.ObjectId(teacherId) } },
-//         {
-//             $group: {
-//                 _id: "$email",
-//                 email: { $addToSet: '$email' }
-
-//             },
-//         },
-//         { $project: { _id: 0, email: "$email" } },
-//         { $unwind: '$email' },
-//     ]);
-
-//     if (!result) {
-//         throw new Error("Not found");
-//     }
-//     return result;
-
-// }
-
-module.exports.getAllStudentsEmails = async(teacherId) => {
+module.exports.getAllStudents = async(teacherId) => {
     const result = await User.aggregate([
         { $match: { externalID: mongoose.Types.ObjectId(teacherId) } },
         {
             $group: {
-                _id: "$email",
-                email: { $addToSet: '$email' }
 
+                _id: {
+                    studentName: "$name",
+                    email: "$email"
+                }
             },
         },
-        { $project: { _id: 0, email: "$email" } },
-        { $unwind: '$email' },
+        { $project: { _id: 0, student: "$_id" } },
+        { $unwind: '$student' },
+        { $sort: { student: 1 } }
+
     ]);
 
     if (!result) {
