@@ -85,7 +85,7 @@
       <h3 class="h3 mb-3">My class</h3>
       <div id="students">
         <div class="mb-3">
-          <form action="/users/allStudents" method="get">
+          <form action="/users/getAllStudents" method="get">
             <input type="submit" class="btn btn-outline-primary" id="getAllStudents" value="Get All Students" />
           </form>
         </div>
@@ -94,7 +94,8 @@
           {{ #students }}
             <li class="list-group-item d-flex justify-content-between align-items-start p-4">
               <div class="ms-2 me-auto">
-                <p class="fw-bolder mb-0">Student Email: <span class="fw-light text-muted">{{ email }}</span></p>
+                <p class="fw-bolder mb-0">Name: <span class="fw-light text-muted">{{ name }}</span></p>
+                <p class="fw-bolder mb-0">Email: <span class="fw-light text-muted">{{ email }}</span></p>
                 {{! <p class="lead text-muted"></p> }}
                 <ul class="list-group list-group-flush">
                   {{! <li class="list-group-item pb-3 pt-3">
