@@ -101,21 +101,20 @@ describe("Only teacher can grade an assignment", () =>{
   afterAll(testUtils.stopDB);
   afterEach(testUtils.clearDB);
 
-  it("teacher assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(teacherUser.role);
+  it("teacher grading an assignment", async () => {
+    const res = await request(server).post("/assignments/grade").send(teacherUser.role);
     expect(res.statusCode).toEqual(200);
   })
-  it("student assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(studentUser.role);
+  it("student fails grading an assignment", async () => {
+    const res = await request(server).post("/assignments/grade").send(studentUser.role);
     expect(res.statusCode).toEqual(401);
   })
-  it("parent assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(parentUser.role);
+  it("parent fails grading an assignment", async () => {
+    const res = await request(server).post("/assignments/grade").send(parentUser.role);
     expect(res.statusCode).toEqual(401);
   })
 });
 
-//6. Parent/student cannot grade an assignment
 
 //7. Only teacher delete an assignment
 describe("Only teacher can delete an assignment", () =>{
@@ -127,171 +126,139 @@ describe("Only teacher can delete an assignment", () =>{
     const res = await request(server).post("/assignments/delete").send(teacherUser.role);
     expect(res.statusCode).toEqual(200);
   })
-  it("student deleting an assignment", async () => {
+  it("student fails deleting an assignment", async () => {
     const res = await request(server).post("/assignments/delete").send(studentUser.role);
     expect(res.statusCode).toEqual(401);
   })
-  it("parent deleting an assignment", async () => {
+  it("parent fails deleting an assignment", async () => {
     const res = await request(server).post("/assignments/delete").send(parentUser.role);
     expect(res.statusCode).toEqual(401);
   })
 });
 
 //9. Only teacher create an assignment
-
 describe("Only teacher can create an assignment", () =>{
   beforeAll(testUtils.connectDB);
   afterAll(testUtils.stopDB);
   afterEach(testUtils.clearDB);
 
-  it("teacher assigning an assignment", async () => {
+  it("teacher creating an assignment", async () => {
     const res = await request(server).post("/assignments/").send(teacherUser.role);
     expect(res.statusCode).toEqual(200);
   })
 //10. Parent/student cannot create an assignment
-  it("student assigning an assignment", async () => {
+  it("student fails creating an assignment", async () => {
     const res = await request(server).post("/assignments/").send(studentUser.role);
     expect(res.statusCode).toEqual(401);
   })
-  it("parent assigning an assignment", async () => {
+  it("parent fails creating an assignment", async () => {
     const res = await request(server).post("/assignments/").send(parentUser.role);
     expect(res.statusCode).toEqual(401);
   })
 });
 
 //11. Teacher (Student – need to confirm that student will have the option) can perform assignment search. Partial search by title and context.
-
 describe("Teacher can perform assignment search and partial search by title/context", () =>{
   beforeAll(testUtils.connectDB);
   afterAll(testUtils.stopDB);
   afterEach(testUtils.clearDB);
 
-  it("teacher assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(teacherUser.role);
+  it("teacher searching an assignment", async () => {
+    const res = await request(server).get("/assignments/search").send(teacherUser.role);
     expect(res.statusCode).toEqual(200);
   })
-  it("student assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(studentUser.role);
-    expect(res.statusCode).toEqual(401);
+  it("student searching an assignment", async () => {
+    const res = await request(server).get("/assignments/search").send(studentUser.role);
+    expect(res.statusCode).toEqual(200);
   })
-  it("parent assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(parentUser.role);
+  //12. Parent cannot perform assignment search
+  it("parent fails searching an assignment", async () => {
+    const res = await request(server).get("/assignments/search").send(parentUser.role);
     expect(res.statusCode).toEqual(401);
   })
 });
 
-//12. Parent cannot perform assignment search
-
-
 //13. Teacher can get all his assignments (for different students)
-
 describe("Teacher can get all assignments for different students", () =>{
-  test("Here is a test", () => {
-    expect().toBe(undefined);
-  });
+  beforeAll(testUtils.connectDB);
+  afterAll(testUtils.stopDB);
+  afterEach(testUtils.clearDB);
+
+  it("teacher searching an assignment", async () => {
+    const res = await request(server).get("/").send(teacherUser.role);
+    expect(res.statusCode).toEqual(200);
+  })
+  it("student fails getting all teacher's assignments", async () => {
+    const res = await request(server).get("/").send(studentUser.role);
+    expect(res.statusCode).toEqual(401);
+  })
+  //12. Parent cannot perform assignment search
+  it("parent fails getting all teacher's assignments", async () => {
+    const res = await request(server).get("/").send(parentUser.role);
+    expect(res.statusCode).toEqual(401);
+  })
 });
 
 //14. Student can get all his/her assignments only
-
 describe("Student can only access their assignments", () =>{
   beforeAll(testUtils.connectDB);
   afterAll(testUtils.stopDB);
   afterEach(testUtils.clearDB);
 
-  it("teacher assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/assignmentsForStudent").send(teacherUser.role);
+  it("student getting all their assignments", async () => {
+    const res = await request(server).get("/assignments/assignmentsForStudent").send(studentUser.role);
     expect(res.statusCode).toEqual(200);
-  })
-  it("student assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/assignmentsForStudent").send(studentUser.role);
-    expect(res.statusCode).toEqual(401);
-  })
-  it("parent assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/assignmentsForStudent").send(parentUser.role);
-    expect(res.statusCode).toEqual(401);
   })
 });
 
 //15. Parent cannot get assignments only for his kid
-
 describe("Parent only has access to their child's assignments", () =>{
   beforeAll(testUtils.connectDB);
   afterAll(testUtils.stopDB);
   afterEach(testUtils.clearDB);
 
-  it("teacher assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(teacherUser.role);
+  it("parent getting an assignment", async () => {
+    const res = await request(server).post("/assignments/assignmentsForParent").send(parentUser.role);
     expect(res.statusCode).toEqual(200);
-  })
-  it("student assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(studentUser.role);
-    expect(res.statusCode).toEqual(401);
-  })
-  it("parent assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(parentUser.role);
-    expect(res.statusCode).toEqual(401);
   })
 });
 
 //16. User should be able to get an average grade by student id (user role doesn’t matter)
-
 describe("Any user can get average grade by student id", () =>{
   beforeAll(testUtils.connectDB);
   afterAll(testUtils.stopDB);
   afterEach(testUtils.clearDB);
 
-  it("teacher assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(teacherUser.role);
+  it("teacher getting an assignment average grade for user", async () => {
+    const res = await request(server).get("/student/grades/:id").send(teacherUser.role);
     expect(res.statusCode).toEqual(200);
   })
-  it("student assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(studentUser.role);
-    expect(res.statusCode).toEqual(401);
+  it("student getting an assignment average grade for user", async () => {
+    const res = await request(server).get("/student/grades/:id/").send(studentUser.role);
+    expect(res.statusCode).toEqual(200);
   })
-  it("parent assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(parentUser.role);
-    expect(res.statusCode).toEqual(401);
+  it("parent getting an assignment average grade for user", async () => {
+    const res = await request(server).get("/student/grades/:id/").send(parentUser.role);
+    expect(res.statusCode).toEqual(200);
   })
 });
 
 //17. Teacher/Student can get an assignment by id
-
 describe("Teacher/student can get an assignment by id", () =>{
   beforeAll(testUtils.connectDB);
   afterAll(testUtils.stopDB);
   afterEach(testUtils.clearDB);
 
-  it("teacher assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(teacherUser.role);
+  it("teacher getting an assignment by id", async () => {
+    const res = await request(server).get("/assignments/:id").send(teacherUser.role);
     expect(res.statusCode).toEqual(200);
   })
-  it("student assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(studentUser.role);
-    expect(res.statusCode).toEqual(401);
-  })
-  it("parent assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(parentUser.role);
-    expect(res.statusCode).toEqual(401);
-  })
-});
-
-//18. Parent cannot get an assignment by id
-
-describe("Parent cannot get an assignment by id", () =>{
-  beforeAll(testUtils.connectDB);
-  afterAll(testUtils.stopDB);
-  afterEach(testUtils.clearDB);
-
-  it("teacher assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(teacherUser.role);
+  it("student getting an assignment by id", async () => {
+    const res = await request(server).get("/assignments/:id").send(studentUser.role);
     expect(res.statusCode).toEqual(200);
   })
-  it("student assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(studentUser.role);
-    expect(res.statusCode).toEqual(401);
-  })
-  it("parent assigning an assignment", async () => {
-    const res = await request(server).post("/assignments/").send(parentUser.role);
+  it("parent cannot get an assignment by id", async () => {
+    const res = await request(server).get("/assignments/:id").send(parentUser.role);
     expect(res.statusCode).toEqual(401);
   })
 });
