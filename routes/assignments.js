@@ -51,6 +51,34 @@ router.post("/submit", async(req, res, next) => {
     }
 });
 
+
+// POST /updateAndSubmit - student can update and submit an assignment on a student view page
+// Student can enter any values into input form through UI
+// Body request:
+// { "assignmentId": "612bca87ebb57f20e68e69e4", 
+//    "content" : " new content from input form"
+// }
+
+router.post("/updateAndSubmit", async(req, res, next) => {
+    try {
+        const assignmentId = req.body.assignmentId;
+        const newContent = req.body.content;
+
+        if (req.user.role !== "student") {
+            throw new Error("Unauthorized");
+        }
+        const assignment = await assignmentDAO.submitAndUpdate(assignmentId, newContent);
+        // res.json(assignment);
+        res.render('students', { assignment: assignment, user: req.user });
+
+    } catch (e) {
+        next(e);
+    }
+});
+
+
+
+
 // Grade assignment, only for a teacher.
 // Body request:
 // {

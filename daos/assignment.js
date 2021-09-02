@@ -1,5 +1,6 @@
 const Assignment = require("../models/assignment");
 const mongoose = require("mongoose");
+mongoose.set('useFindAndModify', false);
 module.exports = {};
 
 module.exports.createAssignment = async(assignment) => {
@@ -38,7 +39,12 @@ module.exports.deleteAssignment = async(assignmentId) => {
 };
 
 module.exports.gradeAssignment = async(assignmentId, grade) => {
-    const assignment = await Assignment.findOneAndUpdate({ _id: assignmentId }, { grade: grade });
+    const filter = { _id: assignmentId };
+    const update = { grade: grade };
+    const assignment = await Assignment.findOneAndUpdate(filter, update, {
+        new: true
+    });
+
     if (!assignment) {
         throw new Error("Not found");
     }
@@ -55,6 +61,26 @@ module.exports.submitAssignment = async(assignmentId) => {
 
     return assignment;
 };
+
+
+module.exports.submitAndUpdate = async(assignmentId, newContent) => {
+    const filter = { _id: assignmentId };
+    const update = {
+        content: newContent,
+
+        $set: { 'isSubmitted': true }
+
+    };
+    const assignment = await Assignment.findOneAndUpdate(filter, update, {
+        new: true
+    });
+    if (!assignment) {
+        throw new Error("Not found");
+    }
+
+    return assignment;
+};
+
 
 module.exports.getAvgGradeByStudentId = async(studentId) => {
     const result = await Assignment.aggregate([
