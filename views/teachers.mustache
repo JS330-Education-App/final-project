@@ -70,7 +70,10 @@
                 <span class="badge bg-warning badge-pill dueDate">{{ assignment.dueDate }}</span>
               </div>
               <div class="mt-2">
-                <button type="button" class="btn btn-link text-danger">Delete</button>
+                <form action="/assignments/delete" method="post">
+                  <input type="hidden" name="assignmentId" class="btn btn-success" value={{ assignment.id }} />
+                  <button type="submit" id="btnAssgnDelete" class="btn btn-link text-danger">Delete</button>
+                </form>
               </div>
             </div>
           </div>
@@ -171,10 +174,9 @@
                   </div>
                   <div class="mt-2">
                   <form action="/assignments/delete" method="post">
-                         <input type="hidden" name="assignmentId" class="btn btn-success" value={{assignment.id}} />
-                        <button type="submit" id="btnAssgnDelete" class="btn btn-link text-danger">Delete</button>
-                       </form>
-                    {{{!--<button type="button" class="btn btn-link text-danger">Delete</button>}}}
+                    <input type="hidden" name="assignmentId" class="btn btn-success" value={{assignment.id}} />
+                    <button type="submit" id="btnAssgnDelete" class="btn btn-link text-danger">Delete</button>
+                  </form>
                   </div>
                 </div>
                 </div>

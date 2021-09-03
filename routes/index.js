@@ -15,7 +15,7 @@ router.get("/signup", (req, res, next) => {
 
 router.use("/assignments", require('./assignments'));
 
-router.use("/users/teachers", isLoggedIn, (req, res, next) => {
+router.get("/users/teachers", isLoggedIn, (req, res, next) => {
     res.render('teachers', { user: req.user });
 });
 
@@ -27,7 +27,6 @@ router.get("/users/students", isLoggedIn, async (req, res, next) => {
 
 router.get("/users/parents", isLoggedIn, async (req, res, next) => {
     const grade = await assignmentDAO.getAvgGradeByStudentId(req.user.externalID);
-    //console.log(req.user.externalID);
     let avg = grade[0].averageGrade;
 
     res.render('parents', { user: req.user, avg });

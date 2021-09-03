@@ -159,6 +159,7 @@ module.exports.partialSearch = async(query) => {
         {
             $group: {
                 _id: {
+                    id: "$_id",
                     title: "$title",
                     content: "$content",
                     dueDate: "$dueDate",

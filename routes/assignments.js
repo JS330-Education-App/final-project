@@ -122,9 +122,10 @@ router.post("/delete", async(req, res, next) => {
 
         const userId = req.user._id;
         const assignments = await assignmentDAO.getAllAssignments(userId);
-        
+
         res.render('teachers', { assignments: assignments, user: req.user });
     } catch (e) {
+      console.log(e);
         next(e);
     }
 });
@@ -178,10 +179,8 @@ router.get("/search", async(req, res, next) => {
             throw new Error("Unauthorized");
         }
         let query = req.query.title;
-        console.log('query ', query);
         const result = await assignmentDAO.partialSearch(query);
         res.render('teachers', { searchResults: result, user: req.user });
-        // res.json(result);
     } catch (e) {
         next(e);
     }
@@ -199,7 +198,6 @@ router.get("/", async(req, res, next) => {
         const userId = req.user._id;
         const assignments = await assignmentDAO.getAllAssignments(userId);
         res.render('teachers', { assignments: assignments, user: req.user });
-        // res.json(assignments);
 
     } catch (e) {
         next(e);
