@@ -6,6 +6,7 @@ bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 router.use(cookieParser());
+const userDAO = require("../daos/user");
 const assignmentDAO = require("../daos/assignment");
 
 router.get("/signup", (req, res, next) => {
@@ -26,7 +27,9 @@ router.get("/users/students", isLoggedIn, async (req, res, next) => {
 
 router.get("/users/parents", isLoggedIn, async (req, res, next) => {
     const grade = await assignmentDAO.getAvgGradeByStudentId(req.user.externalID);
-    let avg = grade[0].averageGrade; 
+    //console.log(req.user.externalID);
+    let avg = grade[0].averageGrade;
+
     res.render('parents', { user: req.user, avg });
 });
 

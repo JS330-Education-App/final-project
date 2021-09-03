@@ -120,7 +120,10 @@ router.post("/delete", async(req, res, next) => {
         const assignmentId = req.body.assignmentId;
         const deleted = await assignmentDAO.deleteAssignment(assignmentId);
 
-        res.sendStatus(200);
+        const userId = req.user._id;
+        const assignments = await assignmentDAO.getAllAssignments(userId);
+        
+        res.render('teachers', { assignments: assignments, user: req.user });
     } catch (e) {
         next(e);
     }
