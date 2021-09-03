@@ -18,15 +18,16 @@ router.use("/users/teachers", isLoggedIn, (req, res, next) => {
     res.render('teachers', { user: req.user });
 });
 
-router.use("/users/students", isLoggedIn, async(req, res, next) => {
+router.use("/users/students", isLoggedIn, async (req, res, next) => {
     const grade = await assignmentDAO.getAvgGradeByStudentId(req.user._id);
     let avg = grade[0].averageGrade;
-    res.render('students', { user: req.user, avgGrade: avg });
+    res.render('students', { user: req.user, avg });
 });
 
-router.use("/users/parents", isLoggedIn, (req, res, next) => {
-    res.render('parents', { user: req.user });
-    //console.log(req.user);
+router.use("/users/parents", isLoggedIn, async (req, res, next) => {
+    const grade = await assignmentDAO.getAvgGradeByStudentId(req.user.externalID);
+    let avg = grade[0].averageGrade; 
+    res.render('parents', { user: req.user, avg });
 });
 
 router.use("/login", require('./users'));
