@@ -112,14 +112,13 @@ module.exports.getAvgGradeByStudentId = async(studentId) => {
                 averageGrade: { $avg: "$grade" },
             },
         },
-        { $project: { _id: 0, studentID: "$_id", averageGrade: 1 }},
+        { $project: { _id: 0, studentID: "$_id", averageGrade: { $round: ["$averageGrade", 0]} }},
         { $unwind: "$studentID" },
     ]);
 
     if (!result) {
         throw new Error("Not found");
     }
-
     return result;
 };
 
