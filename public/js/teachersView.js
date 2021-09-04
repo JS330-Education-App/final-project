@@ -5,7 +5,8 @@ const checkmark = document.querySelector('span.checkmark');
 const getAllAssignments = document.getElementById('getAllAssignments');
 let dueDate = document.getElementsByClassName('dueDate');
 const btnSaveAssgn = document.getElementById('btnSaveAssgn');
-const assgnStatus = document.getElementById('assgnStatus')
+const assgnStatus = document.getElementById('assgnStatus');
+const li = document.getElementsByClassName('list-group-item');
 
 console.log(dueDate)
 console.log(btnSaveAssgn)

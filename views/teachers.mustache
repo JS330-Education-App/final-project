@@ -39,21 +39,17 @@
           <div class="d-flex justify-content-between align-items-start pt-3 pb-3">
             <div class="ms-2 me-auto">
               <div class="fw-bold">Title: {{ assignment.title }}</div>
-              <p>Content: {{ assignment.content }}</p>
-              <p>Student name: {{ assignment.studentName }}</p> 
+              <p class="fw-bolder mb-0">Description: <span class="fw-normal text-muted">{{ assignment.content }}</span></p>
+              <p class="fw-bolder mb-0">For: <span class="fw-normal text-muted">{{ assignment.studentName }}</span></p>
                <p> {{ #assignment.isSubmitted }} Submitted!{{/assignment.isSubmitted }} </p>            
               <div class="mt-2 d-flex">
                 <div class="me-3">
-                  <form>
-                    <select class="form-select rounded border-dark selectGrade">
-                      <option value="none" selected>Grade</option>
-                      <option value="100">A</option>
-                      <option value="80">B</option>
-                      <option value="60">C</option>
-                      <option value="40">D</option>
-                      <option value="20">E</option>
-                      <option value="0">F</option>
-                    </select>
+                  <form action="" method="">
+                    <div class="input-group">
+                      <input type="text" class="form-control input-grade" placeholder="99" aria-label="grade" aria-describedby="">
+                      <button class="btn btn-success" type="submit" id="">Submit</button>
+                    </div>
+                    <span class="text-muted input-grade-text">Enter grade and submit</span>
                   </form>
                 </div>
                 <div class="me-3 position-relative">
@@ -69,13 +65,13 @@
                 <span class="text-muted">Due date</span>
                 <span class="badge bg-warning badge-pill dueDate">{{ assignment.dueDate }}</span>
               </div>
-              <div class="mt-2">
-                <form action="/assignments/delete" method="post">
-                  <input type="hidden" name="assignmentId" class="btn btn-success" value={{ assignment.id }} />
-                  <button type="submit" id="btnAssgnDelete" class="btn btn-link text-danger">Delete</button>
-                </form>
-              </div>
             </div>
+          </div>
+          <div class="mb-3 me-1 text-end">
+            <form action="/assignments/delete" method="post">
+              <input type="hidden" name="assignmentId" class="btn btn-success" value={{ assignment.id }} />
+              <button type="submit" id="btnAssgnDelete" class="btn btn-link text-danger p-0">Delete</button>
+            </form>
           </div>
         </div>
       </li>
@@ -98,8 +94,8 @@
           {{ #students }}
             <li class="list-group-item d-flex justify-content-between align-items-start p-4">
               <div class="ms-2 me-auto">
-                <p class="fw-bolder mb-0">Name: <span class="fw-light text-muted">{{ name }}</span></p>
-                <p class="fw-bolder mb-0">Email: <span class="fw-light text-muted">{{ email }}</span></p>
+                <p class="fw-bolder mb-0">Name: <span class="fw-normal text-muted">{{ name }}</span></p>
+                <p class="fw-bolder mb-0">Email: <span class="fw-normal text-muted">{{ email }}</span></p>
                 {{! <p class="lead text-muted"></p> }}
                 <ul class="list-group list-group-flush">
                   {{! <li class="list-group-item pb-3 pt-3">
@@ -112,7 +108,7 @@
               </div>
               <div class="text-center d-flex flex-column align-self-start">
                 <span class="fw-bold">Total</span>
-                <span class="badge bg-success d-flex justify-content-center align-items-center">100</span>
+                <span class="badge bg-success d-flex justify-content-center align-items-center">{{ avg }}</span>
               </div>
             </li>
           {{ /students }}
@@ -136,27 +132,24 @@
         <div>
           <ol class="list-group list-group-numbered list-non-number assignments-list">
             {{ #assignments }}
-            <li class="list-group-item">
+            <li class="list-group-item" id="{{assignment.id}}">
               <div>
               <div class="d-flex justify-content-between align-items-start pt-3 pb-3">
                 <div class="ms-2 me-auto">          
-             <div class="fw-bold">Title: {{ assignment.title }}</div>
-              {{{--!<p>Content: {{ assignment.content }}</p>}}} 
-               {{{--! <p>Due Date: {{ assignment.dueDate }}</p>}}}
-              <p>Student name: {{ assignment.studentName }}</p> 
+                  <div class="fw-bold">Title: {{ assignment.title }}</div>
+                    {{{--!<p>Content: {{ assignment.content }}</p>}}} 
+                    {{{--! <p>Due Date: {{ assignment.dueDate }}</p>}}}
+                    <p class="fw-bolder mb-0">Description: <span class="fw-normal text-muted">{{ assignment.content }}</span></p>
+                    <p class="fw-bolder mb-0">For: <span class="fw-normal text-muted">{{ assignment.studentName }}</span></p>
        
-                  <div class="mt-2 d-flex">
+                  <div class="mt-4 d-flex">
                     <div class="me-3">
-                      <form>
-                        <select class="form-select rounded border-dark selectGrade">
-                          <option value="none" selected>Grade</option>
-                          <option value="100">A</option>
-                          <option value="80">B</option>
-                          <option value="60">C</option>
-                          <option value="40">D</option>
-                          <option value="20">E</option>
-                          <option value="0">F</option>
-                        </select>
+                      <form action="" method="">
+                        <div class="input-group">
+                          <input type="text" class="form-control input-grade" placeholder="99" aria-label="grade" aria-describedby="">
+                          <button class="btn btn-success" type="submit" id="">Submit</button>
+                        </div>
+                        <span class="text-muted input-grade-text">Enter grade and submit</span>
                       </form>
                     </div>
                       <div class="me-3 position-relative">
@@ -172,13 +165,13 @@
                     <span class="text-muted">Due date</span>
                     <span class="badge bg-warning badge-pill dueDate">{{ assignment.dueDate }}</span>
                   </div>
-                  <div class="mt-2">
+                </div>
+                </div>
+                <div class="mb-3 me-1 text-end">
                   <form action="/assignments/delete" method="post">
                     <input type="hidden" name="assignmentId" class="btn btn-success" value={{assignment.id}} />
-                    <button type="submit" id="btnAssgnDelete" class="btn btn-link text-danger">Delete</button>
+                    <button type="submit" id="btnAssgnDelete" class="btn btn-link text-danger p-0">Delete</button>
                   </form>
-                  </div>
-                </div>
                 </div>
               </div>
             </li>

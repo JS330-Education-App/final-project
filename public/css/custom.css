@@ -42,3 +42,11 @@
   width: 80px;
   overflow: hidden;
 }
+
+.input-grade {
+  max-width: 60px;;
+}
+
+.input-grade-text {
+  font-size: 13px;
+}
