@@ -41,16 +41,29 @@
               <div class="fw-bold">Title: {{ assignment.title }}</div>
               <p class="fw-bolder mb-0">Description: <span class="fw-normal text-muted">{{ assignment.content }}</span></p>
               <p class="fw-bolder mb-0">For: <span class="fw-normal text-muted">{{ assignment.studentName }}</span></p>
-               <p> {{ #assignment.isSubmitted }} Submitted!{{/assignment.isSubmitted }} </p>            
+              <p>Grade: {{ assignment.grade }}</p>
+              {{ #assignment.grade }}
+              {{ /assignment.grade }}
+              {{ ^assignment.grade }}
+                <p> {{ #assignment.isSubmitted }} Submitted!{{/assignment.isSubmitted }} </p> 
+              {{ /assignment.grade }}
+                          
               <div class="mt-2 d-flex">
                 <div class="me-3">
-                  <form action="" method="">
-                    <div class="input-group">
-                      <input type="text" class="form-control input-grade" placeholder="99" aria-label="grade" aria-describedby="">
-                      <button class="btn btn-success" type="submit" id="">Submit</button>
-                    </div>
-                    <span class="text-muted input-grade-text">Enter grade and submit</span>
-                  </form>
+
+                  <form action="/assignments/grade" method="post">
+                        {{ ^assignment.grade }}
+                          <div>
+                            <div class="input-group">
+                                <input type="number" name="grade" class="form-control input-grade" placeholder="99" aria-label="grade" aria-describedby="" />
+                                <input type="hidden" name="assignmentId" class="btn btn-success" value={{ assignment.id }} />
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                            <span class="text-muted input-grade-text">Enter grade and submit</span>
+                          </div>
+                        {{ /assignment.grade }}
+                      </form>
+
                 </div>
                 <div class="me-3 position-relative">
                   <button type="button" class="btn btn-success invisible btnGradeConfirm">Confirm</button>
@@ -135,17 +148,24 @@
                     {{{--! <p>Due Date: {{ assignment.dueDate }}</p>}}}
                     <p class="fw-bolder mb-0">Description: <span class="fw-normal text-muted">{{ assignment.content }}</span></p>
                     <p class="fw-bolder mb-0">For: <span class="fw-normal text-muted">{{ assignment.studentName }}</span></p>
+                    <p>Grade: {{ assignment.grade }}</p>
        
                   <div class="mt-4 d-flex">
                     <div class="me-3">
-                      <form action="" method="">
-                        <div class="input-group">
-                          <input type="text" class="form-control input-grade" placeholder="99" aria-label="grade" aria-describedby="">
-                          <button class="btn btn-success" type="submit" id="">Submit</button>
-                        </div>
-                        <span class="text-muted input-grade-text">Enter grade and submit</span>
+                      <form action="/assignments/grade" method="post">
+                        {{ ^assignment.grade }}
+                          <div>
+                            <div class="input-group">
+                                <input type="number" name="grade" class="form-control input-grade" placeholder="99" aria-label="grade" aria-describedby="" />
+                                <input type="hidden" name="assignmentId" class="btn btn-success" value={{ assignment.id }} />
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                            <span class="text-muted input-grade-text">Enter grade and submit</span>
+                          </div>
+                        {{ /assignment.grade }}
                       </form>
                     </div>
+
                       <div class="me-3 position-relative">
                         <button type="button" class="btn btn-success invisible btnGradeConfirm">Confirm</button>
                         <span class="badge rounded-pill bg-success invisible checkmark position-absolute top-50 start-0 translate-middle-y text-light d-flex align-items-center justify-content-center">
@@ -163,7 +183,7 @@
                 </div>
                 <div class="mb-3 me-1 text-end">
                   <form action="/assignments/delete" method="post">
-                    <input type="hidden" name="assignmentId" class="btn btn-success" value={{assignment.id}} />
+                    <input type="hidden" name="assignmentId" class="btn btn-success" value={{ assignment.id }} />
                     <button type="submit" id="btnAssgnDelete" class="btn btn-link text-danger p-0">Delete</button>
                   </form>
                 </div>

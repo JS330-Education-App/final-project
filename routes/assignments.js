@@ -96,8 +96,15 @@ router.post("/grade", async(req, res, next) => {
         const assignmentId = req.body.assignmentId;
         const grade = parseInt(req.body.grade);
         const assignment = await assignmentDAO.gradeAssignment(assignmentId, grade);
-        res.json(assignment);
+
+        const userId = req.user._id;
+        const assignments = await assignmentDAO.getAllAssignments(userId);
+
+        console.log(assignment);
+        res.render('teachers', { assignments: assignments, user: req.user });
+        //res.json(assignment);
     } catch (e) {
+        console.log(e);
         next(e);
     }
 });

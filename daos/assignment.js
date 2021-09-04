@@ -112,7 +112,7 @@ module.exports.getAvgGradeByStudentId = async(studentId) => {
                 averageGrade: { $avg: "$grade" },
             },
         },
-        { $project: { _id: 0, studentID: "$_id", averageGrade: 1 } },
+        { $project: { _id: 0, studentID: "$_id", averageGrade: 1 }},
         { $unwind: "$studentID" },
     ]);
 

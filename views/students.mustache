@@ -48,25 +48,22 @@
                           <div class="">
                             {{ content }}
                           </div>
-                          
-
+                          <p>Grade: {{ grade }}</p>                         
                         </div>
                       </div>
-
+                      <form action="/assignments/submit" method="post">
                       <div class="mt-3">
-
-                       <form action="/assignments/submit" method="post">
-                         <input type="hidden" name="assignmentId" class="btn btn-success" value={{_id}} />
-                         {{ #isSubmitted }}
-                            <p>Submitted!</p>
-                         {{ /isSubmitted }}
-                         {{ ^isSubmitted }}
-                           <button type="submit" id="btnAssgnSubmit" class="btn btn-success">Submit</button>
-                         {{ /isSubmitted }}
-                       </form>
-
-                      {{!--<button type="button" id="btnAssgnSubmit" class="btn btn-success">Submit</button>}}  
+                        {{ #isSubmitted }}
+                          <p>Submitted!</p>
+                        {{ /isSubmitted }}
+                       
+                        <input type="hidden" name="assignmentId" class="btn btn-success" value={{_id}} />                      
+                        
+                        {{ ^isSubmitted }}
+                          <button type="submit" id="btnAssgnSubmit" class="btn btn-success">Submit</button>
+                        {{ /isSubmitted }}
                       </div>
+                      </form>
                     </div>
                    
                     <div class="text-center d-flex flex-column justify-content-start align-items-end col-3">

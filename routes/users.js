@@ -178,7 +178,7 @@ router.post("/login", async(req, res, next) => {
         console.log("token", token);
 
         if (token) {
-            res.cookie('AuthToken', `Bearer ${token}`, { expires: new Date(Date.now() + 8 * 3600000) }); // cookie will be removed after 8 hours
+            res.cookie('AuthToken', token, { expires: new Date(Date.now() + 8 * 3600000) }); // cookie will be removed after 8 hours
             if (userFromDB.role === 'teacher') {
                 res.redirect('/users/teachers');
             } else if (userFromDB.role === 'student') {
@@ -263,7 +263,7 @@ router.get("/getAllStudents", async(req, res, next) => {
         }
 
         const students = await userDAO.getAllStudents(req.user._id);
-        // console.log('students ', students);
+        console.log('students ', students);
         // const grade = await assignmentDAO.getAvgGradeByStudentId(students[0]._id);
         // console.log(grade);
         // let avg = grade[0].averageGrade;

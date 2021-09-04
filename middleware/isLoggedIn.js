@@ -42,13 +42,13 @@ const isLoggedIn = async function(req, res, next) {
         if (!token) {
             throw new Error("Token not found");
         }
-        let bearer = 'Bearer ';
-        if (!token.startsWith(bearer)) {
-            throw new Error("Bad token");
+        // let bearer = 'Bearer ';
+        // if (!token.startsWith(bearer)) {
+        //     throw new Error("Bad token");
             // res.status(401).send("Token is not valid");
             // return;
-        }
-        token = token.substring(bearer.length).trim();
+        //}
+        //token = token.substring(bearer.length).trim();
 
         jwt.verify(token, secret, async(err) => {
             if (err) {
