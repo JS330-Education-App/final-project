@@ -48,6 +48,8 @@
                           <div class="">
                             {{ content }}
                           </div>
+                          
+
                         </div>
                       </div>
 
@@ -55,8 +57,14 @@
 
                        <form action="/assignments/submit" method="post">
                          <input type="hidden" name="assignmentId" class="btn btn-success" value={{_id}} />
-                        <button type="submit" id="btnAssgnSubmit" class="btn btn-success">Submit</button>
+                         {{ #isSubmitted }}
+                            <p>Submitted!</p>
+                         {{ /isSubmitted }}
+                         {{ ^isSubmitted }}
+                           <button type="submit" id="btnAssgnSubmit" class="btn btn-success">Submit</button>
+                         {{ /isSubmitted }}
                        </form>
+
                       {{!--<button type="button" id="btnAssgnSubmit" class="btn btn-success">Submit</button>}}  
                       </div>
                     </div>

@@ -36,6 +36,7 @@ module.exports.getAllStudents = async(teacherId) => {
             $group: {
 
                 _id: {
+                    id: "$_id",
                     studentName: "$name",
                     email: "$email"
                 }

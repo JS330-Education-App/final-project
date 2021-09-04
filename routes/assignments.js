@@ -44,6 +44,7 @@ router.post("/submit", async(req, res, next) => {
             throw new Error("Unauthorized");
         }
         const assignment = await assignmentDAO.submitAssignment(assignmentId);
+
         res.render('students', { assignment: assignment, user: req.user });
 
     } catch (e) {
@@ -167,6 +168,7 @@ router.post("/", async(req, res, next) => {
         );
         res.render('teachers', { postAssignment: postedAssignment, user: req.user, studentEmail: req.body.studentEmail });
     } catch (e) {
+        console.log(e);
         next(e);
     }
 });

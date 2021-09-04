@@ -15,7 +15,7 @@ router.get("/signup", (req, res, next) => {
 
 router.use("/assignments", require('./assignments'));
 
-router.get("/users/teachers", isLoggedIn, (req, res, next) => {
+router.get("/users/teachers", isLoggedIn, async (req, res, next) => {
     res.render('teachers', { user: req.user });
 });
 

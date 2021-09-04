@@ -19,8 +19,8 @@ console.log(assgnStatus)
 // }, 10000);
 function DoLater(){
     setTimeout(function(){
-      alert("hello");
-    },10000);
+      alert("Submitted!");
+    },500);
   }
   
     btnSaveAssgn.addEventListener('hover', function() {

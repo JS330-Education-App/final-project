@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router({ mergeParams: true });
 
 const userDAO = require("../daos/user");
+const assignmentDAO = require("../daos/assignment");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const secret = "my_super_secret";
@@ -262,11 +263,16 @@ router.get("/getAllStudents", async(req, res, next) => {
         }
 
         const students = await userDAO.getAllStudents(req.user._id);
-        // res.json(students);
+        // console.log('students ', students);
+        // const grade = await assignmentDAO.getAvgGradeByStudentId(students[0]._id);
+        // console.log(grade);
+        // let avg = grade[0].averageGrade;
+
         res.render('teachers', { students: students, user: req.user });
 
     } catch (e) {
-        next(e);
+      console.log(e);
+      next(e);
     }
 });
 
