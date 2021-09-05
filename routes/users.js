@@ -263,7 +263,6 @@ router.get("/getAllStudents", async(req, res, next) => {
         }
 
         const students = await userDAO.getAllStudents(req.user._id);
-        console.log('students ', students);
         // const grade = await assignmentDAO.getAvgGradeByStudentId(students[0]._id);
         // console.log(grade);
         // let avg = grade[0].averageGrade;

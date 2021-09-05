@@ -100,9 +100,9 @@ router.post("/grade", async(req, res, next) => {
         const userId = req.user._id;
         const assignments = await assignmentDAO.getAllAssignments(userId);
 
-        console.log(assignment);
-        res.render('teachers', { assignments: assignments, user: req.user });
-        //res.json(assignment);
+        const students = await userDAO.getAllStudents(req.user._id);
+
+        res.render('teachers', { assignments: assignments, user: req.user, students });
     } catch (e) {
         console.log(e);
         next(e);
@@ -131,7 +131,9 @@ router.post("/delete", async(req, res, next) => {
         const userId = req.user._id;
         const assignments = await assignmentDAO.getAllAssignments(userId);
 
-        res.render('teachers', { assignments: assignments, user: req.user });
+        const students = await userDAO.getAllStudents(req.user._id);
+
+        res.render('teachers', { assignments: assignments, user: req.user, students });
     } catch (e) {
       console.log(e);
         next(e);
@@ -266,7 +268,7 @@ router.get("/assignmentsForParent", async(req, res, next) => {
 });
 
 
-// Get avarege grade  for a student by student id
+// Get average grade  for a student by student id
 router.get("/student/grades/:id", async(req, res, next) => {
     try {
 
@@ -281,7 +283,7 @@ router.get("/student/grades/:id", async(req, res, next) => {
 
 
 
-// Get an assignemnt by id, authorized only for teacher and student
+// Get an assignment by id, authorized only for teacher and student
 router.get("/:id", async(req, res, next) => {
     try {
 
