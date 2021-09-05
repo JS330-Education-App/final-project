@@ -173,7 +173,12 @@ router.post("/", async(req, res, next) => {
         const postedAssignment = await assignmentDAO.createAssignment(
             assignment
         );
-        res.render('teachers', { postAssignment: postedAssignment, user: req.user, studentEmail: req.body.studentEmail });
+
+        const students = await userDAO.getAllStudents(req.user._id);
+
+        const assignments = await assignmentDAO.getAllAssignments(req.user._id);
+
+        res.render('teachers', { postAssignment: postedAssignment, user: req.user, studentEmail: req.body.studentEmail, students, assignments });
     } catch (e) {
         console.log(e);
         next(e);
@@ -187,9 +192,14 @@ router.get("/search", async(req, res, next) => {
         if (req.user.role === "parent") {
             throw new Error("Unauthorized");
         }
+        const students = await userDAO.getAllStudents(req.user._id);
+
+        const assignments = await assignmentDAO.getAllAssignments(req.user._id);
+
         let query = req.query.title;
         const result = await assignmentDAO.partialSearch(query);
-        res.render('teachers', { searchResults: result, user: req.user });
+
+        res.render('teachers', { searchResults: result, user: req.user, students, assignments });
     } catch (e) {
         next(e);
     }
