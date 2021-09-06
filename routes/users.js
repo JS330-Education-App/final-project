@@ -209,11 +209,10 @@ router.get("/getAllStudents", async(req, res, next) => {
         }
 
         const students = await userDAO.getAllStudents(req.user._id);
-
         res.render('teachers', { students: students, user: req.user });
 
     } catch (e) {
-      next(e);
+        next(e);
     }
 });
 

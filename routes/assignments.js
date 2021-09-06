@@ -24,7 +24,6 @@ router.post("/student/grades", async(req, res, next) => {
         const studentEmail = req.body.studentEmail;
         const student = await userDAO.getUser(studentEmail);
         const grade = await assignmentDAO.getAvgGradeByStudentId(student._id);
-
         res.json(grade);
     } catch (e) {
         next(e);
@@ -236,11 +235,11 @@ router.get("/assignmentsForStudent", async(req, res, next) => {
         let isAssignment = false;
 
         if (result.length === 0) {
-          isAssignment = true;
-          res.json('There are no assignments for the student.');
+            isAssignment = true;
+            res.json('There are no assignments for the student.');
         } else {
-          grade = await assignmentDAO.getAvgGradeByStudentId(student._id);
-          avg = grade[0].averageGrade;
+            grade = await assignmentDAO.getAvgGradeByStudentId(student._id);
+            avg = grade[0].averageGrade;
         }
         res.render('students', { assignments: result, user: req.user, avg, isAssignment });
 
@@ -263,11 +262,11 @@ router.get("/assignmentsForParent", async(req, res, next) => {
         let isAssignment = false;
 
         if (result.length === 0) {
-          isAssignment = true;
-          res.json('There are no assignments for the student.');
+            isAssignment = true;
+            res.json('There are no assignments for the student.');
         } else {
-          grade = await assignmentDAO.getAvgGradeByStudentId(studentId);
-          avg = grade[0].averageGrade;
+            grade = await assignmentDAO.getAvgGradeByStudentId(studentId);
+            avg = grade[0].averageGrade;
         }
 
         res.render('parents', { assignments: result, user: req.user, avg });

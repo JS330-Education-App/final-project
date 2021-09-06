@@ -54,3 +54,11 @@ module.exports.getAllStudents = async(teacherId) => {
     return result;
 
 }
+
+
+module.exports.getAllStudents = async(teacherId) => {
+    const result = await User.find({ externalID: teacherId });
+
+    return result;
+
+}
