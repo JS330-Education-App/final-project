@@ -104,9 +104,6 @@
               <div class="ms-2 me-auto">
                 <p class="fw-bolder mb-0">Name: <span class="fw-normal text-muted">{{ name }}</span></p>
                 <p class="fw-bolder mb-0">Email: <span class="fw-normal text-muted">{{ email }}</span></p>
-                {{! <p class="lead text-muted"></p> }}
-                <ul class="list-group list-group-flush">
-                </ul>
               </div>
               <div class="text-center d-flex flex-column align-self-start">
                 {{!<span class="fw-bold">Total</span>}}
@@ -135,8 +132,6 @@
               <div class="d-flex justify-content-between align-items-start pt-3 pb-3">
                 <div class="ms-2 me-auto">          
                   <div class="fw-bold">Title: {{ assignment.title }}</div>
-                    {{{--!<p>Content: {{ assignment.content }}</p>}}} 
-                    {{{--! <p>Due Date: {{ assignment.dueDate }}</p>}}}
                     <p class="fw-bolder mb-0">Description: <span class="fw-normal text-muted">{{ assignment.content }}</span></p>
                     <p class="fw-bolder mb-0">For: <span class="fw-normal text-muted">{{ assignment.studentName }}</span></p>
                     <p class="fw-bolder mb-0">Grade: <span class="fw-normal text-muted">{{ assignment.grade }}</span></p>
@@ -157,12 +152,6 @@
                       </form>
                     </div>
 
-                      <div class="me-3 position-relative">
-                        <button type="button" class="btn btn-success invisible btnGradeConfirm">Confirm</button>
-                        <span class="badge rounded-pill bg-success invisible checkmark position-absolute top-50 start-0 translate-middle-y text-light d-flex align-items-center justify-content-center">
-                          <span>&#10003;</span>
-                        </span>
-                      </div>
                     </div>
                 </div>
                 <div class="text-center d-flex flex-column justify-content-between">
@@ -229,16 +218,9 @@
         {{! </form> }}
       </div>
       <div class="modal-footer">
-      <div  id="assgnStatus" class="invisible">
-        <div class="position-fixed bottom-0 start-0 p-3 text-dark" style="z-index: 11">
-          Hello
-        </div>
-      </div>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <input id="btnSaveAssgn" type="submit" class="btn btn-primary" onclick="return DoLater();"  value="Save changes" />
+        <input id="btnSaveAssgn" type="submit" class="btn btn-primary" value="Save changes" />
         </form>
-
-        {{! <button type="button" class="btn btn-primary">Save changes</button> }}
       </div>
     </div>
   </div>

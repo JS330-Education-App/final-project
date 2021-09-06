@@ -15,7 +15,6 @@
     </div>
     {{! <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addAssignment">View All Assignments</button> }}
     <a class="btn btn-danger" href="/logout" role="button">Logout</a>
-    {{! <button type="button" class="btn btn-danger">Logout</button> }}
   </div>
   <div class="row align-items-start">
     <div class="col">
@@ -46,11 +45,6 @@
                       <div class="fw-bold">{{ title }}</div>
 
                       <div class="assignments-desc">
-                        {{! <p class="mb-1">
-                          <a href="" class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Show description
-                          </a>
-                        </p>}}
                         <div class="" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                           <div class="">
                             {{ content }}
@@ -78,14 +72,6 @@
                         <span class="text-muted">Due date</span>
                         <span class="badge bg-warning badge-pill dueDate">{{ dueDate }}</span>
                       </div>
-                      {{!
-                      <div>
-                          <span class="badge badge-pill bg-warning">A</span>
-                      </div>
-                      }}
-                      <span id="checkmark" class="badge rounded-pill bg-success invisible checkmark text-light d-flex align-items-center justify-content-center">
-                            <span>&#10003;</span>
-                      </span>
                     </div>
                      {{ /assignments }}
 
@@ -100,7 +86,6 @@
   </div>
 </div>
 
-<script src="/js/studentsView.js"></script>
 {{>footer}}
 </body>
 </html>
