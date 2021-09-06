@@ -45,12 +45,8 @@
                       <div class="fw-bold">{{ title }}</div>
 
                       <div class="assignments-desc">
-                        <div class="" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                          <div class="">
-                            {{ content }}
-                          </div>
-                          <p>Grade: {{ grade }}</p>                         
-                        </div>
+                          <p class="fw-bolder mb-0">Description: <span class="fw-normal text-muted">{{ content }}</span></p>
+                          <p class="fw-bolder mb-0">Grade: <span class="fw-normal text-muted">{{ grade }}</span></p>
                       </div>
                       <form action="/assignments/submit" method="post">
                       <div class="mt-3">
@@ -86,6 +82,7 @@
   </div>
 </div>
 
+<script src="/js/dateFormatting.js"></script>
 {{>footer}}
 </body>
 </html>
