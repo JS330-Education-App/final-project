@@ -262,11 +262,11 @@ router.get("/assignmentsForParent", async(req, res, next) => {
         let isNoAssignment;
         if (result.length !== 0) {
             isNoAssignment = false;
-            grade = await assignmentDAO.getAvgGradeByStudentId(student._id);
+            grade = await assignmentDAO.getAvgGradeByStudentId(studentId);
             avg = grade[0].averageGrade;
-            res.render('students', { assignments: result, user: req.user, avg, isNoAssignment: false });
+            res.render('parents', { assignments: result, user: req.user, avg, isNoAssignment: false });
         } else {
-            res.render('students', { assignments: result, user: req.user, avg, isNoAssignment: true });
+            res.render('parents', { assignments: result, user: req.user, avg, isNoAssignment: true });
         }
 
         // if (result.length === 0) {
@@ -280,6 +280,7 @@ router.get("/assignmentsForParent", async(req, res, next) => {
         // res.render('parents', { assignments: result, user: req.user, avg });
 
     } catch (e) {
+      console.log(e);
         next(e);
     }
 });
