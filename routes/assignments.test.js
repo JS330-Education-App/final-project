@@ -79,6 +79,17 @@ describe("Verify user trying to submit assignment is a student. /", () => {
     beforeAll(testUtils.connectDB);
     afterAll(testUtils.stopDB);
     afterEach(testUtils.clearDB);
+    let token0;
+    let token1;
+    beforeEach(async() => {
+        await request(server).post('/users/signup').send(studentUser);
+        const res0 = await request(server).post('/users/login').send(studentUser);
+        token0 = res0.body.token;
+        await request(server).post('/login/signup').send(user1);
+        const res1 = await request(server).post('/users/login').send(user1);
+        token1 = res1.body.token;
+    });
+
     it("post student", async() => {
         agent
             .post('/users/login')

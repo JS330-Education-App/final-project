@@ -232,16 +232,16 @@ router.get("/assignmentsForStudent", async(req, res, next) => {
 
         let grade;
         let avg = 0;
-        let isAssignment = false;
+        let isNoAssignment;
 
-        if (result.length === 0) {
-            isAssignment = true;
-            res.json('There are no assignments for the student.');
-        } else {
+        if (result.length !== 0) {
+            isNoAssignment = false;
             grade = await assignmentDAO.getAvgGradeByStudentId(student._id);
             avg = grade[0].averageGrade;
+            res.render('students', { assignments: result, user: req.user, avg, isNoAssignment: false });
+        } else {
+            res.render('students', { assignments: result, user: req.user, avg, isNoAssignment: true });
         }
-        res.render('students', { assignments: result, user: req.user, avg, isAssignment });
 
     } catch (e) {
         next(e);
