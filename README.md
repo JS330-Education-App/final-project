@@ -5,59 +5,58 @@
 >
 
 #### Assignment Routes:
-|**Status** | **`HTTP` request** | **route** |
-|:---: | :---: | ---:|
-| :x: | `POST` | `assignments/student/grades` |
-| :x: | `POST` | `assignments/submit` |
-| :x: | `POST` | `assignments/updateAndSubmit` |
-| :x: | `POST` | `/assignments/grade` |
-| :x: | `POST` | `assignments/delete` |
-| :x: | `POST` | `assignments` |
-| :x: | `GET` | `assignments/search` |
-| :x: | `GET` | `assignments` |
-| :x: | `GET` | `assignments/assignmentsForStudent` |
-| :x: | `GET` | `assignments/assignmentsForParent` |
-| :x: | `GET` | `assignments/student/grades/:id` |
-| :x: | `GET` | `assignments/:id` |
+| **`HTTP` request** | **route** |
+| :---: | ---:|
+| `POST` | `assignments/student/grades` |
+| `POST` | `assignments/submit` |
+| `POST` | `assignments/updateAndSubmit` |
+| `POST` | `/assignments/grade` |
+| `POST` | `assignments/delete` |
+| `POST` | `assignments` |
+| `GET` | `assignments/search` |
+| `GET` | `assignments` |
+| `GET` | `assignments/assignmentsForStudent` |
+| `GET` | `assignments/assignmentsForParent` |
+| `GET` | `assignments/student/grades/:id` |
+| `GET` | `assignments/:id` |
 
 #### Assignment DAOs:
-|Status | DAO |
-|:---: | ---: |
-| :x: | `createAssignment` |
-| :x: | `updateAssignment` |
-| :x: | `deleteAssignment` |
-| :x: | `getAllAssignments` |
-| :x: | `getAssignment` |
-| :x: | `getAssignmentByStudentId` |
-| :x: | `getAvgGradeByStudentId` |
-| :x: | `gradeAssignment` |
-| :x: | `submitAssignment` |
-| :x: | `createAssignment` |
-| :x: | `search` |
-| :x: | `partialSearch` |
+| DAO |
+| ---: |
+| `createAssignment` |
+| `updateAssignment` |
+| `deleteAssignment` |
+| `getAllAssignments` |
+| `getAssignment` |
+| `getAssignmentByStudentId` |
+| `getAvgGradeByStudentId` |
+| `gradeAssignment` |
+| `submitAssignment` |
+| `createAssignment` |
+| `search` |
+| `partialSearch` |
 
 
 #### User Routes:
-|**Status** | **`HTTP` request** | **route** |
-|:---: | :---: | ---:|
-| :x: | `GET` | `/users` |
-| :x: | `POST` | `/users/signup` |
-| :x: | `POST` | `/users/login` |
-| :x: | `POST` | `/users/logout` |
-| :x: | `GET` | `/users/student/:id` |
-| :x: | `GET` | `/users/getAllStudents` |
-
+| **`HTTP` request** | **route** |
+| :---: | ---:|
+| `GET` | `/users` |
+| `POST` | `/users/signup` |
+| `POST` | `/users/login` |
+| `POST` | `/users/logout` |
+| `GET` | `/users/student/:id` |
+| `GET` | `/users/getAllStudents` |
 
 #### User DAOs:
-|Status | DAO |
-|:---: | ---: |
-| :x: | `getUser` |
-| :x: | `updateUserPassword` |
-| :x: | `createUser` |
-| :x: | `getUserById` |
-| :x: | `getStudentById` |
-| :x: | `getStudentByEmail` |
-| :x: | `getAllStudents` |
+| DAO |
+| ---: |
+| `getUser` |
+| `updateUserPassword` |
+| `createUser` |
+| `getUserById` |
+| `getStudentById` |
+| `getStudentByEmail` |
+| `getAllStudents` |
 
 ---
 ### Introduction
@@ -75,27 +74,27 @@ To test this...
 Once logged in, you will be directed to either the teacher view, student view or parent view. 
 
 Teachers will be able to...
---create assignments and assign them to their students
---view their students and all of their assignments
---grade assignments
---delete assignments
---search assignments via title or content
+-- create assignments and assign them to their students
+-- view their students and all of their assignments
+-- grade assignments
+-- delete assignments
+-- search assignments via title or content
 
 Students will be able to...
---view all of their assignments
---view their overall grade
---view the grades for all of their assignments
---submit assignments and check assignment status
+-- view all of their assignments
+-- view their overall grade
+-- view the grades for all of their assignments
+-- submit assignments and check assignment status
 
 Parents will be able to...
---view their student's overall grade
---view all of their student's assignments
---view the grades for their student's assignments
-
+-- view their student's overall grade
+-- view all of their student's assignments
+-- view the grades for their student's assignments
 
 ##### Credits
 Copyright :copyright: 2021 Patrick Gronstal, Tamara Trefilova, Surry Mowery, Kateryna Masiuk
 ***
+
 ##### License
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
