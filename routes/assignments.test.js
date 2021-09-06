@@ -70,7 +70,8 @@ const testAssignment = {
     teacherID: "1",
     studentID: "1",
     isSubmitted: "false",
-    dueDate: "Dec 13"
+    dueDate: "Dec 13",
+    _id: "12345"
 };
 
 //1. Only user as a student can submit an assignment
@@ -88,7 +89,8 @@ describe("Verify user trying to submit assignment is a student. /", () => {
                     return done(err);
                 }
             })
-        const res = await request(server).post("/assignments/submit").send(studentUser.role);
+            // const res = await request(server).post("/assignments/submit").send(studentUser.role);
+        const res = await request(server).post("/assignments/submit").send({ "assignmentId": testAssignment._id });
         expect(res.statusCode).toEqual(200);
     })
     it("post parent", async() => {
