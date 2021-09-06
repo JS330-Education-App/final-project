@@ -27,6 +27,11 @@
               <input type="submit" class="btn btn-outline-primary" value="View All Assignments" />
             </form>
           </div>
+          <div>
+            {{ #isNoAssignment }}
+              <p>The student has no assignments!</p>
+            {{ /isNoAssignment }}
+          </div>
             <ol class="list-group list-group-numbered list-non-number">
               {{ #assignments }}
               <li class="list-group-item d-flex justify-content-between align-items-center p-4">

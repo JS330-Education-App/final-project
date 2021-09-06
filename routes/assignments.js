@@ -259,17 +259,25 @@ router.get("/assignmentsForParent", async(req, res, next) => {
 
         let grade;
         let avg = 0;
-        let isAssignment = false;
-
-        if (result.length === 0) {
-            isAssignment = true;
-            res.json('There are no assignments for the student.');
-        } else {
-            grade = await assignmentDAO.getAvgGradeByStudentId(studentId);
+        let isNoAssignment;
+        if (result.length !== 0) {
+            isNoAssignment = false;
+            grade = await assignmentDAO.getAvgGradeByStudentId(student._id);
             avg = grade[0].averageGrade;
+            res.render('students', { assignments: result, user: req.user, avg, isNoAssignment: false });
+        } else {
+            res.render('students', { assignments: result, user: req.user, avg, isNoAssignment: true });
         }
 
-        res.render('parents', { assignments: result, user: req.user, avg });
+        // if (result.length === 0) {
+        //     isAssignment = true;
+        //     res.json('There are no assignments for the student.');
+        // } else {
+        //     grade = await assignmentDAO.getAvgGradeByStudentId(studentId);
+        //     avg = grade[0].averageGrade;
+        // }
+
+        // res.render('parents', { assignments: result, user: req.user, avg });
 
     } catch (e) {
         next(e);
