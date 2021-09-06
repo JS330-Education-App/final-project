@@ -7,6 +7,7 @@ const errorHandler = require("../middleware/errorHandler");
 
 const isLoggedIn = async function(req, res, next) {
     try {
+
         let token = req.cookies['AuthToken'];
         if (!token) {
             throw new Error("Token not found");
