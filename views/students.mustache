@@ -24,9 +24,16 @@
           <h4 class="h4 mb-3">Assignments for <span>{{ user.name }}</span></h4>
           <div class="mb-3">
             <form action="/assignments/assignmentsForStudent" method="get">
-              <input type="submit" class="btn btn-outline-primary" value="View All Assignments" />
+              <input type="submit" class="btn btn-outline-primary" value="View All Assignments" /> 
             </form>
           </div>
+
+          <div>
+            {{ #isAssignment }}
+              <p>The student has no assignments.</p>
+            {{ /isAssignment }}
+          </div>
+
           <div id="students_assign_list">
             <ol class="list-group list-group-numbered list-non-number">
 

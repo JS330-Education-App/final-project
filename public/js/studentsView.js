@@ -19,5 +19,3 @@ console.log(showDesc)
 showDesc.addEventListener('click', function() {
     document.querySelector('div.invisible').remove('invisible')
 })
-
-// TODO: Add condition to check if assignment was graded

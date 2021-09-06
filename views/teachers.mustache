@@ -41,7 +41,7 @@
               <div class="fw-bold">Title: {{ assignment.title }}</div>
               <p class="fw-bolder mb-0">Description: <span class="fw-normal text-muted">{{ assignment.content }}</span></p>
               <p class="fw-bolder mb-0">For: <span class="fw-normal text-muted">{{ assignment.studentName }}</span></p>
-              <p>Grade: {{ assignment.grade }}</p>
+              <p class="fw-bolder mb-0">Grade: <span class="fw-normal text-muted">{{ assignment.grade }}</span></p>
               {{ #assignment.grade }}
               {{ /assignment.grade }}
               {{ ^assignment.grade }}
@@ -139,7 +139,7 @@
                     {{{--! <p>Due Date: {{ assignment.dueDate }}</p>}}}
                     <p class="fw-bolder mb-0">Description: <span class="fw-normal text-muted">{{ assignment.content }}</span></p>
                     <p class="fw-bolder mb-0">For: <span class="fw-normal text-muted">{{ assignment.studentName }}</span></p>
-                    <p>Grade: {{ assignment.grade }}</p>
+                    <p class="fw-bolder mb-0">Grade: <span class="fw-normal text-muted">{{ assignment.grade }}</span></p>
        
                   <div class="mt-4 d-flex">
                     <div class="me-3">

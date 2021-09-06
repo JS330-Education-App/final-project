@@ -9,8 +9,5 @@ const userSchema = new mongoose.Schema({
     gradeLevel: { type: Number }
 });
 
-// if teacher -> externalID and gradeLevel are empty string
-// if parent  -> gradeLevel is empty string
-// gradeLevel only for student
 
 module.exports = mongoose.model("users", userSchema);

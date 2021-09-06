@@ -12,8 +12,7 @@ router.use(async(req, res, next) => {
 const errorHandler = require("../middleware/errorHandler");
 
 
-
-// Get avarege grade   for a student by student email
+// Get average grade for a student by student email
 // Body request:
 // {
 //     "studentEmail": "level8@gmai.com"
@@ -69,15 +68,12 @@ router.post("/updateAndSubmit", async(req, res, next) => {
             throw new Error("Unauthorized");
         }
         const assignment = await assignmentDAO.submitAndUpdate(assignmentId, newContent);
-        // res.json(assignment);
         res.render('students', { assignment: assignment, user: req.user });
 
     } catch (e) {
         next(e);
     }
 });
-
-
 
 
 // Grade assignment, only for a teacher.
@@ -104,7 +100,6 @@ router.post("/grade", async(req, res, next) => {
 
         res.render('teachers', { assignments: assignments, user: req.user, students });
     } catch (e) {
-        console.log(e);
         next(e);
     }
 });
@@ -135,7 +130,6 @@ router.post("/delete", async(req, res, next) => {
 
         res.render('teachers', { assignments: assignments, user: req.user, students });
     } catch (e) {
-      console.log(e);
         next(e);
     }
 });
@@ -182,7 +176,6 @@ router.post("/", async(req, res, next) => {
 
         res.render('teachers', { postAssignment: postedAssignment, user: req.user, studentEmail: req.body.studentEmail, students, assignments });
     } catch (e) {
-        console.log(e);
         next(e);
     }
 });
@@ -199,7 +192,7 @@ router.get("/search", async(req, res, next) => {
         const assignments = await assignmentDAO.getAllAssignments(req.user._id);
 
         let query = req.query.title;
-        const result = await assignmentDAO.partialSearch(query);
+        const result = await assignmentDAO.partialSearch(query, req.user._id);
 
         res.render('teachers', { searchResults: result, user: req.user, students, assignments });
     } catch (e) {
@@ -236,12 +229,20 @@ router.get("/assignmentsForStudent", async(req, res, next) => {
         }
         const email = req.user.email;
         const student = await userDAO.getUser(email);
-        const assignments = await assignmentDAO.getAssignmentsByStudentId(student._id);
+        const result = await assignmentDAO.getAssignmentsByStudentId(student._id);
 
-        const grade = await assignmentDAO.getAvgGradeByStudentId(student._id);
-        let avg = grade[0].averageGrade;
+        let grade;
+        let avg = 0;
+        let isAssignment = false;
 
-        res.render('students', { assignments: assignments, user: req.user, avg });
+        if (result.length === 0) {
+          isAssignment = true;
+          res.json('There are no assignments for the student.');
+        } else {
+          grade = await assignmentDAO.getAvgGradeByStudentId(student._id);
+          avg = grade[0].averageGrade;
+        }
+        res.render('students', { assignments: result, user: req.user, avg, isAssignment });
 
     } catch (e) {
         next(e);
@@ -255,12 +256,21 @@ router.get("/assignmentsForParent", async(req, res, next) => {
             throw new Error("Unauthorized");
         }
         const studentId = req.user.externalID;
-        const assignments = await assignmentDAO.getAssignmentsByStudentId(studentId);
+        const result = await assignmentDAO.getAssignmentsByStudentId(studentId);
 
-        const grade = await assignmentDAO.getAvgGradeByStudentId(studentId);
-        let avg = grade[0].averageGrade; 
+        let grade;
+        let avg = 0;
+        let isAssignment = false;
 
-        res.render('parents', { assignments: assignments, user: req.user, avg });
+        if (result.length === 0) {
+          isAssignment = true;
+          res.json('There are no assignments for the student.');
+        } else {
+          grade = await assignmentDAO.getAvgGradeByStudentId(studentId);
+          avg = grade[0].averageGrade;
+        }
+
+        res.render('parents', { assignments: result, user: req.user, avg });
 
     } catch (e) {
         next(e);

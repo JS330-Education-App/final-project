@@ -116,9 +116,6 @@ module.exports.getAvgGradeByStudentId = async(studentId) => {
         { $unwind: "$studentID" },
     ]);
 
-    if (!result) {
-        throw new Error("Not found");
-    }
     return result;
 };
 
@@ -128,9 +125,10 @@ module.exports.search = (query) => {
         .lean();
 };
 
-module.exports.partialSearch = async(query) => {
+module.exports.partialSearch = async(query, userId) => {
     const result = await Assignment.aggregate([{
             $match: {
+              teacherID: mongoose.Types.ObjectId(userId),
                 $or: [{
                         title: {
                             $regex: query,

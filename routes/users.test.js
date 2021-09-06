@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const server = require('../server');
 const testUtils = require('../test-utils');
 const User = require('../models/user');
+const cookieParser = require('cookie-parser');
+const express = require('express');
 
 describe('/login', () => {
     beforeAll(testUtils.connectDB);
@@ -30,19 +32,32 @@ describe('/login', () => {
         password: '789password',
         role: 'parent',
         studentEmail: 'student0@mail.com'
-    }
+    };
+
+
+
+    const app = express();
+    app.use(cookieParser());
+
+    app.get('/', function(req, res) {
+      res.cookie('cookie', 'fakeToken');
+      res.send();
+    });
+
+    app.get('/users/login', function(req, res) {
+      if (req.cookies.cookie) res.send(req.cookies.cookie);
+      else res.send(':(');
+    });
+
+    const agent = request.agent(app);
+
+
+
 
     describe('before signup', () => {
         describe('POST /', () => {
             it('should return 401', async() => {
                 const res = await request(server).post('/users/login').send(user0);
-                expect(res.statusCode).toEqual(404);
-            });
-        });
-
-        describe('POST /password', () => {
-            it('should return 404', async() => {
-                const res = await request(server).post('/users/password').send(user0);
                 expect(res.statusCode).toEqual(404);
             });
         });
@@ -70,10 +85,6 @@ describe('/login', () => {
                 });
                 expect(res.statusCode).toEqual(400);
             });
-            // it('should return 200 and with a password', async () => {
-            // const res = await request(server).post('/login/signup').send(user0);
-            // expect(res.statusCode).toEqual(200);
-            // });
             it('should redirect to /login after successful registration', async() => {
                 const res = await request(server).post('/users/signup').send(user0);
                 expect(res.headers.location).toEqual('/login');
@@ -141,7 +152,6 @@ describe('/login', () => {
             it('should return 302 after logging in', async() => {
                 const res = await request(server).post('/users/login').send(user);
                 expect(res.statusCode).toEqual(302);
-                //expect(typeof res.body.token).toEqual('string');
             });
             it('should not store token on user', async() => {
                 const res = await request(server).post('/users/login').send(user);
@@ -150,15 +160,6 @@ describe('/login', () => {
                 users.forEach((user) => {
                     expect(Object.values(user)).not.toContain(token);
                 });
-            });
-            it('should return a JWT with user email, _id, and roles inside, but not password', async() => {
-                const res = await request(server).post('/users/login').send(user);
-                const token = res.body.token;
-                const decodedToken = jwt.decode(token);
-                // expect(decodedToken.email).toEqual(user.email);
-                // expect(['teacher', 'student']).toContain(decodedToken.role);
-                expect(decodedToken._id).toMatch(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i); // mongo _id regex
-                expect(decodedToken.password).toBeUndefined();
             });
         });
     });
@@ -173,23 +174,39 @@ describe('/login', () => {
             const res1 = await request(server).post('/users/login').send(user1);
             token1 = res1.body.token;
         });
+        describe('POST /users/logout', () => {
+          it('should return 404 after logging out', async () => {
 
-        describe('POST /password', () => {
-            it('should reject bogus token', async() => {
-                const res = await request(server)
-                    .post('/users/password')
-                    .set('Authorization', 'Bearer BAD')
-                    .send({ password: '123' });
-                expect(res.statusCode).toEqual(404);
-            });
-            it('should reject empty password', async() => {
-                const res = await request(server)
-                    .post('/users/password')
-                    // .set('Set-Cookie', token0)
-                    .send({ password: "", email: "teacher0@mail.com" });
-                expect(res.statusCode).toEqual(400);
-            });
+            agent
+            .post('/users/login')
+            .set('Cookie', ['AuthToken=fakeToken'])
+            .send()
+            .end((err, res) => {
+              if (err) {
+                return done (err);
+              }
+            })
+            
+            const res0 = await request(server).post('/users/logout').send(user0);
+            expect(res0.statusCode).toEqual(404);
+            const res1 = await request(server).post('/users/logout').send(user1);
+            expect(res1.statusCode).toEqual(404)
+
+          });
+        });
+
+        describe('POST /users/login', () => {
+          it('should save cookie', function(done) {
+            agent
+            .get('/')
+            .expect('set-cookie', 'cookie=fakeToken; Path=/', done);
+          });
+
+          it('should send cookie', function(done) {
+            agent
+            .get('/users/login')
+            .expect('fakeToken', done);
+          });
         });
     });
-
 });

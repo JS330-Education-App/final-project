@@ -86,17 +86,17 @@ btnGradeConfirm.addEventListener('click', function() {
 // Date formatting
 
 const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-for (i = 0; i < dueDate.length; i++) {
-    console.log(dueDate);
-    let dueDateFormat = new Date(dueDate[i].innerHTML);
-    console.log(`Inner HTML: ${dueDateFormat}`)
+// for (i = 0; i < dueDate.length; i++) {
+//     console.log(dueDate);
+//     let dueDateFormat = new Date(dueDate[i].innerHTML);
+//     console.log(`Inner HTML: ${dueDateFormat}`)
 
-    const dueDateDay = dueDateFormat.getDate();
-    const dueDateMonthNum = dueDateFormat.getMonth();
-    const dueDateMonth = month[dueDateMonthNum];
-    dueDate.innerHTML = `${dueDateMonth}, ${dueDateDay}`;
-    dueDateFormat = dueDate.innerHTML;
-}
+//     const dueDateDay = dueDateFormat.getDate();
+//     const dueDateMonthNum = dueDateFormat.getMonth();
+//     const dueDateMonth = month[dueDateMonthNum];
+//     dueDate.innerHTML = `${dueDateMonth}, ${dueDateDay}`;
+//     dueDateFormat = dueDate.innerHTML;
+// }
 
 const dueDateFormat = new Date(dueDate.innerHTML);
 const dueDateDay = dueDateFormat.getDate();
