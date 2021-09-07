@@ -269,18 +269,7 @@ router.get("/assignmentsForParent", async(req, res, next) => {
             res.render('parents', { assignments: result, user: req.user, avg, isNoAssignment: true });
         }
 
-        // if (result.length === 0) {
-        //     isAssignment = true;
-        //     res.json('There are no assignments for the student.');
-        // } else {
-        //     grade = await assignmentDAO.getAvgGradeByStudentId(studentId);
-        //     avg = grade[0].averageGrade;
-        // }
-
-        // res.render('parents', { assignments: result, user: req.user, avg });
-
     } catch (e) {
-      console.log(e);
         next(e);
     }
 });

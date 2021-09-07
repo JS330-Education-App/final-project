@@ -49,9 +49,12 @@ describe('/login', () => {
       else res.send(':(');
     });
 
+    // app.get('/users/getAllStudents', function(req, res) {
+    //   if (req.cookies.cookie) res.send(req.cookies.cookie);
+    //   else res.send(':(');
+    // });
+
     const agent = request.agent(app);
-
-
 
 
     describe('before signup', () => {
@@ -208,5 +211,20 @@ describe('/login', () => {
             .expect('fakeToken', done);
           });
         });
+        // describe('GET /users/getAllStudents', () => {
+        //   it('should only be authorized for teachers', async () => {
+        //     agent
+        //     .get('/users/getAllStudents')
+        //     .set('Cookie', ['AuthToken=fakeToken'])
+        //     .send()
+        //     .end((err, res) => {
+        //       if (err) {
+        //         return done (err);
+        //       }
+        //     });
+        //     expect(res.statusCode).toEqual(200);
+        //     expect(res.body).toMatchObject()
+        //   });
+        // });
     });
 });
