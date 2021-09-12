@@ -101,7 +101,7 @@ We tried to define all requirements and discussed them thoroughly before startin
 Our team showed a great result as a team of developers. We have been following Agile methodology to break our tasks. As the result, we have implemented planned tasks and made a presentation of the working app.
 
 **Patrick**\
-INSERT HERE
+The teams approach worked.  We spent a lot of time discussing and planning which I think was helpful.  Having everyone be in constant communication and get everything completed on time was also great.  Everyone tried to make certain they completed all requirements, and even if we didn’t, we would discuss how to move forward and finish.  Everyone wanted to make sure the project worked, and we fulfilled all the requirements.  That was good.  This also helped us have a good result of having a working project.  The results were awesome.  It was amazing to see our sets of models, routes, middleware, DAOs, and database all work in synchrony through a deployed online Heroku app.
 
 
 #### What worked well
@@ -117,7 +117,7 @@ I liked how we split tasks, how we did meetings, how we discussed everything and
 Nothing to change, all was good.
 
 **Patrick**\
-INSERT HERE
+The ability for everyone to contribute their knowledge and help form the project.  People were able to apply their abilities to what was required and as a result, we were able to get everything completed.  By dividing labor, we were able keep things moving along.  This was great to see things be developed from our designs and maintain the overall features we planned.
 
 
 #### Learnings
@@ -139,8 +139,8 @@ INSERT HERE
 I have learned to work as a team with my course co-students. I liked this idea because we learn from each other and from every result we get. In Ukraine, I was taking master's in Civil Engineering, and a lot of course projects were done in small teams or pairs. So, I liked this idea a lot.
 
 **Patrick**\
-INSERT HERE
-
+To not get discouraged.  Fail often and be ok with failure.  That there is always more to know.
+How to write a good README and create a value proposition.  How to set up Heroku and how to build and structure an application from scratch.  A deeper working knowledge of Express, MongoDB, SPAs, Mongoose, Mustache, Authentication/Authorization.  How to run and write unit tests.  This has really been expansive for my understanding and knowledge of back end Node.js applications.  Overall, just a more concrete understanding of the course content.
 
 ***
 #### Credits
